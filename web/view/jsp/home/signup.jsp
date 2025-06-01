@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký - Giúp Việc 24h</title>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         :root {
@@ -238,8 +237,18 @@
                 <h2>Đăng ký tài khoản</h2>
             </div>
             
-            <form action="SignupServlet" method="post">
+            <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
+            <% if (errorMessage != null) { %>
+                <p style="color: #e74c3c; text-align: center;"><%= errorMessage %></p>
+            <% } %>
+            
+            <form action="${pageContext.request.contextPath}/SignupServlet" method="post">
                 <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="fullName">Họ và tên: <span style="color: #e74c3c;">*</span></label>
+                        <input type="text" name="fullName" id="fullName" required placeholder="Nhập họ và tên của bạn">
+                    </div>
+                    
                     <div class="form-group full-width">
                         <label for="email">Email: <span style="color: #e74c3c;">*</span></label>
                         <input type="email" name="email" id="email" required placeholder="Địa chỉ email của bạn">
@@ -257,17 +266,17 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="dob">Ngày sinh:</label>
-                        <input type="date" name="dob" id="dob">
+                        <label for="dob">Ngày sinh: <span style="color: #e74c3c;">*</span></label>
+                        <input type="date" name="dob" id="dob" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="gender">Giới tính:</label>
-                        <select name="gender" id="gender">
+                        <label for="gender">Giới tính: <span style="color: #e74c3c;">*</span></label>
+                        <select name="gender" id="gender" required>
                             <option value="" selected disabled>Chọn giới tính</option>
-                            <option value="Nam">Nam</option>
-                            <option value="Nữ">Nữ</option>
-                            <option value="Khác">Khác</option>
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                            <option value="other">Khác</option>
                         </select>
                     </div>
                     
@@ -286,7 +295,7 @@
                         <select name="role" id="role" onchange="confirmRole(this)" required>
                             <option value="" selected disabled>Chọn vai trò của bạn</option>
                             <option value="customer">Khách hàng - Tôi cần tìm người giúp việc</option>
-                            <option value="worker">Người giúp việc - Tôi muốn đăng ký làm việc</option>
+                            <option value="helper">Người giúp việc - Tôi muốn đăng ký làm việc</option>
                         </select>
                     </div>
                     
@@ -304,11 +313,11 @@
 
     <script>
         function confirmRole(select) {
-            if(select.value === "") return;
+            if (select.value === "") return;
             
             const role = select.value;
-            const message = (role === 'worker') 
-                ? "Bạn đang đăng ký với tư cách NGƯỜI GIÚP VIỆC. Xác nhận tiếp tục?" 
+            const message = (role === 'helper') 
+                ? "Bạn đang đăng ký với tư cách NGƯỜI GIÚP VIỆC. Bạn sẽ cần hoàn tất xác minh hồ sơ sau bước này. Xác nhận tiếp tục?"
                 : "Bạn đang đăng ký với tư cách KHÁCH HÀNG. Xác nhận tiếp tục?";
                 
             if (!confirm(message)) {

@@ -2,41 +2,27 @@ package model;
 
 public class User {
     private int userId;
-    private String fullName;
     private String email;
     private String password;
-    private String phone;
-    private int roleId;
-    private boolean status;
+    private String fullName;
+    private String gender;
+    private String phoneNumber;
+    private String address;
+    private String role;
+    private boolean isActive;
+    private int birthYear;
+    private String hometown;
+    private String profilePicture;
 
-    public User() {
-    }
+    public User() {}
 
-    public User(int userId, String fullName, String email, String password, String phone, int roleId, boolean status) {
-        this.userId = userId;
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.roleId = roleId;
-        this.status = status;
-    }
-
-    // Getters and Setters
+    // Getters & Setters
     public int getUserId() {
         return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -55,27 +41,76 @@ public class User {
         this.password = password;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public String getGender() {
+        return gender;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public boolean isStatus() {
-        return status;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public int getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(int birthYear) {
+        this.birthYear = birthYear;
+    }
+
+    public String getHometown() {
+        return hometown;
+    }
+
+    public void setHometown(String hometown) {
+        this.hometown = hometown;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }
+

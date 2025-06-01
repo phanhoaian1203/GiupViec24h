@@ -16,7 +16,7 @@
             --gray-light: #f5f5f5;
             --gray: #e0e0e0;
             --text-dark: #333333;
-            --accent: #FF7043;
+            -- accent: #FF7043;
         }
 
         html {
@@ -109,6 +109,57 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        .profile-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #fff;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-image-container {
+            position: relative;
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 2rem;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            display: none;
+            z-index: 1001;
+            margin-top: 5px;
+        }
+
+        .profile-dropdown.active {
+            display: block;
+        }
+
+        .profile-dropdown a {
+            display: block;
+            padding: 0.8rem 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: var(--gray-light);
+            color: var(--primary-dark);
         }
 
         .hamburger {
@@ -498,6 +549,17 @@
                 font-size: 1.2rem;
             }
 
+            .profile-image-container {
+                margin: 0.5rem 0;
+            }
+
+            .profile-dropdown {
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 70%;
+            }
+
             .helper-list {
                 grid-template-columns: 1fr;
             }
@@ -523,12 +585,23 @@
                 <span>Giúp Việc 24h</span>
             </div>
             <div class="nav-links" id="navLinks">
-                <a href="#services">Dịch vụ</a>
+                <a href="service.jsp">Dịch vụ</a>
                 <a href="#benefits">Lợi ích</a>
                 <a href="#about">Về chúng tôi</a>
                 <a href="#contact">Liên hệ</a>
-                <a href="view/jsp/home/login.jsp">Đăng nhập</a>
-                <a href="view/jsp/home/signup.jsp" class="btn">Đăng ký</a>
+                <a href="hire.jsp">Thuê</a>
+                <div class="profile-image-container">
+                    <div class="profile-image">
+                        <img src="path/to/profile-image.jpg" alt="Profile">
+                    </div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="profile.jsp">Profile</a>
+                        <a href="my-jobs.jsp">My Jobs</a>
+                        <a href="payment-history.jsp">Payment History</a>
+                        <a href="settings.jsp">Settings</a>
+                        <a href="logout.jsp">Logout</a>
+                    </div>
+                </div>
             </div>
             <div class="hamburger" id="hamburger">
                 <div class="line1"></div>
@@ -566,7 +639,7 @@
                                 <i class="fas fa-star"></i> 4.8 <span>(25 đánh giá)</span>
                             </div>
                         </div>
-                        <a href="#" class="btn-book">Đặt ngay</a>
+                        <a href="#" class="btn-book">Xem chi tiết</a>
                     </div>
                     <div class="helper-discount">Giảm 10%</div>
                 </div>
@@ -581,12 +654,11 @@
                                 <i class="fas fa-star"></i> 4.5 <span>(18 đánh giá)</span>
                             </div>
                         </div>
-                        <a href="#" class="btn-book">Đặt ngay</a>
+                        <a href="#" class="btn-book">Xem chi tiết</a>
                     </div>
                 </div>
                 <div class="helper-card">
                     <img src="/api/placeholder/300/200" alt="Helper 3" class="helper-image">
-                    " class="helper-image">
                     <div class="helper-info">
                         <div class="helper-name">Lê Thị Mai</div>
                         <div class="helper-location">Quận 3, TP. Hồ Chí Minh</div>
@@ -596,7 +668,7 @@
                                 <i class="fas fa-star"></i> 4.9 <span>(30 đánh giá)</span>
                             </div>
                         </div>
-                        <a href="#" class="btn-book">Đặt ngay</a>
+                        <a href="#" class="btn-book">Xem chi tiết</a>
                     </div>
                     <div class="helper-discount">Giảm 15%</div>
                 </div>
@@ -611,7 +683,7 @@
                                 <i class="fas fa-star"></i> 4.6 <span>(22 đánh giá)</span>
                             </div>
                         </div>
-                        <a href="#" class="btn-book">Đặt ngay</a>
+                        <a href="#" class="btn-book">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
@@ -639,7 +711,7 @@
                 <ul class="footer-links">
                     <li><a href="#services">Dịch vụ</a></li>
                     <li><a href="#benefits">Lợi ích</a></li>
-                    <li><a href="about.jsp">Về chúng tôi</a></li>
+                    <li><a href="${pageContext.request.contextPath}/view/jsp/home/about.jsp">Về chúng tôi</a></li>
                     <li><a href="blog.jsp">Blog</a></li>
                     <li><a href="faq.jsp">Câu hỏi thường gặp</a></li>
                 </ul>
@@ -681,6 +753,8 @@
         // Toggle mobile menu
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
+        const profileImage = document.querySelector('.profile-image');
+        const profileDropdown = document.getElementById('profileDropdown');
 
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
@@ -715,6 +789,19 @@
                 this.classList.add('active');
                 // Add logic here to filter helpers based on the selected service
             });
+        });
+
+        // Profile dropdown toggle
+        profileImage.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!profileImage.contains(e.target) && !profileDropdown.contains(e.target)) {
+                profileDropdown.classList.remove('active');
+            }
         });
     </script>
 </body>

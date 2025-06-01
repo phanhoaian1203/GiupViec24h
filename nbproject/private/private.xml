@@ -3,8 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Ky%205/SWP391/SWP/web/booking.jsp</file>
-            <file>file:/D:/Ky%205/SWP391/SWP/web/view/jsp/home/index.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/web/view/jsp/home/verification.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/src/java/controller/web/login/VerifyServlet.java</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/web/view/common/web/header.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/src/java/controller/web/login/LoginServlet.java</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/web/view/jsp/customer/customerDashboard.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/web/view/jsp/home/about.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/web/view/jsp/home/login.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/src/java/dao/UserDAO.java</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/web/view/jsp/home/adminLogin.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/src/java/controller/web/DispatchServlet.java</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/src/java/controller/web/login/LogoutServlet.java</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/web/view/jsp/home/hourly-service.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/src/java/model/User.java</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/web/view/jsp/home/signup.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/SWP/src/java/controller/web/login/SignupServlet.java</file>
         </group>
     </open-files>
 </project-private>

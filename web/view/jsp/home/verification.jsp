@@ -1,10 +1,18 @@
+<%-- 
+    Document   : verification
+    Created on : May 31, 2025, 4:09:54 PM
+    Author     : ADMIN
+--%>
+
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập - Giúp Việc 24h</title>
+    <title>Xác minh hồ sơ - Giúp Việc 24h</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         :root {
             --primary-color: #1AB394;
@@ -33,11 +41,12 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            color: var(--text-dark);
         }
         
-        .login-container {
+        .verification-container {
             width: 100%;
-            max-width: 900px;
+            max-width: 950px;
             display: flex;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
@@ -45,8 +54,8 @@
             background-color: var(--white);
         }
         
-        .login-sidebar {
-            flex: 1;
+        .verification-sidebar {
+            flex: 2;
             background-color: var(--primary-color);
             padding: 40px;
             color: var(--white);
@@ -55,52 +64,38 @@
             justify-content: center;
         }
         
-        .login-sidebar h1 {
+        .verification-sidebar h1 {
             font-size: 28px;
             margin-bottom: 20px;
         }
         
-        .login-sidebar p {
+        .verification-sidebar p {
             font-size: 16px;
             line-height: 1.6;
             margin-bottom: 30px;
             opacity: 0.9;
         }
         
-        .feature-list {
-            list-style: none;
-        }
-        
-        .feature-list li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .feature-list li:before {
-            content: "✓";
-            margin-right: 10px;
-            font-weight: bold;
-        }
-        
-        .login-form {
-            flex: 1;
+        .verification-form {
+            flex: 3;
             padding: 40px;
             background-color: var(--white);
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
-        .login-header {
+        .verification-header {
             text-align: center;
             margin-bottom: 30px;
         }
         
-        .login-header img {
+        .verification-header img {
             height: 40px;
             margin-bottom: 15px;
         }
         
-        .login-header h2 {
-            color: var(--text-dark);
+        .verification-header h2 {
+            color: var(--primary-color);
             font-size: 24px;
             font-weight: 600;
         }
@@ -117,7 +112,9 @@
             font-size: 14px;
         }
         
-        .form-group input {
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid var(--gray);
@@ -126,40 +123,17 @@
             transition: all 0.3s ease;
         }
         
-        .form-group input:focus {
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(26, 179, 148, 0.2);
         }
         
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .checkbox-group input {
-            margin-right: 8px;
-        }
-        
-        .checkbox-group label {
-            color: var(--text-dark);
-            font-size: 14px;
-        }
-        
-        .error-message {
-            background-color: #ffe6e6;
-            color: #d63031;
-            padding: 12px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            font-size: 14px;
-            border-left: 4px solid #d63031;
-        }
-        
         .btn-submit {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background-color: var(--primary-color);
             color: var(--white);
             border: none;
@@ -168,95 +142,86 @@
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 10px;
         }
         
         .btn-submit:hover {
             background-color: var(--primary-dark);
         }
         
-        .login-footer {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 14px;
-            color: #666;
-        }
-        
-        .login-footer a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .login-footer a:hover {
-            text-decoration: underline;
-        }
-        
         @media (max-width: 768px) {
-            .login-container {
+            .verification-container {
                 flex-direction: column;
             }
             
-            .login-sidebar {
+            .verification-sidebar {
                 padding: 30px;
             }
             
-            .login-form {
+            .verification-form {
                 padding: 30px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-sidebar">
-            <h1>Giúp Việc 24h</h1>
-            <p>Giúp việc theo giờ - An toàn - Tiện lợi - Đảm bảo chất lượng</p>
-            <ul class="feature-list">
-                <li>Dịch vụ chuyên nghiệp, uy tín</li>
-                <li>Người giúp việc được đào tạo bài bản</li>
-                <li>Thanh toán an toàn, minh bạch</li>
-                <li>Hỗ trợ khách hàng 24/7</li>
-            </ul>
+    <div class="verification-container">
+        <div class="verification-sidebar">
+            <h1>Xác minh hồ sơ</h1>
+            <p>Vui lòng cung cấp thông tin chi tiết và giấy tờ cần thiết để hoàn tất quá trình xác minh tài khoản người giúp việc. Hồ sơ của bạn sẽ được duyệt trong vòng 24-48 giờ.</p>
         </div>
         
-        <div class="login-form">
-            <div class="login-header">
+        <div class="verification-form">
+            <div class="verification-header">
                 <img src="${pageContext.request.contextPath}/images/logo.png" alt="Giúp Việc 24h Logo" 
                     onerror="this.onerror=null; this.src='/api/placeholder/200/40'; this.alt='Giúp Việc 24h';">
-                <h2>Đăng nhập</h2>
+                <h2>Xác minh hồ sơ</h2>
             </div>
             
-            <% 
-                String errorMessage = (String) request.getAttribute("errorMessage");
-                if (errorMessage != null) {
-            %>
-                <p class="error-message"><%= errorMessage %></p>
-            <% } %>
-            
-            <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
+            <form action="VerifyServlet" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" required placeholder="Nhập địa chỉ email của bạn">
+                    <label for="fullName">Họ và tên đầy đủ: <span style="color: #e74c3c;">*</span></label>
+                    <input type="text" name="fullName" id="fullName" required placeholder="Nhập họ tên của bạn">
                 </div>
                 
                 <div class="form-group">
-                    <label for="password">Mật khẩu:</label>
-                    <input type="password" name="password" id="password" required placeholder="Nhập mật khẩu của bạn">
+                    <label for="experience">Kinh nghiệm làm việc:</label>
+                    <textarea name="experience" id="experience" placeholder="Mô tả kinh nghiệm (tối đa 500 ký tự)"></textarea>
                 </div>
                 
-                <div class="checkbox-group">
-                    <input type="checkbox" name="remember" id="remember">
-                    <label for="remember">Ghi nhớ đăng nhập</label>
+                <div class="form-group">
+                    <label for="skills">Kỹ năng:</label>
+                    <textarea name="skills" id="skills" placeholder="Liệt kê kỹ năng (tối đa 500 ký tự)"></textarea>
                 </div>
                 
-                <button type="submit" class="btn-submit">Đăng nhập</button>
+                <div class="form-group">
+                    <label for="pricePerHour">Giá thỏa thuận: <span style="color: #e74c3c;">*</span></label>
+                    <input type="number" name="pricePerHour" id="pricePerHour" required placeholder="Nhập giá dịch vụ">
+                </div>
+                
+                <div class="form-group">
+                    <label for="availableHours">Khung giờ làm việc:</label>
+                    <textarea name="availableHours" id="availableHours" placeholder="Ví dụ: 8:00-12:00, 14:00-18:00"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="verificationDocs">Tải lên giấy tờ xác minh (CMND/CCCD): <span style="color: #e74c3c;">*</span></label>
+                    <input type="file" name="verificationDocs" id="verificationDocs" required accept=".jpg,.png,.pdf">
+                </div>
+                
+                <div class="form-group">
+                    <label for="selfie">Selfie(hình ảnh mặt mộc của bạn): <span style="color: #e74c3c;">*</span></label>
+                    <input type="file" name="selfie" id="selfie" required accept=".jpg,.png,.jpeg">
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn-submit">Gửi yêu cầu xác minh</button>
+                </div>
             </form>
-            
-            <div class="login-footer">
-                <p>Bạn chưa có tài khoản? <a href="${pageContext.request.contextPath}/view/jsp/home/signup.jsp">Đăng ký ngay</a></p>
-                <p style="margin-top: 10px;"><a href="${pageContext.request.contextPath}/view/jsp/home/forgotPassword.jsp">Quên mật khẩu?</a></p>
-            </div>
         </div>
     </div>
 </body>
 </html>
+
+
+
