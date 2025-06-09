@@ -1,526 +1,31 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Dịch Vụ Giúp Việc Theo Giờ</title>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dịch vụ giúp việc theo giờ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    /* Modern CSS Reset */
-    *, *::before, *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    :root {
-        --primary: #00B4A6;
-        --primary-dark: #008B7F;
-        --primary-light: #E6F9F7;
-        --secondary: #FF6B6B;
-        --accent: #4ECDC4;
-        --dark: #1A202C;
-        --gray: #718096;
-        --light-gray: #F7FAFC;
-        --white: #FFFFFF;
-        --shadow: 0 10px 40px rgba(0, 180, 166, 0.1);
-        --shadow-lg: 0 20px 60px rgba(0, 180, 166, 0.15);
-        --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-        --gradient-dark: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        line-height: 1.7;
-        color: var(--dark);
-        background: var(--white);
-        overflow-x: hidden;
-    }
-
-    /* Floating Background Elements */
-    .bg-decoration {
-        position: fixed;
-        pointer-events: none;
-        z-index: -1;
-    }
-
-    .bg-decoration::before {
-        content: '';
-        position: absolute;
-        width: 400px;
-        height: 400px;
-        background: linear-gradient(45deg, rgba(0, 180, 166, 0.03), rgba(78, 205, 196, 0.05));
-        border-radius: 50%;
-        top: 10%;
-        right: -10%;
-        animation: float 20s ease-in-out infinite;
-    }
-
-    .bg-decoration::after {
-        content: '';
-        position: absolute;
-        width: 300px;
-        height: 300px;
-        background: linear-gradient(45deg, rgba(255, 107, 107, 0.03), rgba(78, 205, 196, 0.03));
-        border-radius: 50%;
-        bottom: 20%;
-        left: -5%;
-        animation: float 25s ease-in-out infinite reverse;
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-30px) rotate(180deg); }
-    }
-
-    /* Modern Header */
-    header {
-        background: var(--gradient);
-        color: var(--white);
-        padding: 120px 20px 100px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        min-height: 70vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><path d="M0,100 C150,200 350,0 500,100 C650,200 850,0 1000,100 L1000,00 L0,0 Z" style="fill:rgba(255,255,255,0.1)"></path></svg>') repeat-x;
-        background-size: 1000px 200px;
-        animation: wave 15s linear infinite;
-    }
-
-    @keyframes wave {
-        0% { background-position-x: 0; }
-        100% { background-position-x: 1000px; }
-    }
-
-    .header-content {
-        position: relative;
-        z-index: 2;
-        max-width: 800px;
-    }
-
-    header h1 {
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        font-weight: 800;
-        margin-bottom: 24px;
-        letter-spacing: -0.02em;
-        line-height: 1.1;
-        opacity: 0;
-        animation: slideInUp 1s ease 0.3s forwards;
-    }
-
-    header p {
-        font-size: clamp(1.1rem, 2vw, 1.3rem);
-        font-weight: 400;
-        line-height: 1.6;
-        opacity: 0.95;
-        max-width: 600px;
-        margin: 0 auto;
-        opacity: 0;
-        animation: slideInUp 1s ease 0.6s forwards;
-    }
-
-    @keyframes slideInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* Container */
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-
-    /* Modern Sections */
-    section {
-        padding: 100px 0;
-        position: relative;
-    }
-
-    section:nth-child(even) {
-        background: var(--light-gray);
-    }
-
-    .section-header {
-        text-align: center;
-        margin-bottom: 80px;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease;
-    }
-
-    .section-header.animate {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .section-header h2 {
-        font-size: clamp(2rem, 4vw, 3rem);
-        font-weight: 700;
-        color: var(--dark);
-        margin-bottom: 16px;
-        position: relative;
-        display: inline-block;
-    }
-
-    .section-header h2::after {
-        content: '';
-        position: absolute;
-        bottom: -8px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60px;
-        height: 4px;
-        background: var(--gradient);
-        border-radius: 2px;
-    }
-
-    .section-header p {
-        font-size: 1.2rem;
-        color: var(--gray);
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    /* Card Layout */
-    .section-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 60px;
-        align-items: center;
-        opacity: 0;
-        transform: translateY(40px);
-        transition: all 0.8s ease;
-    }
-
-    .section-content.animate {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .section-content.reverse {
-        direction: rtl;
-    }
-
-    .section-content.reverse > * {
-        direction: ltr;
-    }
-
-    .content-card {
-        background: var(--white);
-        padding: 40px;
-        border-radius: 24px;
-        box-shadow: var(--shadow);
-        transition: all 0.4s ease;
-        border: 1px solid rgba(0, 180, 166, 0.08);
-    }
-
-    .content-card:hover {
-        transform: translateY(-8px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .content-image {
-        position: relative;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        transition: all 0.4s ease;
-    }
-
-    .content-image:hover {
-        transform: scale(1.02);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .content-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: all 0.4s ease;
-    }
-
-    .content-image:hover img {
-        transform: scale(1.05);
-    }
-
-    /* Modern List */
-    .modern-list {
-        list-style: none;
-        padding: 0;
-    }
-
-    .modern-list li {
-        display: flex;
-        align-items: flex-start;
-        margin-bottom: 20px;
-        padding: 16px 0;
-        border-bottom: 1px solid rgba(0, 180, 166, 0.1);
-        transition: all 0.3s ease;
-    }
-
-    .modern-list li:hover {
-        padding-left: 12px;
-        background: var(--primary-light);
-        margin-left: -12px;
-        margin-right: -12px;
-        border-radius: 12px;
-        border-bottom: 1px solid transparent;
-    }
-
-    .modern-list li::before {
-        content: '✓';
-        background: var(--gradient);
-        color: var(--white);
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        font-weight: 600;
-        margin-right: 16px;
-        flex-shrink: 0;
-        margin-top: 2px;
-    }
-
-    /* Modern Table */
-    .price-section {
-        background: var(--white);
-        padding: 60px 40px;
-        border-radius: 24px;
-        box-shadow: var(--shadow);
-        margin: 40px 0;
-    }
-
-    .price-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        background: var(--white);
-    }
-
-    .price-table th {
-        background: var(--gradient);
-        color: var(--white);
-        padding: 24px 20px;
-        font-weight: 600;
-        font-size: 16px;
-        text-align: left;
-        letter-spacing: 0.5px;
-    }
-
-    .price-table td {
-        padding: 20px;
-        border-bottom: 1px solid #f1f5f9;
-        font-size: 15px;
-        transition: all 0.3s ease;
-    }
-
-    .price-table tbody tr:hover td {
-        background: var(--primary-light);
-        color: var(--primary-dark);
-    }
-
-    .price-table tbody tr:nth-child(even) td {
-        background: #f8fafc;
-    }
-
-    /* Modern Accordion */
-    .accordion {
-        max-width: 800px;
-        margin: 0 auto;
-        background: var(--white);
-        border-radius: 20px;
-        box-shadow: var(--shadow);
-        overflow: hidden;
-    }
-
-    .accordion-item {
-        border-bottom: 1px solid #f1f5f9;
-    }
-
-    .accordion-item:last-child {
-        border-bottom: none;
-    }
-
-    .accordion-button {
-        width: 100%;
-        padding: 28px 32px;
-        background: var(--white);
-        border: none;
-        text-align: left;
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--dark);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .accordion-button:hover {
-        background: var(--primary-light);
-        color: var(--primary-dark);
-    }
-
-    .accordion-button.active {
-        background: var(--primary);
-        color: var(--white);
-    }
-
-    .accordion-button::after {
-        content: '+';
-        font-size: 24px;
-        font-weight: 300;
-        transition: transform 0.3s ease;
-    }
-
-    .accordion-button.active::after {
-        transform: rotate(45deg);
-    }
-
-    .accordion-content {
-        max-height: 0;
-        overflow: hidden;
-        background: #f8fafc;
-        transition: max-height 0.4s ease;
-    }
-
-    .accordion-content.active {
-        max-height: 200px;
-    }
-
-    .accordion-content p {
-        padding: 24px 32px;
-        color: var(--gray);
-        line-height: 1.7;
-        font-size: 16px;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 968px) {
-        .section-content {
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
-        
-        .section-content.reverse {
-            direction: ltr;
-        }
-        
-        section {
-            padding: 60px 0;
-        }
-        
-        .section-header {
-            margin-bottom: 50px;
-        }
-        
-        .content-card {
-            padding: 32px 24px;
-        }
-        
-        .price-section {
-            padding: 40px 24px;
-        }
-    }
-
-    @media (max-width: 640px) {
-        header {
-            padding: 80px 20px 60px;
-            min-height: 60vh;
-        }
-        
-        section {
-            padding: 40px 0;
-        }
-        
-        .content-card {
-            padding: 24px 20px;
-        }
-        
-        .price-table th,
-        .price-table td {
-            padding: 16px 12px;
-            font-size: 14px;
-        }
-        
-        .accordion-button {
-            padding: 20px 24px;
-            font-size: 16px;
-        }
-        
-        .accordion-content p {
-            padding: 20px 24px;
-            font-size: 15px;
-        }
-    }
-
-    /* Animations */
-    .fade-in {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease;
-    }
-
-    .fade-in.animate {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Scroll Progress Bar */
-    .scroll-progress {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 3px;
-        background: var(--gradient);
-        z-index: 1000;
-        transition: width 0.1s ease;
-    }
-</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <%@ include file="/view/common/web/add_css.jsp" %>
 </head>
-<body>
+<body class="hourly-service-page">
     <div class="bg-decoration"></div>
     <div class="scroll-progress"></div>
 
-    <header>
-        <div class="header-content">
-            <h1>Dịch Vụ Giúp Việc Theo Giờ</h1>
-            <p>Giải pháp giúp việc linh hoạt, an toàn và tiện lợi cho gia đình bạn. Đội ngũ cộng tác viên chuyên nghiệp, tận tâm mang đến sự hài lòng và tin cậy.</p>
+    <%@ include file="/view/common/web/header.jsp" %>
+
+    <section class="hero">
+        <img src="<%= request.getContextPath() %>/view/assets/home/img/banner/banner1.jpg" alt="Banner">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 class="animate__animated animate__fadeIn">Dịch Vụ Giúp Việc Theo Giờ</h1>
+            <p class="hero-tagline animate__animated animate__fadeIn animate__delay-1s">Giải pháp giúp việc linh hoạt, an toàn và tiện lợi cho gia đình bạn. Đội ngũ cộng tác viên chuyên nghiệp, tận tâm mang đến sự hài lòng và tin cậy.</p>
         </div>
-    </header>
+    </section>
 
     <section id="giai-phap">
         <div class="container">
@@ -530,7 +35,7 @@
             </div>
             <div class="section-content fade-in">
                 <div class="content-image">
-                    <img src="https://images.unsplash.com/photo-1588776814546-f5f28982e185?auto=format&fit=crop&w=600&q=80" alt="Giúp việc theo giờ - giải pháp" />
+                    <img src="<%= request.getContextPath() %>/view/assets/home/img/service/hourly_1.jpg" alt="Giúp việc theo giờ - giải pháp" />
                 </div>
                 <div class="content-card">
                     <p>Dịch vụ giúp việc theo giờ của chúng tôi giúp tiết kiệm thời gian và chi phí cho khách hàng. Bạn có thể đặt lịch linh hoạt phù hợp với nhu cầu và thời gian của mình, từ dọn dẹp nhà cửa, nấu ăn đến chăm sóc người già và trẻ nhỏ.</p>
@@ -556,7 +61,7 @@
                     </ul>
                 </div>
                 <div class="content-image">
-                    <img src="https://images.unsplash.com/photo-1579671488015-5e94866f5554?auto=format&fit=crop&w=600&q=80" alt="Lý do chọn giúp việc theo giờ" />
+                    <img src="<%= request.getContextPath() %>/view/assets/home/img/service/hourly_2.jpg" alt="Lý do chọn giúp việc theo giờ" />
                 </div>
             </div>
         </div>
@@ -570,7 +75,7 @@
             </div>
             <div class="section-content fade-in">
                 <div class="content-image">
-                    <img src="https://images.unsplash.com/photo-1590080877777-1158b4790b49?auto=format&fit=crop&w=600&q=80" alt="Cộng tác viên giúp việc" />
+                    <img src="<%= request.getContextPath() %>/view/assets/home/img/service/hourly_3.jpg" alt="Cộng tác viên giúp việc" />
                 </div>
                 <div class="content-card">
                     <ul class="modern-list">
@@ -675,13 +180,15 @@
         </div>
     </section>
 
+    <%@ include file="/view/common/web/footer.jsp" %>
+
     <script>
         // Scroll Progress Bar
         function updateScrollProgress() {
             const scrollTop = window.pageYOffset;
             const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
             const scrollPercent = (scrollTop / documentHeight) * 100;
-            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+            document.querySelector('.hourly-service-page .scroll-progress').style.width = scrollPercent + '%';
         }
 
         // Intersection Observer for animations
@@ -699,18 +206,18 @@
         }, observerOptions);
 
         // Observe all fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
+        document.querySelectorAll('.hourly-service-page .fade-in').forEach(el => {
             observer.observe(el);
         });
 
         // Accordion functionality
-        document.querySelectorAll('.accordion-button').forEach(button => {
+        document.querySelectorAll('.hourly-service-page .accordion-button').forEach(button => {
             button.addEventListener('click', () => {
                 const content = button.nextElementSibling;
                 const isActive = button.classList.contains('active');
 
                 // Close all accordion items
-                document.querySelectorAll('.accordion-button').forEach(btn => {
+                document.querySelectorAll('.hourly-service-page .accordion-button').forEach(btn => {
                     btn.classList.remove('active');
                     btn.nextElementSibling.classList.remove('active');
                 });
@@ -727,9 +234,8 @@
         window.addEventListener('scroll', updateScrollProgress);
         window.addEventListener('load', () => {
             updateScrollProgress();
-            // Add a small delay to ensure smooth animations
             setTimeout(() => {
-                document.querySelectorAll('.section-header, .section-content').forEach(el => {
+                document.querySelectorAll('.hourly-service-page .section-header, .hourly-service-page .section-content').forEach(el => {
                     observer.observe(el);
                 });
             }, 100);
@@ -737,4 +243,3 @@
     </script>
 </body>
 </html>
-

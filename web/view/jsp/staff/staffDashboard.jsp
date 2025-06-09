@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bảng Điều Khiển Admin - Giúp Việc 24H</title>
+    <title>Bảng Điều Khiển Nhân Viên - Giúp Việc 24H</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -253,27 +253,27 @@
             margin-bottom: 1rem;
         }
 
-        .stat-card.workers .icon {
+        .stat-card.contracts .icon {
             background: rgba(59, 130, 246, 0.1);
             color: #3b82f6;
         }
 
-        .stat-card.orders .icon {
-            background: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-        }
-
-        .stat-card.revenue .icon {
+        .stat-card.complaints .icon {
             background: rgba(245, 158, 11, 0.1);
             color: #f59e0b;
         }
 
-        .stat-card.customers .icon {
+        .stat-card.schedule .icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .stat-card.vouchers .icon {
             background: rgba(139, 92, 246, 0.1);
             color: #8b5cf6;
         }
 
-        .stat-card.staff .icon {
+        .stat-card.chats .icon {
             background: rgba(234, 88, 12, 0.1);
             color: #ea580c;
         }
@@ -308,139 +308,6 @@
 
         .stat-card .trend i {
             margin-right: 0.25rem;
-        }
-
-        .charts-section {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .chart-card {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border: 1px solid rgba(226, 232, 240, 0.5);
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .chart-header h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1a202c;
-        }
-
-        .chart-controls {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .chart-controls button {
-            padding: 0.5rem 1rem;
-            border: 1px solid #e2e8f0;
-            background: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .chart-controls button.active {
-            background: #1AB394;
-            color: white;
-            border-color: #1AB394;
-        }
-
-        .chart-controls button:hover:not(.active) {
-            background: #f8fafc;
-            border-color: #1AB394;
-        }
-
-        .chart-placeholder {
-            height: 300px;
-            background: linear-gradient(135deg, rgba(26, 179, 148, 0.05) 0%, rgba(22, 160, 133, 0.05) 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #64748b;
-            font-style: italic;
-            border: 2px dashed rgba(26, 179, 148, 0.2);
-        }
-
-        .recent-activities {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border: 1px solid rgba(226, 232, 240, 0.5);
-        }
-
-        .activity-item {
-            display: flex;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .activity-item:last-child {
-            border-bottom: none;
-        }
-
-        .activity-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            font-size: 0.875rem;
-        }
-
-        .activity-icon.new-order {
-            background: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-        }
-
-        .activity-icon.new-worker {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
-        }
-
-        .activity-icon.payment {
-            background: rgba(245, 158, 11, 0.1);
-            color: #f59e0b;
-        }
-
-        .activity-content {
-            flex: 1;
-        }
-
-        .activity-content h4 {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #1a202c;
-            margin-bottom: 0.25rem;
-        }
-
-        .activity-content p {
-            font-size: 0.75rem;
-            color: #64748b;
-        }
-
-        .activity-time {
-            font-size: 0.75rem;
-            color: #94a3b8;
         }
 
         .quick-actions {
@@ -486,42 +353,57 @@
             color: #94a3b8;
         }
 
-        @media (max-width: 1024px) {
-            .charts-section {
-                grid-template-columns: 1fr;
-            }
+        .chat-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            margin-top: 2rem;
         }
 
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 240px;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-            
-            .sidebar.open {
-                transform: translateX(0);
-            }
-            
+        .chat-section h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1rem;
+        }
+
+        .chat-placeholder {
+            height: 300px;
+            background: linear-gradient(135deg, rgba(26, 179, 148, 0.05) 0%, rgba(22, 160, 133, 0.05) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-style: italic;
+            border: 2px dashed rgba(26, 179, 148, 0.2);
+        }
+
+        @media (max-width: 1024px) {
             .main-content {
                 margin-left: 0;
                 width: 100%;
             }
-            
-            .header {
-                padding: 1rem;
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
             }
-            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
             .content {
                 padding: 1rem;
             }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .page-title h1 {
                 font-size: 1.5rem;
+            }
+            .quick-actions {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -541,46 +423,33 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#workers">
-                        <i class="fas fa-users"></i>
-                        <span>Quản Lý Người Giúp Việc</span>
+                    <a href="#contracts">
+                        <i class="fas fa-file-contract"></i>
+                        <span>Quản Lý Hợp Đồng</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#staff">
-                        <i class="fas fa-user-tie"></i>
-                        <span>Quản Lý Nhân Viên</span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="#customers">
-                        <i class="fas fa-user-friends"></i>
-                        <span>Quản Lý Khách Hàng</span>
+                    <a href="#complaints">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Giải Quyết Khiếu Nại</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#revenue">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Thống Kê Doanh Thu</span>
+                    <a href="#schedule">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Quản Lí Lịch Thuê</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#reports">
-                        <i class="fas fa-file-alt"></i>
-                        <span>Báo Cáo</span>
+                    <a href="#vouchers">
+                        <i class="fas fa-tags"></i>
+                        <span>Quản Lý Voucher</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#payments">
-                        <i class="fas fa-credit-card"></i>
-                        <span>Quản Lý Thanh Toán</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#settings">
-                        <i class="fas fa-cog"></i>
-                        <span>Cài Đặt Hệ Thống</span>
+                    <a href="#chat">
+                        <i class="fas fa-comments"></i>
+                        <span>Chat Hỗ Trợ</span>
                     </a>
                 </li>
             </ul>
@@ -603,10 +472,10 @@
                         <span class="badge">12</span>
                     </div>
                     <div class="user-profile">
-                        <div class="user-avatar">A</div>
+                        <div class="user-avatar">S</div>
                         <div>
-                            <div style="font-weight: 600; font-size: 0.875rem; color: #1a202c;">Admin</div>
-                            <div style="font-size: 0.75rem; color: #64748b;">Quản trị viên</div>
+                            <div style="font-weight: 600; font-size: 0.875rem; color: #1a202c;">Staff</div>
+                            <div style="font-size: 0.75rem; color: #64748b;">Nhân viên hỗ trợ</div>
                         </div>
                         <i class="fas fa-chevron-down" style="color: #64748b; font-size: 0.75rem;"></i>
                     </div>
@@ -615,193 +484,117 @@
 
             <div class="content">
                 <div class="page-title">
-                    <h1>Bảng Điều Khiển</h1>
-                    <p>Tổng quan hoạt động hệ thống thuê người giúp việc tại Đà Nẵng</p>
+                    <h1>Bảng Điều Khiển Nhân Viên</h1>
+                    <p>Tổng quan các công việc hỗ trợ tại Đà Nẵng</p>
                 </div>
 
                 <div class="stats-grid">
-                    <div class="stat-card workers">
+                    <div class="stat-card contracts">
                         <div class="icon">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-file-contract"></i>
                         </div>
-                        <h3>187</h3>
-                        <p>Người Giúp Việc Hoạt Động</p>
+                        <h3>150</h3>
+                        <p>Hợp Đồng Đang Xử Lý</p>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
-                            +12% so với tháng trước
+                            +10 hợp đồng
                         </div>
                     </div>
 
-                    <div class="stat-card orders">
+                    <div class="stat-card complaints">
                         <div class="icon">
-                            <i class="fas fa-clipboard-list"></i>
+                            <i class="fas fa-exclamation-circle"></i>
                         </div>
-                        <h3>342</h3>
-                        <p>Lượt Thuê Hôm Nay</p>
-                        <div class="trend up">
-                            <i class="fas fa-arrow-up"></i>
-                            +8% so với hôm qua
+                        <h3>12</h3>
+                        <p>Khiếu Nại Chưa Xử Lý</p>
+                        <div class="trend down">
+                            <i class="fas fa-arrow-down"></i>
+                            -2 khiếu nại
                         </div>
                     </div>
 
-                    <div class="stat-card revenue">
+                    <div class="stat-card schedule">
                         <div class="icon">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <h3>45.2M</h3>
-                        <p>Doanh Thu Tháng (VNĐ)</p>
-                        <div class="trend up">
-                            <i class="fas fa-arrow-up"></i>
-                            +15% so với tháng trước
-                        </div>
-                    </div>
-
-                    <div class="stat-card customers">
-                        <div class="icon">
-                            <i class="fas fa-user-friends"></i>
-                        </div>
-                        <h3>1,248</h3>
-                        <p>Tổng Khách Hàng</p>
-                        <div class="trend up">
-                            <i class="fas fa-arrow-up"></i>
-                            +23 khách hàng mới
-                        </div>
-                    </div>
-
-                    <div class="stat-card staff">
-                        <div class="icon">
-                            <i class="fas fa-user-tie"></i>
+                            <i class="fas fa-calendar-alt"></i>
                         </div>
                         <h3>25</h3>
-                        <p>Nhân Viên Quản Lý</p>
+                        <p>Yêu Cầu Đổi Lịch</p>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
-                            +2 nhân viên mới
-                        </div>
-                    </div>
-                </div>
-
-                <div class="charts-section">
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3>Thống Kê Doanh Thu</h3>
-                            <div class="chart-controls">
-                                <button class="active">7 Ngày</button>
-                                <button>30 Ngày</button>
-                                <button>3 Tháng</button>
-                                <button>1 Năm</button>
-                            </div>
-                        </div>
-                        <div class="chart-placeholder">
-                            📊 Biểu đồ doanh thu theo thời gian (Tích hợp Chart.js)
+                            +5 yêu cầu
                         </div>
                     </div>
 
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3>Hoạt Động Gần Đây</h3>
+                    <div class="stat-card vouchers">
+                        <div class="icon">
+                            <i class="fas fa-tags"></i>
                         </div>
-                        <div class="recent-activities">
-                            <div class="activity-item">
-                                <div class="activity-icon new-order">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Đơn hàng mới #DH2024001</h4>
-                                    <p>Khách hàng: Nguyễn Thị Mai</p>
-                                </div>
-                                <div class="activity-time">5 phút trước</div>
-                            </div>
-                            
-                            <div class="activity-item">
-                                <div class="activity-icon new-worker">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Người giúp việc mới đăng ký</h4>
-                                    <p>Trần Văn Hùng - Quận Hải Châu</p>
-                                </div>
-                                <div class="activity-time">12 phút trước</div>
-                            </div>
-                            
-                            <div class="activity-item">
-                                <div class="activity-icon payment">
-                                    <i class="fas fa-credit-card"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Thanh toán thành công</h4>
-                                    <p>Đơn hàng #DH2024000 - 450,000 VNĐ</p>
-                                </div>
-                                <div class="activity-time">25 phút trước</div>
-                            </div>
-                            
-                            <div class="activity-item">
-                                <div class="activity-icon new-order">
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Đánh giá 5 sao</h4>
-                                    <p>Khách hàng đánh giá dịch vụ</p>
-                                </div>
-                                <div class="activity-time">1 giờ trước</div>
-                            </div>
+                        <h3>50</h3>
+                        <p>Voucher Đang Hoạt Động</p>
+                        <div class="trend up">
+                            <i class="fas fa-arrow-up"></i>
+                            +8 voucher
+                        </div>
+                    </div>
+
+                    <div class="stat-card chats">
+                        <div class="icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>30</h3>
+                        <p>Tin Nhắn Chưa Đọc</p>
+                        <div class="trend up">
+                            <i class="fas fa-arrow-up"></i>
+                            +10 tin nhắn
                         </div>
                     </div>
                 </div>
 
                 <div class="quick-actions">
-                    <a href="#" class="action-btn">
-                        <i class="fas fa-user-plus"></i>
-                        <h4>Thêm Người Giúp Việc</h4>
-                        <p>Đăng ký người giúp việc mới</p>
+                    <a href="#contracts" class="action-btn">
+                        <i class="fas fa-file-contract"></i>
+                        <h4>Quản Lý Hợp Đồng</h4>
+                        <p>Xem và xử lý hợp đồng</p>
                     </a>
-                    
-                    <a href="#" class="action-btn">
-                        <i class="fas fa-clipboard-list"></i>
-                        <h4>Xem Lượt Thuê</h4>
-                        <p>Quản lý tất cả đơn hàng</p>
+                    <a href="#complaints" class="action-btn">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h4>Giải Quyết Khiếu Nại</h4>
+                        <p>Xử lý khiếu nại từ khách hàng</p>
                     </a>
-                    
-                    <a href="#" class="action-btn">
-                        <i class="fas fa-chart-bar"></i>
-                        <h4>Báo Cáo Chi Tiết</h4>
-                        <p>Xem báo cáo doanh thu</p>
+                    <a href="#schedule" class="action-btn">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h4>Quản Lí Lịch Thuê</h4>
+                        <p>Đổi lịch cho người giúp việc</p>
                     </a>
-                    
-                    <a href="#" class="action-btn">
-                        <i class="fas fa-user-tie"></i>
-                        <h4>Quản Lý Nhân Viên</h4>
-                        <p>Thêm/sửa/xóa nhân viên</p>
+                    <a href="#vouchers" class="action-btn">
+                        <i class="fas fa-tags"></i>
+                        <h4>Quản Lý Voucher</h4>
+                        <p>Thêm và kiểm tra voucher</p>
                     </a>
+                    <a href="#chat" class="action-btn">
+                        <i class="fas fa-comments"></i>
+                        <h4>Chat Hỗ Trợ</h4>
+                        <p>Chat với khách hàng và người giúp việc</p>
+                    </a>
+                </div>
+
+                <div class="chat-section">
+                    <h3>Chat Hỗ Trợ</h3>
+                    <div class="chat-placeholder">
+                        💬 Khu vực chat với khách hàng và người giúp việc (Tích hợp WebSocket)
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Xử lý chuyển đổi tab thống kê
-        document.querySelectorAll('.chart-controls button').forEach(button => {
-            button.addEventListener('click', function() {
-                // Xóa active class từ tất cả buttons
-                document.querySelectorAll('.chart-controls .active').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                // Thêm active class cho button được click
-                this.classList.add('active');
-                
-                // Có thể thêm logic load dữ liệu chart tại đây
-                console.log('Đang tải dữ liệu cho:', this.textContent);
-            });
-        });
-
         // Xử lý navigation sidebar
         document.querySelectorAll('.sidebar ul li').forEach(item => {
             item.addEventListener('click', function() {
-                // Xóa active class từ tất cả items
                 document.querySelectorAll('.sidebar ul li.active').forEach(li => {
                     li.classList.remove('active');
                 });
-                // Thêm active class cho item được click
                 this.classList.add('active');
             });
         });
@@ -843,17 +636,12 @@
                             current = target;
                             clearInterval(timer);
                         }
-                        if (num.textContent.includes('M')) {
-                            num.textContent = (current / 1000000).toFixed(1) + 'M';
-                        } else {
-                            num.textContent = Math.floor(current).toLocaleString();
-                        }
+                        num.textContent = Math.floor(current).toLocaleString();
                     }, 30);
                 }
             });
         }
 
-        // Gọi animation khi trang load
         setTimeout(animateNumbers, 500);
     </script>
 </body>

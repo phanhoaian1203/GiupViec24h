@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bảng Điều Khiển Admin - Giúp Việc 24H</title>
+    <title>Quản Lý Người Giúp Việc - Giúp Việc 24H</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -258,22 +258,12 @@
             color: #3b82f6;
         }
 
-        .stat-card.orders .icon {
+        .stat-card.active-workers .icon {
             background: rgba(16, 185, 129, 0.1);
             color: #10b981;
         }
 
-        .stat-card.revenue .icon {
-            background: rgba(245, 158, 11, 0.1);
-            color: #f59e0b;
-        }
-
-        .stat-card.customers .icon {
-            background: rgba(139, 92, 246, 0.1);
-            color: #8b5cf6;
-        }
-
-        .stat-card.staff .icon {
+        .stat-card.inactive-workers .icon {
             background: rgba(234, 88, 12, 0.1);
             color: #ea580c;
         }
@@ -310,137 +300,74 @@
             margin-right: 0.25rem;
         }
 
-        .charts-section {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .chart-card {
+        .workers-table {
             background: white;
             border-radius: 16px;
             padding: 2rem;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             border: 1px solid rgba(226, 232, 240, 0.5);
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: between;
-            align-items: center;
             margin-bottom: 2rem;
         }
 
-        .chart-header h3 {
+        .workers-table h3 {
             font-size: 1.25rem;
             font-weight: 700;
             color: #1a202c;
+            margin-bottom: 1rem;
         }
 
-        .chart-controls {
-            display: flex;
-            gap: 0.5rem;
+        .workers-table table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        .chart-controls button {
-            padding: 0.5rem 1rem;
-            border: 1px solid #e2e8f0;
-            background: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .chart-controls button.active {
-            background: #1AB394;
-            color: white;
-            border-color: #1AB394;
-        }
-
-        .chart-controls button:hover:not(.active) {
-            background: #f8fafc;
-            border-color: #1AB394;
-        }
-
-        .chart-placeholder {
-            height: 300px;
-            background: linear-gradient(135deg, rgba(26, 179, 148, 0.05) 0%, rgba(22, 160, 133, 0.05) 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #64748b;
-            font-style: italic;
-            border: 2px dashed rgba(26, 179, 148, 0.2);
-        }
-
-        .recent-activities {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border: 1px solid rgba(226, 232, 240, 0.5);
-        }
-
-        .activity-item {
-            display: flex;
-            align-items: center;
-            padding: 1rem 0;
+        .workers-table th, .workers-table td {
+            padding: 1rem;
+            text-align: left;
             border-bottom: 1px solid #f1f5f9;
         }
 
-        .activity-item:last-child {
-            border-bottom: none;
+        .workers-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #374151;
         }
 
-        .activity-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
+        .workers-table td {
+            color: #64748b;
+        }
+
+        .workers-table .status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
             font-size: 0.875rem;
+            font-weight: 500;
         }
 
-        .activity-icon.new-order {
+        .workers-table .status.active {
             background: rgba(16, 185, 129, 0.1);
             color: #10b981;
         }
 
-        .activity-icon.new-worker {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
+        .workers-table .status.inactive {
+            background: rgba(234, 88, 12, 0.1);
+            color: #ea580c;
         }
 
-        .activity-icon.payment {
-            background: rgba(245, 158, 11, 0.1);
-            color: #f59e0b;
-        }
-
-        .activity-content {
-            flex: 1;
-        }
-
-        .activity-content h4 {
+        .action-btn {
+            background: none;
+            border: none;
+            color: #1AB394;
+            cursor: pointer;
             font-size: 0.875rem;
-            font-weight: 600;
-            color: #1a202c;
-            margin-bottom: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
-        .activity-content p {
-            font-size: 0.75rem;
-            color: #64748b;
-        }
-
-        .activity-time {
-            font-size: 0.75rem;
-            color: #94a3b8;
+        .action-btn:hover {
+            background: rgba(26, 179, 148, 0.1);
         }
 
         .quick-actions {
@@ -450,7 +377,7 @@
             margin-top: 2rem;
         }
 
-        .action-btn {
+        .action-btn-grid {
             background: white;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
@@ -462,64 +389,52 @@
             color: #64748b;
         }
 
-        .action-btn:hover {
+        .action-btn-grid:hover {
             border-color: #1AB394;
             background: rgba(26, 179, 148, 0.05);
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(26, 179, 148, 0.2);
         }
 
-        .action-btn i {
+        .action-btn-grid i {
             font-size: 2rem;
             color: #1AB394;
             margin-bottom: 0.5rem;
         }
 
-        .action-btn h4 {
+        .action-btn-grid h4 {
             font-size: 0.875rem;
             font-weight: 600;
             margin-bottom: 0.25rem;
         }
 
-        .action-btn p {
+        .action-btn-grid p {
             font-size: 0.75rem;
             color: #94a3b8;
         }
 
         @media (max-width: 1024px) {
-            .charts-section {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 240px;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-            
-            .sidebar.open {
-                transform: translateX(0);
-            }
-            
             .main-content {
                 margin-left: 0;
                 width: 100%;
             }
-            
-            .header {
-                padding: 1rem;
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
             }
-            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
             .content {
                 padding: 1rem;
             }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .workers-table th, .workers-table td {
+                padding: 0.75rem;
+                font-size: 0.875rem;
             }
-            
             .page-title h1 {
                 font-size: 1.5rem;
             }
@@ -534,13 +449,13 @@
                 Giúp Việc 24H
             </div>
             <ul>
-                <li class="active">
+                <li>
                     <a href="#dashboard">
                         <i class="fas fa-tachometer-alt"></i>
                         <span>Bảng Điều Khiển</span>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="#workers">
                         <i class="fas fa-users"></i>
                         <span>Quản Lý Người Giúp Việc</span>
@@ -552,7 +467,12 @@
                         <span>Quản Lý Nhân Viên</span>
                     </a>
                 </li>
-                
+                <li>
+                    <a href="#orders">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Quản Lý Lượt Thuê</span>
+                    </a>
+                </li>
                 <li>
                     <a href="#customers">
                         <i class="fas fa-user-friends"></i>
@@ -591,7 +511,7 @@
                 <div class="breadcrumb">
                     <span>Trang Chủ</span>
                     <i class="fas fa-chevron-right"></i>
-                    <span>Bảng Điều Khiển</span>
+                    <span>Quản Lý Người Giúp Việc</span>
                 </div>
                 <div class="user-section">
                     <div class="notification-badge">
@@ -615,8 +535,8 @@
 
             <div class="content">
                 <div class="page-title">
-                    <h1>Bảng Điều Khiển</h1>
-                    <p>Tổng quan hoạt động hệ thống thuê người giúp việc tại Đà Nẵng</p>
+                    <h1>Quản Lý Người Giúp Việc</h1>
+                    <p>Quản lý thông tin và trạng thái của người giúp việc tại Đà Nẵng</p>
                 </div>
 
                 <div class="stats-grid">
@@ -625,153 +545,100 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <h3>187</h3>
-                        <p>Người Giúp Việc Hoạt Động</p>
+                        <p>Tổng Số Người Giúp Việc</p>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
-                            +12% so với tháng trước
+                            +12 người mới
                         </div>
                     </div>
 
-                    <div class="stat-card orders">
+                    <div class="stat-card active-workers">
                         <div class="icon">
-                            <i class="fas fa-clipboard-list"></i>
+                            <i class="fas fa-user-check"></i>
                         </div>
-                        <h3>342</h3>
-                        <p>Lượt Thuê Hôm Nay</p>
+                        <h3>162</h3>
+                        <p>Đang Hoạt Động</p>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
-                            +8% so với hôm qua
+                            +5% so với tuần trước
                         </div>
                     </div>
 
-                    <div class="stat-card revenue">
+                    <div class="stat-card inactive-workers">
                         <div class="icon">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <h3>45.2M</h3>
-                        <p>Doanh Thu Tháng (VNĐ)</p>
-                        <div class="trend up">
-                            <i class="fas fa-arrow-up"></i>
-                            +15% so với tháng trước
-                        </div>
-                    </div>
-
-                    <div class="stat-card customers">
-                        <div class="icon">
-                            <i class="fas fa-user-friends"></i>
-                        </div>
-                        <h3>1,248</h3>
-                        <p>Tổng Khách Hàng</p>
-                        <div class="trend up">
-                            <i class="fas fa-arrow-up"></i>
-                            +23 khách hàng mới
-                        </div>
-                    </div>
-
-                    <div class="stat-card staff">
-                        <div class="icon">
-                            <i class="fas fa-user-tie"></i>
+                            <i class="fas fa-user-times"></i>
                         </div>
                         <h3>25</h3>
-                        <p>Nhân Viên Quản Lý</p>
-                        <div class="trend up">
-                            <i class="fas fa-arrow-up"></i>
-                            +2 nhân viên mới
+                        <p>Ngưng Hoạt Động</p>
+                        <div class="trend down">
+                            <i class="fas fa-arrow-down"></i>
+                            -3 người
                         </div>
                     </div>
                 </div>
 
-                <div class="charts-section">
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3>Thống Kê Doanh Thu</h3>
-                            <div class="chart-controls">
-                                <button class="active">7 Ngày</button>
-                                <button>30 Ngày</button>
-                                <button>3 Tháng</button>
-                                <button>1 Năm</button>
-                            </div>
-                        </div>
-                        <div class="chart-placeholder">
-                            📊 Biểu đồ doanh thu theo thời gian (Tích hợp Chart.js)
-                        </div>
-                    </div>
-
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3>Hoạt Động Gần Đây</h3>
-                        </div>
-                        <div class="recent-activities">
-                            <div class="activity-item">
-                                <div class="activity-icon new-order">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Đơn hàng mới #DH2024001</h4>
-                                    <p>Khách hàng: Nguyễn Thị Mai</p>
-                                </div>
-                                <div class="activity-time">5 phút trước</div>
-                            </div>
-                            
-                            <div class="activity-item">
-                                <div class="activity-icon new-worker">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Người giúp việc mới đăng ký</h4>
-                                    <p>Trần Văn Hùng - Quận Hải Châu</p>
-                                </div>
-                                <div class="activity-time">12 phút trước</div>
-                            </div>
-                            
-                            <div class="activity-item">
-                                <div class="activity-icon payment">
-                                    <i class="fas fa-credit-card"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Thanh toán thành công</h4>
-                                    <p>Đơn hàng #DH2024000 - 450,000 VNĐ</p>
-                                </div>
-                                <div class="activity-time">25 phút trước</div>
-                            </div>
-                            
-                            <div class="activity-item">
-                                <div class="activity-icon new-order">
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Đánh giá 5 sao</h4>
-                                    <p>Khách hàng đánh giá dịch vụ</p>
-                                </div>
-                                <div class="activity-time">1 giờ trước</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="workers-table">
+                    <h3>Danh Sách Người Giúp Việc</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Họ và Tên</th>
+                                <th>Địa Chỉ</th>
+                                <th>Số Điện Thoại</th>
+                                <th>Trạng Thái</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Trần Văn A</td>
+                                <td>Quận Hải Châu, Đà Nẵng</td>
+                                <td>0905 123 456</td>
+                                <td><span class="status active">Hoạt động</span></td>
+                                <td>
+                                    <button class="action-btn" onclick="editWorker('Trần Văn A')"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="action-btn" onclick="removeWorker('Trần Văn A')"><i class="fas fa-trash"></i> Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nguyễn Thị B</td>
+                                <td>Quận Thanh Khê, Đà Nẵng</td>
+                                <td>0912 345 678</td>
+                                <td><span class="status active">Hoạt động</span></td>
+                                <td>
+                                    <button class="action-btn" onclick="editWorker('Nguyễn Thị B')"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="action-btn" onclick="removeWorker('Nguyễn Thị B')"><i class="fas fa-trash"></i> Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Lê Văn C</td>
+                                <td>Quận Cẩm Lệ, Đà Nẵng</td>
+                                <td>0938 567 890</td>
+                                <td><span class="status inactive">Ngưng hoạt động</span></td>
+                                <td>
+                                    <button class="action-btn" onclick="editWorker('Lê Văn C')"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="action-btn" onclick="removeWorker('Lê Văn C')"><i class="fas fa-trash"></i> Xóa</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
                 <div class="quick-actions">
-                    <a href="#" class="action-btn">
-                        <i class="fas fa-user-plus"></i>
+                    <a href="#" class="action-btn-grid">
+                        <i class="fas fa-plus"></i>
                         <h4>Thêm Người Giúp Việc</h4>
                         <p>Đăng ký người giúp việc mới</p>
                     </a>
-                    
-                    <a href="#" class="action-btn">
-                        <i class="fas fa-clipboard-list"></i>
-                        <h4>Xem Lượt Thuê</h4>
-                        <p>Quản lý tất cả đơn hàng</p>
+                    <a href="#" class="action-btn-grid">
+                        <i class="fas fa-sync"></i>
+                        <h4>Cập Nhật Trạng Thái</h4>
+                        <p>Cập nhật trạng thái hoạt động</p>
                     </a>
-                    
-                    <a href="#" class="action-btn">
-                        <i class="fas fa-chart-bar"></i>
-                        <h4>Báo Cáo Chi Tiết</h4>
-                        <p>Xem báo cáo doanh thu</p>
-                    </a>
-                    
-                    <a href="#" class="action-btn">
-                        <i class="fas fa-user-tie"></i>
-                        <h4>Quản Lý Nhân Viên</h4>
-                        <p>Thêm/sửa/xóa nhân viên</p>
+                    <a href="#" class="action-btn-grid">
+                        <i class="fas fa-search"></i>
+                        <h4>Tìm Kiếm Người Giúp Việc</h4>
+                        <p>Tìm theo tên hoặc địa chỉ</p>
                     </a>
                 </div>
             </div>
@@ -779,29 +646,23 @@
     </div>
 
     <script>
-        // Xử lý chuyển đổi tab thống kê
-        document.querySelectorAll('.chart-controls button').forEach(button => {
-            button.addEventListener('click', function() {
-                // Xóa active class từ tất cả buttons
-                document.querySelectorAll('.chart-controls .active').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                // Thêm active class cho button được click
-                this.classList.add('active');
-                
-                // Có thể thêm logic load dữ liệu chart tại đây
-                console.log('Đang tải dữ liệu cho:', this.textContent);
-            });
-        });
+        // Xử lý hành động trên bảng
+        function editWorker(name) {
+            alert(`Sửa thông tin của ${name}`);
+        }
+
+        function removeWorker(name) {
+            if (confirm(`Bạn có chắc muốn xóa ${name}?`)) {
+                alert(`Đã xóa ${name} thành công!`);
+            }
+        }
 
         // Xử lý navigation sidebar
         document.querySelectorAll('.sidebar ul li').forEach(item => {
             item.addEventListener('click', function() {
-                // Xóa active class từ tất cả items
                 document.querySelectorAll('.sidebar ul li.active').forEach(li => {
                     li.classList.remove('active');
                 });
-                // Thêm active class cho item được click
                 this.classList.add('active');
             });
         });
@@ -843,17 +704,12 @@
                             current = target;
                             clearInterval(timer);
                         }
-                        if (num.textContent.includes('M')) {
-                            num.textContent = (current / 1000000).toFixed(1) + 'M';
-                        } else {
-                            num.textContent = Math.floor(current).toLocaleString();
-                        }
+                        num.textContent = Math.floor(current).toLocaleString();
                     }, 30);
                 }
             });
         }
 
-        // Gọi animation khi trang load
         setTimeout(animateNumbers, 500);
     </script>
 </body>

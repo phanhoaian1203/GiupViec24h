@@ -253,8 +253,8 @@
             </form>
             
             <div class="login-footer">
-                <p>Bạn chưa có tài khoản? <a href="${pageContext.request.contextPath}/view/jsp/home/signup.jsp">Đăng ký ngay</a></p>
-                <p style="margin-top: 10px;"><a href="${pageContext.request.contextPath}/view/jsp/home/forgotPassword.jsp">Quên mật khẩu?</a></p>
+                <p>Bạn chưa có tài khoản? <a href="signup.jsp">Đăng ký ngay</a></p>
+                <p style="margin-top: 10px;"><a href="forgotPassword.jsp">Quên mật khẩu?</a></p>
             </div>
         </div>
     </div>
