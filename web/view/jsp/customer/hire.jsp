@@ -7,23 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giúp Việc 24h - Thuê Nhân Viên Dọn Dẹp Đà Nẵng</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <%@ include file="/view/common/web/add_css.jsp" %>
     <style>
         :root {
-            --primary-color: #1AB394;
-            --primary-dark: #18a085;
-            --primary-light: #e8f8f5;
-            --white: #ffffff;
-            --gray-light: #f5f5f5;
-            --gray: #e0e0e0;
-            --text-dark: #333333;
-            --accent: #FF7043;
-            --shadow: 0 4px 20px rgba(26, 179, 148, 0.1);
-            --shadow-hover: 0 8px 30px rgba(26, 179, 148, 0.2);
-            --hire-color: #FF7043;
-            --hire-dark: #e65b2f;
+            --primary-color: #2A9D8F;
+            --primary-dark: #264653;
+            --primary-light: #E9F1EF;
+            --white: #FFFFFF;
+            --gray-light: #F7F7F7;
+            --gray: #E0E0E0;
+            --text-dark: #2D2D2D;
+            --accent: #E76F51;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --border: #E0E0E0;
         }
 
         html {
@@ -34,14 +33,13 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Montserrat', 'Roboto', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #f8fffe 0%, #e8f8f5 100%);
+            background: var(--gray-light);
             color: var(--text-dark);
-            line-height: 1.7;
-            position: relative;
+            line-height: 1.6;
         }
 
         header {
@@ -49,28 +47,26 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 80px;
+            height: 70px;
             background: var(--white);
-            z-index: 1100;
+            z-index: 1000;
             box-shadow: var(--shadow);
         }
 
         .banner {
             position: relative;
-            height: 100vh;
+            height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-top: 80px;
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
+            padding-top: 70px;
             background-size: cover;
             background-position: center;
         }
 
         .banner img {
             width: 100%;
-            height: 100vh;
+            height: 100%;
             object-fit: cover;
             position: absolute;
             top: 0;
@@ -84,7 +80,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 2;
         }
 
@@ -93,48 +89,44 @@
             z-index: 3;
             text-align: center;
             color: var(--white);
-            max-width: 900px;
+            max-width: 800px;
             padding: 2rem 1.5rem;
-            width: 100%;
         }
 
         .banner-content h1 {
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
             font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: var(--white);
+            margin-bottom: 1rem;
         }
 
         .banner-tagline {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: var(--white);
-            opacity: 0.8;
-            margin-bottom: 2rem;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
         }
 
         .search-section {
             background: var(--white);
-            padding: 1.2rem 0;
+            padding: 1rem 0;
             box-shadow: var(--shadow);
             width: 100%;
-            z-index: 1000;
+            z-index: 900;
         }
 
         .search-container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 1rem;
         }
 
         .search-form {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 120px;
-            gap: 1rem;
+            grid-template-columns: 3fr 1fr 1fr 100px;
+            gap: 0.8rem;
             align-items: center;
-            background: var(--gray-light);
-            padding: 1.2rem;
-            border-radius: 12px;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            padding: 1rem;
+            background: var(--white);
+            border: 1px solid var(--border);
         }
 
         .form-group {
@@ -144,96 +136,85 @@
         .form-group label {
             display: block;
             font-weight: 500;
-            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            margin-bottom: 0.4rem;
             color: var(--text-dark);
-            font-size: 0.9rem;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid var(--gray);
-            border-radius: 8px;
-            font-size: 0.95rem;
+            padding: 0.7rem;
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
             background: var(--white);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: border-color 0.2s ease;
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(26, 179, 148, 0.1);
-        }
-
-        .search-input {
-            position: relative;
         }
 
         .search-input i {
             position: absolute;
-            left: 1rem;
+            left: 0.8rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--primary-color);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .search-input input {
-            padding-left: 2.5rem;
+            padding-left: 2.2rem;
         }
 
         .btn-search {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            background: var(--primary-color);
             color: var(--white);
             border: none;
-            padding: 0.8rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
+            padding: 0.7rem;
+            font-weight: 500;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: background 0.2s ease;
         }
 
         .btn-search:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
+            background: var(--primary-dark);
         }
 
         .content-wrapper {
-            padding-top: 80px;
+            padding-top: 70px;
         }
 
         .booking-section {
-            padding: 3.5rem 0;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
+            padding: 2rem 1rem;
             display: flex;
-            gap: 2.5rem;
-            padding: 0 2rem;
+            gap: 1.5rem;
         }
 
         .sidebar {
-            width: 300px;
+            width: 260px;
             background: var(--white);
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
             position: sticky;
-            top: 120px;
+            top: 90px;
             height: fit-content;
-            transition: transform 0.3s ease;
         }
 
         .sidebar-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--primary-dark);
-            margin-bottom: 1.8rem;
-            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
 
         .sidebar-title i {
@@ -241,16 +222,16 @@
         }
 
         .filter-group {
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .filter-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
             color: var(--text-dark);
-            padding-bottom: 0.6rem;
-            border-bottom: 2px solid var(--primary-light);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.4rem;
         }
 
         .service-list {
@@ -258,66 +239,53 @@
         }
 
         .service-list li {
-            margin-bottom: 0.9rem;
+            margin-bottom: 0.6rem;
             display: flex;
             align-items: center;
-            padding: 0.9rem 1.2rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
         }
 
         .service-list input[type="checkbox"] {
-            margin-right: 0.8rem;
+            margin-right: 0.6rem;
             accent-color: var(--primary-color);
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             cursor: pointer;
         }
 
         .service-list label {
             color: var(--text-dark);
-            font-size: 0.95rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            width: 100%;
+            font-size: 0.9rem;
+            font-weight: 400;
             cursor: pointer;
         }
 
         .service-list i {
-            margin-right: 0.8rem;
-            width: 20px;
+            margin-right: 0.6rem;
             color: var(--primary-color);
+            width: 18px;
         }
 
         .service-list input:checked + label {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: var(--white);
-            padding: 0.9rem;
-            border-radius: 10px;
-        }
-
-        .service-list input:checked + label i {
-            color: var(--white);
+            color: var(--primary-dark);
+            font-weight: 500;
         }
 
         .price-range {
-            margin-top: 1.2rem;
+            margin-top: 0.8rem;
         }
 
         .price-inputs {
             display: flex;
-            gap: 0.6rem;
+            gap: 0.5rem;
             align-items: center;
         }
 
         .price-inputs input {
-            width: 90px;
-            padding: 0.6rem;
-            border: 1px solid var(--gray);
-            border-radius: 8px;
+            width: 80px;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
             text-align: center;
-            font-size: 0.9rem;
         }
 
         .main-content {
@@ -328,142 +296,107 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .booking-title {
             color: var(--primary-dark);
-            font-size: 2.2rem;
-            font-weight: 700;
-            position: relative;
-            padding-bottom: 0.6rem;
-        }
-
-        .booking-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 70px;
-            height: 4px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-
-        .booking-title:hover::after {
-            width: 90px;
+            font-size: 1.8rem;
+            font-weight: 600;
         }
 
         .results-count {
             color: #666;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
         .sort-options {
             display: flex;
-            gap: 1.2rem;
+            gap: 0.8rem;
             align-items: center;
         }
 
         .sort-select {
-            padding: 0.6rem 1.2rem;
-            border: 1px solid var(--gray);
-            border-radius: 8px;
-            background: var(--white);
-            font-size: 0.95rem;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
         }
 
         .helper-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
 
         .helper-card {
             background: var(--white);
-            border-radius: 16px;
-            overflow: hidden;
+            border: 1px solid var(--border);
             box-shadow: var(--shadow);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            border: 1px solid rgba(26, 179, 148, 0.1);
+            transition: box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
             height: 100%;
         }
 
         .helper-card:hover {
-            transform: translateY(-10px);
             box-shadow: var(--shadow-hover);
         }
 
         .helper-image-container {
             position: relative;
-            overflow: hidden;
-            height: 200px;
+            height: 180px;
         }
 
         .helper-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .helper-card:hover .helper-image {
-            transform: scale(1.08);
         }
 
         .helper-status {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(26, 179, 148, 0.9);
+            top: 10px;
+            right: 10px;
+            background: var(--primary-color);
             color: var(--white);
-            padding: 0.4rem 0.9rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            padding: 0.3rem 0.7rem;
+            font-size: 0.8rem;
             font-weight: 500;
         }
 
         .helper-discount {
             position: absolute;
-            top: 12px;
-            left: 12px;
-            background: linear-gradient(135deg, var(--accent), #ff5722);
+            top: 10px;
+            left: 10px;
+            background: var(--accent);
             color: var(--white);
-            padding: 0.4rem 0.9rem;
-            border-radius: 16px;
-            font-size: 0.85rem;
+            padding: 0.3rem 0.7rem;
+            font-size: 0.8rem;
             font-weight: 500;
         }
 
         .helper-info {
-            padding: 1.5rem;
+            padding: 1.2rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .helper-header {
-            margin-bottom: 1rem;
-        }
-
         .helper-name {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--primary-dark);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
         }
 
         .helper-location {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: #666;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            margin-bottom: 0.5rem;
+            gap: 0.3rem;
+            margin-bottom: 0.4rem;
         }
 
         .helper-location i {
@@ -473,145 +406,123 @@
         .helper-rating {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            background: var(--primary-light);
-            padding: 0.4rem 0.8rem;
-            border-radius: 12px;
-            width: fit-content;
-        }
-
-        .helper-rating i {
-            color: #ffca28;
-            font-size: 0.95rem;
-        }
-
-        .helper-rating span {
-            font-size: 0.9rem;
+            gap: 0.3rem;
+            font-size: 0.85rem;
             color: var(--text-dark);
         }
 
+        .helper-rating i {
+            color: #F4A261;
+            font-size: 0.9rem;
+        }
+
         .helper-specialties {
-            margin: 1rem 0;
+            margin: 0.8rem 0;
         }
 
         .specialty-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .specialty-tag {
             background: var(--primary-light);
             color: var(--primary-dark);
-            padding: 0.3rem 0.7rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.8rem;
+            font-weight: 400;
         }
 
         .helper-footer {
-            padding-top: 1rem;
-            border-top: 1px solid var(--gray-light);
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.5rem;
         }
 
         .helper-price {
-            font-weight: 700;
+            font-weight: 600;
             color: var(--primary-color);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
 
         .price-note {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #666;
-            margin-bottom: 1rem;
         }
 
+        .btn-book, .btn-hire {
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.4rem 0.8rem; /* Giảm padding từ 0.6rem 1.2rem xuống 0.4rem 0.8rem */
+    font-weight: 500;
+    font-size: 0.8rem; /* Giảm font-size từ 0.9rem xuống 0.8rem */
+    transition: background 0.2s ease;
+    flex: 1;
+    text-align: center;
+    max-width: 120px;
+}
+
         .btn-book {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: var(--white);
-            text-decoration: none;
-            padding: 0.7rem 1.4rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-width: 120px;
-            text-align: center;
+            background: var(--primary-color);
         }
 
         .btn-book:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(26, 179, 148, 0.3);
+            background: var(--primary-dark);
         }
 
         .btn-hire {
-            background: linear-gradient(135deg, var(--hire-color), var(--hire-dark));
-            color: var(--white);
-            text-decoration: none;
-            padding: 0.7rem 1.4rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-width: 120px;
-            text-align: center;
+            background: var(--accent);
         }
 
         .btn-hire:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(255, 112, 67, 0.3);
+            background: #D95F41;
         }
 
         @media (max-width: 1024px) {
             .search-form {
-                grid-template-columns: 2fr 1fr 1fr 120px;
-                gap: 0.8rem;
+                grid-template-columns: 2fr 1fr 1fr 100px;
+                gap: 0.6rem;
             }
 
             .booking-section {
-                gap: 1.5rem;
+                gap: 1rem;
             }
 
             .sidebar {
-                width: 280px;
+                width: 240px;
             }
         }
 
         @media (max-width: 768px) {
             .banner {
-                min-height: calc(100vh - 70px);
-                margin-left: 0;
-                width: 100%;
+                height: 70vh;
             }
 
-            .banner h1 {
-                font-size: 2.2rem;
+            .banner-content h1 {
+                font-size: 2rem;
             }
 
             .banner-tagline {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
 
             .booking-section {
                 flex-direction: column;
-                padding: 2rem 1rem;
+                padding: 1.5rem 1rem;
             }
 
             .sidebar {
                 width: 100%;
                 position: static;
-                margin-bottom: 2rem;
             }
 
             .search-form {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 0.8rem;
             }
 
             .btn-search {
@@ -620,50 +531,38 @@
 
             .content-header {
                 flex-direction: column;
-                gap: 1.2rem;
+                gap: 1rem;
+                align-items: flex-start;
             }
 
             .sort-options {
                 width: 100%;
-                justify-content: space-between;
             }
 
             .helper-list {
                 grid-template-columns: 1fr;
             }
-
-            .booking-title {
-                font-size: 1.8rem;
-            }
-
-            .content-wrapper {
-                padding-top: 80px;
-            }
         }
 
         @media (max-width: 480px) {
-            .banner h1 {
-                font-size: 1.8rem;
+            .banner-content h1 {
+                font-size: 1.6rem;
             }
 
             .banner-tagline {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
 
             .booking-section {
-                padding: 1.5rem 1rem;
+                padding: 1rem;
             }
 
             .sidebar {
-                padding: 1.5rem;
-            }
-
-            .search-container {
-                padding: 0 1rem;
+                padding: 1rem;
             }
 
             .helper-image {
-                height: 180px;
+                height: 160px;
             }
 
             .helper-name {
@@ -671,26 +570,7 @@
             }
 
             .helper-price {
-                font-size: 1.1rem;
-            }
-
-            .btn-book, .btn-hire {
-                min-width: 100px;
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .helper-footer {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .content-wrapper {
-                padding-top: 80px;
-            }
-
-            .booking-title {
-                font-size: 1.6rem;
+                font-size: 1rem;
             }
         }
     </style>
@@ -703,7 +583,7 @@
         <div class="overlay"></div>
         <div class="banner-content">
             <h1 class="animate__animated animate__fadeIn">Thuê Nhân Viên Dọn Dẹp Đà Nẵng</h1>
-            <p class="banner-tagline animate__animated animate__fadeIn animate__delay-1s">Dịch vụ giúp việc chuyên nghiệp, đáng tin cậy, mang đến không gian sống sạch sẽ và thoải mái tại Đà Nẵng.</p>
+            <p class="banner-tagline animate__animated animate__fadeIn animate__delay-1s">Dịch vụ giúp việc chuyên nghiệp, đáng tin cậy, mang đến không gian sống sạch sẽ và thoải mái.</p>
         </div>
     </section>
 
@@ -749,7 +629,6 @@
                     <i class="fas fa-filter"></i>
                     Bộ lọc dịch vụ
                 </h3>
-                
                 <div class="filter-group">
                     <div class="filter-title">Loại dịch vụ</div>
                     <ul class="service-list">
@@ -779,7 +658,6 @@
                         </li>
                     </ul>
                 </div>
-
                 <div class="filter-group">
                     <div class="filter-title">Mức giá (VNĐ/giờ)</div>
                     <div class="price-range">
@@ -796,7 +674,7 @@
                 <div class="content-header">
                     <div>
                         <h2 class="booking-title">Giúp Việc Uy Tín Tại Đà Nẵng</h2>
-                        <p class="results-count">Tìm thấy <strong>${helpers.size()}</strong> nhân viên phù hợp</p>
+                        <p class="results-count">Tìm thấy <strong>4</strong> nhân viên phù hợp</p>
                     </div>
                     <div class="sort-options">
                         <label for="sort">Sắp xếp:</label>
@@ -810,49 +688,7 @@
                 </div>
 
                 <div class="helper-list" id="helperList">
-                    <c:forEach var="helper" items="${helpers}">
-                        <div class="helper-card" data-time="${helper.availableTime}">
-                            <div class="helper-image-container">
-                                <img src="${helper.imageUrl != null ? helper.imageUrl : '/api/placeholder/320/200'}" alt="${helper.name}" class="helper-image">
-                                <div class="helper-status">${helper.status}</div>
-                                <c:if test="${helper.discount > 0}">
-                                    <div class="helper-discount">Giảm ${helper.discount}%</div>
-                                </c:if>
-                            </div>
-                            <div class="helper-info">
-                                <div class="helper-header">
-                                    <div>
-                                        <div class="helper-name">${helper.name}</div>
-                                        <div class="helper-location">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            ${helper.location}
-                                        </div>
-                                    </div>
-                                    <div class="helper-rating">
-                                        <i class="fas fa-star"></i>
-                                        <span>${helper.rating} (${helper.reviewCount})</span>
-                                    </div>
-                                </div>
-                                <div class="helper-specialties">
-                                    <div class="specialty-tags">
-                                        <c:forEach var="specialty" items="${helper.specialties}">
-                                            <span class="specialty-tag">${specialty}</span>
-                                        </c:forEach>
-                                    </div>
-                                </div>
-                                <div class="helper-footer">
-                                    <div>
-                                        <div class="helper-price">${helper.price}đ/giờ</div>
-                                        <div class="price-note">Tối thiểu ${helper.minHours} giờ</div>
-                                    </div>
-                                    <div>
-                                        <a href="/helper/${helper.id}" class="btn-book">Xem chi tiết</a>
-                                        <a href="/hire/${helper.id}" class="btn-hire">Thuê ngay</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
+                    <!-- Thẻ nhân viên 1 -->
                     <div class="helper-card" data-time="morning">
                         <div class="helper-image-container">
                             <img src="/api/placeholder/320/200" alt="Nguyễn Văn A" class="helper-image">
@@ -880,16 +716,18 @@
                             </div>
                             <div class="helper-footer">
                                 <div>
-                                    <div class="helper-price">140k/giờ</div>
+                                    <div class="helper-price">140,000đ/giờ</div>
                                     <div class="price-note">Tối thiểu 2 giờ</div>
                                 </div>
                                 <div>
-                                    <a href="${pageContext.request.contextPath}/view/jsp/housekeeper/gv_a.jsp" class="btn-book">Xem chi tiết</a>
-                                    <a href="/hire/5" class="btn-hire">Thuê ngay</a>
+                                    <a href="/helper/1" class="btn-book">Xem chi tiết</a>
+                                    <a href="/hire/1" class="btn-hire">Thuê ngay</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Thẻ nhân viên 2 -->
                     <div class="helper-card" data-time="afternoon">
                         <div class="helper-image-container">
                             <img src="/api/placeholder/320/200" alt="Trần Thị B" class="helper-image">
@@ -918,16 +756,18 @@
                             </div>
                             <div class="helper-footer">
                                 <div>
-                                    <div class="helper-price">150k/giờ</div>
+                                    <div class="helper-price">150,000đ/giờ</div>
                                     <div class="price-note">Tối thiểu 3 giờ</div>
                                 </div>
                                 <div>
-                                    <a href="/helper/6" class="btn-book">Xem chi tiết</a>
-                                    <a href="/hire/6" class="btn-hire">Thuê ngay</a>
+                                    <a href="/helper/2" class="btn-book">Xem chi tiết</a>
+                                    <a href="/hire/2" class="btn-hire">Thuê ngay</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Thẻ nhân viên 3 -->
                     <div class="helper-card" data-time="evening">
                         <div class="helper-image-container">
                             <img src="/api/placeholder/320/200" alt="Lê Văn C" class="helper-image">
@@ -954,16 +794,18 @@
                             </div>
                             <div class="helper-footer">
                                 <div>
-                                    <div class="helper-price">130k/giờ</div>
+                                    <div class="helper-price">130,000đ/giờ</div>
                                     <div class="price-note">Tối thiểu 2 giờ</div>
                                 </div>
                                 <div>
-                                    <a href="/helper/7" class="btn-book">Xem chi tiết</a>
-                                    <a href="/hire/7" class="btn-hire">Thuê ngay</a>
+                                    <a href="/helper/3" class="btn-book">Xem chi tiết</a>
+                                    <a href="/hire/3" class="btn-hire">Thuê ngay</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Thẻ nhân viên 4 -->
                     <div class="helper-card" data-time="fullday">
                         <div class="helper-image-container">
                             <img src="/api/placeholder/320/200" alt="Phạm Thị D" class="helper-image">
@@ -992,12 +834,12 @@
                             </div>
                             <div class="helper-footer">
                                 <div>
-                                    <div class="helper-price">160k/giờ</div>
+                                    <div class="helper-price">160,000đ/giờ</div>
                                     <div class="price-note">Tối thiểu 4 giờ</div>
                                 </div>
                                 <div>
-                                    <a href="/helper/8" class="btn-book">Xem chi tiết</a>
-                                    <a href="/hire/8" class="btn-hire">Thuê ngay</a>
+                                    <a href="/helper/4" class="btn-book">Xem chi tiết</a>
+                                    <a href="/hire/4" class="btn-hire">Thuê ngay</a>
                                 </div>
                             </div>
                         </div>
@@ -1019,33 +861,18 @@
             const helperCards = document.querySelectorAll('.helper-card');
             const helperList = document.getElementById('helperList');
 
-            // Search and Filter
             searchForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 filterHelpers();
             });
 
-            // Real-time search
-            const searchInput = document.getElementById('search');
-            searchInput.addEventListener('input', debounce(filterHelpers, 300));
-
-            // Service checkboxes filter
-            serviceCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', filterHelpers);
-            });
-
-            // Sort functionality
-            sortSelect.addEventListener('change', function() {
-                sortHelpers(this.value);
-            });
-
-            // Price range filter
-            [minPriceInput, maxPriceInput].forEach(input => {
-                input.addEventListener('input', debounce(filterHelpers, 300));
-            });
+            document.getElementById('search').addEventListener('input', debounce(filterHelpers, 300));
+            serviceCheckboxes.forEach(checkbox => checkbox.addEventListener('change', filterHelpers));
+            sortSelect.addEventListener('change', function() { sortHelpers(this.value); });
+            [minPriceInput, maxPriceInput].forEach(input => input.addEventListener('input', debounce(filterHelpers, 300)));
 
             function filterHelpers() {
-                const searchTerm = searchInput.value.toLowerCase();
+                const searchTerm = document.getElementById('search').value.toLowerCase();
                 const district = document.getElementById('district').value;
                 const time = document.getElementById('time').value;
                 const minPrice = parseInt(minPriceInput.value) || 0;
@@ -1069,13 +896,7 @@
                         selectedServices.some(service => 
                             service === 'giúp việc theo giờ' || specialties.includes(service));
 
-                    if (matchesSearch && matchesDistrict && matchesTime && matchesPrice && matchesService) {
-                        card.style.display = 'block';
-                        card.style.opacity = '0';
-                        setTimeout(() => card.style.opacity = '1', 50);
-                    } else {
-                        card.style.display = 'none';
-                    }
+                    card.style.display = matchesSearch && matchesDistrict && matchesTime && matchesPrice && matchesService ? 'block' : 'none';
                 });
 
                 updateResultsCount();
@@ -1092,7 +913,7 @@
                         case 'price-high':
                             return parseInt(b.querySelector('.helper-price').textContent.replace(/[^0-9]/g, '')) - parseInt(a.querySelector('.helper-price').textContent.replace(/[^0-9]/g, ''));
                         case 'distance':
-                            return 0; // Placeholder for geolocation
+                            return 0;
                         default:
                             return 0;
                     }

@@ -12,26 +12,28 @@
         </a>
         
         <div class="nav-links" id="navLinks">
+            <!-- Dịch vụ Dropdown -->
             <div class="dropdown" id="servicesDropdown">
                 <button type="button" class="dropbtn">
                     Dịch vụ <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="dropdown-content">
                     <a href="${pageContext.request.contextPath}/view/jsp/home/hourly-service.jsp">
-                        <i class="fas fa-clock" style="margin-right: 8px; color: var(--primary-color);"></i>
                         Giúp việc theo giờ
                     </a>
-                    
+                    <a href="${pageContext.request.contextPath}/view/jsp/home/daily-service.jsp">
+                        Giúp việc theo ngày
+                    </a>
+                    <a href="${pageContext.request.contextPath}/view/jsp/home/month-service.jsp">
+                        Giúp việc theo tháng
+                    </a>
                     <a href="${pageContext.request.contextPath}/view/jsp/home/sofa-tham-dem-rem.jsp">
-                        <i class="fas fa-couch" style="margin-right: 8px; color: var(--primary-color);"></i>
                         Vệ sinh sofa, thảm, đệm, rèm
                     </a>
                     <a href="${pageContext.request.contextPath}/view/jsp/home/may-giat.jsp">
-                        <i class="fas fa-tshirt" style="margin-right: 8px; color: var(--primary-color);"></i>
                         Vệ sinh máy giặt
                     </a>
                     <a href="${pageContext.request.contextPath}/view/jsp/home/special-service.jsp">
-                        <i class="fas fa-star" style="margin-right: 8px; color: var(--primary-color);"></i>
                         Dịch vụ đặc biệt
                     </a>
                 </div>
@@ -54,11 +56,13 @@
             
             <% User user = (User) session.getAttribute("user"); %>
             <% if (user != null) { %>
+                <!-- Hiển thị mục "Thuê" chỉ khi người dùng đã đăng nhập -->
                 <a href="${pageContext.request.contextPath}/view/jsp/customer/hire.jsp">
                     <i class="fas fa-handshake" style="margin-right: 5px;"></i>
                     Thuê
                 </a>
                 
+                <!-- Hồ sơ Dropdown -->
                 <div class="profile-image-container">
                     <div class="profile-image">
                         <img src="${user.profilePicture != null ? user.profilePicture : pageContext.request.contextPath + '/images/profile-placeholder.jpg'}" alt="Profile">
@@ -72,6 +76,7 @@
                     </div>
                 </div>
             <% } else { %>
+                <!-- Hiển thị Đăng nhập/Đăng ký khi chưa đăng nhập -->
                 <a href="${pageContext.request.contextPath}/view/jsp/home/login.jsp">
                     <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>
                     Đăng nhập
@@ -84,6 +89,7 @@
             <% } %>
         </div>
         
+        <!-- Hamburger Menu -->
         <div class="hamburger" id="hamburger">
             <div class="line1"></div>
             <div class="line2"></div>
@@ -106,10 +112,12 @@
     });
 
     // Toggle profile dropdown
-    profileImage.addEventListener('click', (e) => {
-        e.stopPropagation();
-        profileDropdown.classList.toggle('active');
-    });
+    if (profileImage) {
+        profileImage.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('active');
+        });
+    }
 
     // Toggle services dropdown
     servicesDropdown.addEventListener('click', (e) => {
@@ -119,7 +127,7 @@
 
     // Close dropdowns when clicking outside
     document.addEventListener('click', (e) => {
-        if (!profileImage.contains(e.target) && !profileDropdown.contains(e.target)) {
+        if (profileImage && !profileImage.contains(e.target) && !profileDropdown.contains(e.target)) {
             profileDropdown.classList.remove('active');
         }
         if (!servicesDropdown.contains(e.target)) {

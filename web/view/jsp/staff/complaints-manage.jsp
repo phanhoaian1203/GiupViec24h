@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Nhân Viên Hỗ Trợ - Giúp Việc 24H</title>
+    <title>Giải Quyết Khiếu Nại - Giúp Việc 24H</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -170,14 +170,14 @@
         }
 
         .stat-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.12);
         }
 
         .stat-card .icon {
             width: 60px;
             height: 60px;
-            border-radius: 16px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -185,19 +185,19 @@
             margin-bottom: 1rem;
         }
 
-        .stat-card.total-staff .icon {
-            background: rgba(234, 88, 12, 0.1);
-            color: #ea580c;
+        .stat-card.open-complaints .icon {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
         }
 
-        .stat-card.active-staff .icon {
+        .stat-card.resolved-complaints .icon {
             background: rgba(16, 185, 129, 0.1);
             color: #10b981;
         }
 
-        .stat-card.inactive-staff .icon {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
+        .stat-card.total-complaints .icon {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
         }
 
         .stat-card h3 {
@@ -232,7 +232,7 @@
             margin-right: 0.25rem;
         }
 
-        .staff-table {
+        .complaints-table {
             background: white;
             border-radius: 16px;
             padding: 2rem;
@@ -241,35 +241,35 @@
             margin-bottom: 2rem;
         }
 
-        .staff-table h3 {
+        .complaints-table h3 {
             font-size: 1.25rem;
             font-weight: 700;
             color: #1a202c;
             margin-bottom: 1rem;
         }
 
-        .staff-table table {
+        .complaints-table table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .staff-table th, .staff-table td {
+        .complaints-table th, .complaints-table td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #f1f5f9;
         }
 
-        .staff-table th {
+        .complaints-table th {
             background: #f8fafc;
             font-weight: 600;
             color: #374151;
         }
 
-        .staff-table td {
+        .complaints-table td {
             color: #64748b;
         }
 
-        .staff-table .status {
+        .complaints-table .status {
             display: inline-block;
             padding: 0.25rem 0.75rem;
             border-radius: 12px;
@@ -277,14 +277,14 @@
             font-weight: 500;
         }
 
-        .staff-table .status.active {
-            background: rgba(16, 185, 129, 0.1);
-            color: #10b981;
+        .complaints-table .status.open {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
         }
 
-        .staff-table .status.inactive {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
+        .complaints-table .status.resolved {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
         }
 
         .action-btn {
@@ -295,6 +295,7 @@
             font-size: 0.875rem;
             padding: 0.25rem 0.75rem;
             border-radius: 8px;
+            margin-right: 0.5rem;
             transition: all 0.3s ease;
         }
 
@@ -302,47 +303,93 @@
             background: rgba(26, 179, 148, 0.1);
         }
 
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
         }
 
-        .action-btn-grid {
+        .modal-content {
             background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: #64748b;
+            padding: 2rem;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
-        .action-btn-grid:hover {
-            border-color: #1AB394;
-            background: rgba(26, 179, 148, 0.05);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(26, 179, 148, 0.2);
+        .modal-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1rem;
         }
 
-        .action-btn-grid i {
-            font-size: 2rem;
-            color: #1AB394;
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
             margin-bottom: 0.5rem;
         }
 
-        .action-btn-grid h4 {
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
         }
 
-        .action-btn-grid p {
-            font-size: 0.75rem;
-            color: #94a3b8;
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group p {
+            color: #64748b;
+            font-size: 1rem;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #1AB394, #16a085);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 179, 148, 0.3);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #ef4444;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .close-modal:hover {
+            color: #dc2626;
         }
 
         @media (max-width: 1024px) {
@@ -356,25 +403,30 @@
             .content {
                 padding: 1rem;
             }
-            .staff-table th, .staff-table td {
+            .complaints-table th, .complaints-table td {
                 padding: 0.75rem;
                 font-size: 0.875rem;
             }
             .page-title h1 {
                 font-size: 1.5rem;
             }
+            .modal-content {
+                width: 95%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <%@ include file="/view/common/admin/admin-sidebar.jsp" %>
+        <jsp:include page="/view/common/staff/staff-sidebar.jsp">
+            <jsp:param name="activePage" value="complaints"/>
+        </jsp:include>
         <div class="main-content">
             <div class="header">
                 <div class="breadcrumb">
                     <span>Trang Chủ</span>
                     <i class="fas fa-chevron-right"></i>
-                    <span>Quản Lý Nhân Viên</span>
+                    <span>Giải Quyết Khiếu Nại</span>
                 </div>
                 <div class="user-section">
                     <div class="notification-badge">
@@ -386,10 +438,10 @@
                         <span class="badge">12</span>
                     </div>
                     <div class="user-profile">
-                        <div class="user-avatar">A</div>
+                        <div class="user-avatar">S</div>
                         <div>
-                            <div style="font-weight: 600; font-size: 0.875rem; color: #1a202c;">Admin</div>
-                            <div style="font-size: 0.75rem; color: #64748b;">Quản trị viên</div>
+                            <div style="font-weight: 600; font-size: 0.875rem; color: #1a202c;">Staff</div>
+                            <div style="font-size: 0.75rem; color: #64748b;">Nhân viên hỗ trợ</div>
                         </div>
                         <i class="fas fa-chevron-down" style="color: #64748b; font-size: 0.75rem;"></i>
                     </div>
@@ -398,128 +450,148 @@
 
             <div class="content">
                 <div class="page-title">
-                    <h1>Quản Lý Nhân Viên Hỗ Trợ</h1>
-                    <p>Quản lý thông tin và trạng thái của nhân viên hỗ trợ tại Đà Nẵng</p>
+                    <h1>Giải Quyết Khiếu Nại</h1>
+                    <p>Quản lý và xử lý khiếu nại từ người giúp việc và khách hàng tại Đà Nẵng</p>
                 </div>
 
                 <div class="stats-grid">
-                    <div class="stat-card total-staff">
+                    <div class="stat-card open-complaints">
                         <div class="icon">
-                            <i class="fas fa-users-cog"></i>
+                            <i class="fas fa-exclamation-triangle"></i>
                         </div>
-                        <h3>25</h3>
-                        <p>Tổng Số Nhân Viên</p>
+                        <h3>15</h3>
+                        <p>Khiếu Nại Đang Mở</p>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
-                            +2 người mới
+                            +3 khiếu nại
                         </div>
                     </div>
 
-                    <div class="stat-card active-staff">
+                    <div class="stat-card resolved-complaints">
                         <div class="icon">
-                            <i class="fas fa-user-check"></i>
+                            <i class="fas fa-check-circle"></i>
                         </div>
-                        <h3>22</h3>
-                        <p>Đang Hoạt Động</p>
+                        <h3>40</h3>
+                        <p>Khiếu Nại Đã Giải Quyết</p>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
-                            +1% so với tuần trước
+                            +5 khiếu nại
                         </div>
                     </div>
 
-                    <div class="stat-card inactive-staff">
+                    <div class="stat-card total-complaints">
                         <div class="icon">
-                            <i class="fas fa-user-times"></i>
+                            <i class="fas fa-file-alt"></i>
                         </div>
-                        <h3>3</h3>
-                        <p>Ngưng Hoạt Động</p>
-                        <div class="trend down">
-                            <i class="fas fa-arrow-down"></i>
-                            -1 người
+                        <h3>55</h3>
+                        <p>Tổng Số Khiếu Nại</p>
+                        <div class="trend up">
+                            <i class="fas fa-arrow-up"></i>
+                            +8 khiếu nại
                         </div>
                     </div>
                 </div>
 
-                <div class="staff-table">
-                    <h3>Danh Sách Nhân Viên Hỗ Trợ</h3>
+                <div class="complaints-table">
+                    <h3>Danh Sách Khiếu Nại</h3>
                     <table>
                         <thead>
                             <tr>
-                                <th>Họ và Tên</th>
-                                <th>Chức Vụ</th>
-                                <th>Số Điện Thoại</th>
+                                <th>Mã Khiếu Nại</th>
+                                <th>Người Khiếu Nại</th>
+                                <th>Ngày Gửi</th>
                                 <th>Trạng Thái</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Nguyễn Văn D</td>
-                                <td>Nhân viên hỗ trợ 1</td>
-                                <td>0905 987 654</td>
-                                <td><span class="status active">Hoạt động</span></td>
+                                <td>CMP20250608-001</td>
+                                <td>Trần Văn A (Người Giúp Việc)</td>
+                                <td>08/06/2025</td>
+                                <td><span class="status open">Đang Mở</span></td>
                                 <td>
-                                    <button class="action-btn" onclick="editStaff('Nguyễn Văn D')"><i class="fas fa-edit"></i> Sửa</button>
-                                    <button class="action-btn" onclick="removeStaff('Nguyễn Văn D')"><i class="fas fa-trash"></i> Xóa</button>
+                                    <button class="action-btn" onclick="viewComplaint('CMP20250608-001')"><i class="fas fa-eye"></i> Xem</button>
+                                    <button class="action-btn" onclick="updateComplaint('CMP20250608-001')"><i class="fas fa-edit"></i> Cập Nhật</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Trần Thị E</td>
-                                <td>Nhân viên hỗ trợ 2</td>
-                                <td>0912 456 789</td>
-                                <td><span class="status active">Hoạt động</span></td>
+                                <td>CMP20250607-002</td>
+                                <td>Nguyễn Thị B (Khách Hàng)</td>
+                                <td>07/06/2025</td>
+                                <td><span class="status open">Đang Mở</span></td>
                                 <td>
-                                    <button class="action-btn" onclick="editStaff('Trần Thị E')"><i class="fas fa-edit"></i> Sửa</button>
-                                    <button class="action-btn" onclick="removeStaff('Trần Thị E')"><i class="fas fa-trash"></i> Xóa</button>
+                                    <button class="action-btn" onclick="viewComplaint('CMP20250607-002')"><i class="fas fa-eye"></i> Xem</button>
+                                    <button class="action-btn" onclick="updateComplaint('CMP20250607-002')"><i class="fas fa-edit"></i> Cập Nhật</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Lê Văn F</td>
-                                <td>Nhân viên hỗ trợ 3</td>
-                                <td>0938 123 456</td>
-                                <td><span class="status inactive">Ngưng hoạt động</span></td>
+                                <td>CMP20250605-003</td>
+                                <td>Lê Văn C (Người Giúp Việc)</td>
+                                <td>05/06/2025</td>
+                                <td><span class="status resolved">Đã Giải Quyết</span></td>
                                 <td>
-                                    <button class="action-btn" onclick="editStaff('Lê Văn F')"><i class="fas fa-edit"></i> Sửa</button>
-                                    <button class="action-btn" onclick="removeStaff('Lê Văn F')"><i class="fas fa-trash"></i> Xóa</button>
+                                    <button class="action-btn" onclick="viewComplaint('CMP20250605-003')"><i class="fas fa-eye"></i> Xem</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-
-                <div class="quick-actions">
-                    <a href="#" class="action-btn-grid">
-                        <i class="fas fa-plus"></i>
-                        <h4>Thêm Nhân Viên</h4>
-                        <p>Đăng ký nhân viên mới</p>
-                    </a>
-                    <a href="#" class="action-btn-grid">
-                        <i class="fas fa-sync"></i>
-                        <h4>Cập Nhật Trạng Thái</h4>
-                        <p>Cập nhật trạng thái hoạt động</p>
-                    </a>
-                    <a href="#" class="action-btn-grid">
-                        <i class="fas fa-search"></i>
-                        <h4>Tìm Kiếm Nhân Viên</h4>
-                        <p>Tìm theo tên hoặc chức vụ</p>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
 
+    <!-- Modal xem khiếu nại -->
+    <div id="viewModal" class="modal">
+        <div class="modal-content">
+            <h3>Chi Tiết Khiếu Nại - <span id="viewComplaintId"></span></h3>
+            <div class="form-group">
+                <label>Người Khiếu Nại:</label>
+                <p id="viewComplainant"></p>
+            </div>
+            <div class="form-group">
+                <label>Ngày Gửi:</label>
+                <p id="viewDate"></p>
+            </div>
+            <div class="form-group">
+                <label>Nội Dung Khiếu Nại:</label>
+                <p id="viewContent"></p>
+            </div>
+            <div class="form-group">
+                <label>Trạng Thái:</label>
+                <p id="viewStatus"></p>
+            </div>
+            <div class="form-group">
+                <label>Ghi Chú Giải Quyết:</label>
+                <p id="viewResolution"></p>
+            </div>
+            <button class="close-modal" onclick="closeModal()">Đóng</button>
+        </div>
+    </div>
+
+    <!-- Modal cập nhật khiếu nại -->
+    <div id="updateModal" class="modal">
+        <div class="modal-content">
+            <h3>Cập Nhật Khiếu Nại - <span id="updateComplaintId"></span></h3>
+            <form>
+                <div class="form-group">
+                    <label for="updateStatus">Trạng Thái:</label>
+                    <select id="updateStatus" required>
+                        <option value="open">Đang Mở</option>
+                        <option value="resolved">Đã Giải Quyết</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="updateResolution">Ghi Chú Giải Quyết:</label>
+                    <textarea id="updateResolution" placeholder="Nhập ghi chú giải quyết"></textarea>
+                </div>
+                <button type="submit" class="btn-submit" onclick="closeModal(); return false;">Cập Nhật</button>
+            </form>
+            <button class="close-modal" onclick="closeModal()">Đóng</button>
+        </div>
+    </div>
+
     <script>
-        // Xử lý hành động trên bảng
-        function editStaff(name) {
-            alert(`Sửa thông tin của ${name}`);
-        }
-
-        function removeStaff(name) {
-            if (confirm(`Bạn có chắc muốn xóa ${name}?`)) {
-                alert(`Đã xóa ${name} thành công!`);
-            }
-        }
-
         // Xử lý navigation sidebar
         document.querySelectorAll('.sidebar ul li').forEach(item => {
             item.addEventListener('click', function() {
@@ -544,7 +616,6 @@
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(20px)';
                     card.style.transition = 'all 0.6s ease';
-                    
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
@@ -574,6 +645,52 @@
         }
 
         setTimeout(animateNumbers, 500);
+
+        // Xử lý modal
+        function closeModal() {
+            document.getElementById('viewModal').style.display = 'none';
+            document.getElementById('updateModal').style.display = 'none';
+        }
+
+        function viewComplaint(complaintId) {
+            const modal = document.getElementById('viewModal');
+            document.getElementById('viewComplaintId').textContent = complaintId;
+            // Dữ liệu mẫu tĩnh
+            document.getElementById('viewComplainant').textContent = complaintId === 'CMP20250608-001' ? 'Trần Văn A (Người Giúp Việc)' : 
+                                                                    complaintId === 'CMP20250607-002' ? 'Nguyễn Thị B (Khách Hàng)' : 
+                                                                    'Lê Văn C (Người Giúp Việc)';
+            document.getElementById('viewDate').textContent = complaintId === 'CMP20250608-001' ? '08/06/2025' : 
+                                                              complaintId === 'CMP20250607-002' ? '07/06/2025' : 
+                                                              '05/06/2025';
+            document.getElementById('viewContent').textContent = 'Nội dung khiếu nại mẫu cho ' + complaintId;
+            document.getElementById('viewStatus').textContent = complaintId === 'CMP20250605-003' ? 'Đã Giải Quyết' : 'Đang Mở';
+            document.getElementById('viewResolution').textContent = complaintId === 'CMP20250605-003' ? 'Đã xử lý hoàn tất' : 'Chưa có ghi chú';
+            modal.style.display = 'flex';
+        }
+
+        function updateComplaint(complaintId) {
+            const modal = document.getElementById('updateModal');
+            document.getElementById('updateComplaintId').textContent = complaintId;
+            document.getElementById('updateStatus').value = complaintId === 'CMP20250605-003' ? 'resolved' : 'open';
+            document.getElementById('updateResolution').value = '';
+            modal.style.display = 'flex';
+        }
+
+        // Xử lý form submit (chỉ đóng modal, không xử lý backend)
+        document.querySelector('#updateModal form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            closeModal();
+        });
+
+        // Đóng modal khi click ngoài
+        window.onclick = function(event) {
+            const modals = [document.getElementById('viewModal'), document.getElementById('updateModal')];
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        };
     </script>
 </body>
 </html>

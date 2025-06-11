@@ -47,11 +47,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
             case "customer":
                 response.sendRedirect(contextPath + "/view/jsp/customer/customerDashboard.jsp");
                 break;
-            case "helper":
-                response.sendRedirect(contextPath + "/view/jsp/helper/helperDashboard.jsp");
+            case "housekeeper":
+                response.sendRedirect(contextPath + "/view/jsp/housekeeper/housekeeperDashboard.jsp");
                 break;
-            case "support":
-                response.sendRedirect(contextPath + "/view/jsp/support/supportDashboard.jsp");
+            case "staff":
+                response.sendRedirect(contextPath + "/view/jsp/staff/staffDashboard.jsp");
                 break;
             default:
                 request.setAttribute("errorMessage", "Vai trò không được công nhận.");

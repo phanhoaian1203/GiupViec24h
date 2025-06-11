@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Nhân Viên Hỗ Trợ - Giúp Việc 24H</title>
+    <title>Báo Cáo Hệ Thống - Giúp Việc 24H</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -185,19 +186,19 @@
             margin-bottom: 1rem;
         }
 
-        .stat-card.total-staff .icon {
-            background: rgba(234, 88, 12, 0.1);
-            color: #ea580c;
+        .stat-card.total-services .icon {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
         }
 
-        .stat-card.active-staff .icon {
+        .stat-card.active-customers .icon {
             background: rgba(16, 185, 129, 0.1);
             color: #10b981;
         }
 
-        .stat-card.inactive-staff .icon {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
+        .stat-card.worker-performance .icon {
+            background: rgba(234, 88, 12, 0.1);
+            color: #ea580c;
         }
 
         .stat-card h3 {
@@ -232,7 +233,7 @@
             margin-right: 0.25rem;
         }
 
-        .staff-table {
+        .chart-container {
             background: white;
             border-radius: 16px;
             padding: 2rem;
@@ -241,50 +242,48 @@
             margin-bottom: 2rem;
         }
 
-        .staff-table h3 {
+        .chart-container h3 {
             font-size: 1.25rem;
             font-weight: 700;
             color: #1a202c;
             margin-bottom: 1rem;
         }
 
-        .staff-table table {
+        .report-table {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            margin-bottom: 2rem;
+        }
+
+        .report-table h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1rem;
+        }
+
+        .report-table table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .staff-table th, .staff-table td {
+        .report-table th, .report-table td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #f1f5f9;
         }
 
-        .staff-table th {
+        .report-table th {
             background: #f8fafc;
             font-weight: 600;
             color: #374151;
         }
 
-        .staff-table td {
+        .report-table td {
             color: #64748b;
-        }
-
-        .staff-table .status {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .staff-table .status.active {
-            background: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-        }
-
-        .staff-table .status.inactive {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
         }
 
         .action-btn {
@@ -302,47 +301,19 @@
             background: rgba(26, 179, 148, 0.1);
         }
 
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        .filter-section {
+            display: flex;
             gap: 1rem;
-            margin-top: 2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .action-btn-grid {
+        .filter-section select, .filter-section input {
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
             background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
             color: #64748b;
-        }
-
-        .action-btn-grid:hover {
-            border-color: #1AB394;
-            background: rgba(26, 179, 148, 0.05);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(26, 179, 148, 0.2);
-        }
-
-        .action-btn-grid i {
-            font-size: 2rem;
-            color: #1AB394;
-            margin-bottom: 0.5rem;
-        }
-
-        .action-btn-grid h4 {
             font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .action-btn-grid p {
-            font-size: 0.75rem;
-            color: #94a3b8;
         }
 
         @media (max-width: 1024px) {
@@ -356,7 +327,7 @@
             .content {
                 padding: 1rem;
             }
-            .staff-table th, .staff-table td {
+            .report-table th, .report-table td {
                 padding: 0.75rem;
                 font-size: 0.875rem;
             }
@@ -374,7 +345,7 @@
                 <div class="breadcrumb">
                     <span>Trang Chủ</span>
                     <i class="fas fa-chevron-right"></i>
-                    <span>Quản Lý Nhân Viên</span>
+                    <span>Báo Cáo Hệ Thống</span>
                 </div>
                 <div class="user-section">
                     <div class="notification-badge">
@@ -398,153 +369,231 @@
 
             <div class="content">
                 <div class="page-title">
-                    <h1>Quản Lý Nhân Viên Hỗ Trợ</h1>
-                    <p>Quản lý thông tin và trạng thái của nhân viên hỗ trợ tại Đà Nẵng</p>
+                    <h1>Báo Cáo Hệ Thống</h1>
+                    <p>Tổng hợp và phân tích dữ liệu hoạt động của hệ thống tại Đà Nẵng</p>
                 </div>
 
                 <div class="stats-grid">
-                    <div class="stat-card total-staff">
+                    <div class="stat-card total-services">
                         <div class="icon">
-                            <i class="fas fa-users-cog"></i>
+                            <i class="fas fa-briefcase"></i>
                         </div>
-                        <h3>25</h3>
-                        <p>Tổng Số Nhân Viên</p>
+                        <h3>320</h3>
+                        <p>Tổng Số Dịch Vụ</p>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
-                            +2 người mới
+                            +12% so với tháng trước
                         </div>
                     </div>
 
-                    <div class="stat-card active-staff">
+                    <div class="stat-card active-customers">
                         <div class="icon">
-                            <i class="fas fa-user-check"></i>
+                            <i class="fas fa-users"></i>
                         </div>
-                        <h3>22</h3>
-                        <p>Đang Hoạt Động</p>
+                        <h3>180</h3>
+                        <p>Khách Hàng Hoạt Động</p>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
-                            +1% so với tuần trước
+                            +8% so với tháng trước
                         </div>
                     </div>
 
-                    <div class="stat-card inactive-staff">
+                    <div class="stat-card worker-performance">
                         <div class="icon">
-                            <i class="fas fa-user-times"></i>
+                            <i class="fas fa-star"></i>
                         </div>
-                        <h3>3</h3>
-                        <p>Ngưng Hoạt Động</p>
+                        <h3>4.5</h3>
+                        <p>Đánh Giá Trung Bình</p>
                         <div class="trend down">
                             <i class="fas fa-arrow-down"></i>
-                            -1 người
+                            -0.2 so với tháng trước
                         </div>
                     </div>
                 </div>
 
-                <div class="staff-table">
-                    <h3>Danh Sách Nhân Viên Hỗ Trợ</h3>
+                <div class="chart-container">
+                    <h3>Dịch Vụ Theo Tháng</h3>
+                    <div class="filter-section">
+                        <select id="yearFilter">
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                        </select>
+                        <select id="reportType">
+                            <option value="services">Số Lượng Dịch Vụ</option>
+                            <option value="customers">Khách Hàng Mới</option>
+                            <option value="ratings">Đánh Giá</option>
+                        </select>
+                    </div>
+                    <canvas id="reportChart"></canvas>
+                </div>
+
+                <div class="report-table">
+                    <h3>Chi Tiết Báo Cáo</h3>
+                    <div class="filter-section">
+                        <select id="statusFilter">
+                            <option value="all">Tất cả dịch vụ</option>
+                            <option value="completed">Hoàn thành</option>
+                            <option value="pending">Đang thực hiện</option>
+                            <option value="cancelled">Đã hủy</option>
+                        </select>
+                        <input type="month" id="monthFilter" value="2025-06">
+                    </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Họ và Tên</th>
-                                <th>Chức Vụ</th>
-                                <th>Số Điện Thoại</th>
+                                <th>Mã Dịch Vụ</th>
+                                <th>Khách Hàng</th>
+                                <th>Người Giúp Việc</th>
+                                <th>Ngày Thực Hiện</th>
+                                <th>Đánh Giá</th>
                                 <th>Trạng Thái</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Nguyễn Văn D</td>
-                                <td>Nhân viên hỗ trợ 1</td>
-                                <td>0905 987 654</td>
-                                <td><span class="status active">Hoạt động</span></td>
+                                <td>DV001</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>Trần Thị B</td>
+                                <td>01/06/2025</td>
+                                <td>4.8</td>
+                                <td><span class="status completed">Hoàn thành</span></td>
                                 <td>
-                                    <button class="action-btn" onclick="editStaff('Nguyễn Văn D')"><i class="fas fa-edit"></i> Sửa</button>
-                                    <button class="action-btn" onclick="removeStaff('Nguyễn Văn D')"><i class="fas fa-trash"></i> Xóa</button>
+                                    <button class="action-btn" onclick="viewReport('DV001')"><i class="fas fa-eye"></i> Xem</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Trần Thị E</td>
-                                <td>Nhân viên hỗ trợ 2</td>
-                                <td>0912 456 789</td>
-                                <td><span class="status active">Hoạt động</span></td>
+                                <td>DV002</td>
+                                <td>Lê Thị C</td>
+                                <td>Phạm Văn D</td>
+                                <td>02/06/2025</td>
+                                <td>-</td>
+                                <td><span class="status pending">Đang thực hiện</span></td>
                                 <td>
-                                    <button class="action-btn" onclick="editStaff('Trần Thị E')"><i class="fas fa-edit"></i> Sửa</button>
-                                    <button class="action-btn" onclick="removeStaff('Trần Thị E')"><i class="fas fa-trash"></i> Xóa</button>
+                                    <button class="action-btn" onclick="viewReport('DV002')"><i class="fas fa-eye"></i> Xem</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Lê Văn F</td>
-                                <td>Nhân viên hỗ trợ 3</td>
-                                <td>0938 123 456</td>
-                                <td><span class="status inactive">Ngưng hoạt động</span></td>
+                                <td>DV003</td>
+                                <td>Trần Văn E</td>
+                                <td>Nguyễn Thị F</td>
+                                <td>03/06/2025</td>
+                                <td>-</td>
+                                <td><span class="status cancelled">Đã hủy</span></td>
                                 <td>
-                                    <button class="action-btn" onclick="editStaff('Lê Văn F')"><i class="fas fa-edit"></i> Sửa</button>
-                                    <button class="action-btn" onclick="removeStaff('Lê Văn F')"><i class="fas fa-trash"></i> Xóa</button>
+                                    <button class="action-btn" onclick="viewReport('DV003')"><i class="fas fa-eye"></i> Xem</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-                <div class="quick-actions">
-                    <a href="#" class="action-btn-grid">
-                        <i class="fas fa-plus"></i>
-                        <h4>Thêm Nhân Viên</h4>
-                        <p>Đăng ký nhân viên mới</p>
-                    </a>
-                    <a href="#" class="action-btn-grid">
-                        <i class="fas fa-sync"></i>
-                        <h4>Cập Nhật Trạng Thái</h4>
-                        <p>Cập nhật trạng thái hoạt động</p>
-                    </a>
-                    <a href="#" class="action-btn-grid">
-                        <i class="fas fa-search"></i>
-                        <h4>Tìm Kiếm Nhân Viên</h4>
-                        <p>Tìm theo tên hoặc chức vụ</p>
-                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Xử lý hành động trên bảng
-        function editStaff(name) {
-            alert(`Sửa thông tin của ${name}`);
-        }
-
-        function removeStaff(name) {
-            if (confirm(`Bạn có chắc muốn xóa ${name}?`)) {
-                alert(`Đã xóa ${name} thành công!`);
-            }
-        }
-
-        // Xử lý navigation sidebar
-        document.querySelectorAll('.sidebar ul li').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.sidebar ul li.active').forEach(li => {
-                    li.classList.remove('active');
-                });
-                this.classList.add('active');
-            });
-        });
-
-        // Responsive sidebar toggle (cho mobile)
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('open');
-        }
-
-        // Thêm animation cho stat cards khi load
+        // Chart.js configuration
         document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('reportChart').getContext('2d');
+            const reportChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Th1', 'Th2', 'Th3', 'Th4', 'Th5', 'Th6', 'Th7', 'Th8', 'Th9', 'Th10', 'Th11', 'Th12'],
+                    datasets: [{
+                        label: 'Số Lượng Dịch Vụ',
+                        data: [25, 30, 28, 35, 40, 45, 50, 48, 55, 60, 65, 70],
+                        backgroundColor: 'rgba(26, 179, 148, 0.5)',
+                        borderColor: '#1AB394',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + ' dịch vụ';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Số Lượng'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Filter handling
+            document.getElementById('yearFilter').addEventListener('change', function() {
+                console.log('Filter by year: ' + this.value);
+                // Update chart data based on year
+            });
+
+            document.getElementById('reportType').addEventListener('change', function() {
+                console.log('Report type: ' + this.value);
+                // Update chart data based on report type
+                const newLabel = this.value === 'services' ? 'Số Lượng Dịch Vụ' : 
+                                this.value === 'customers' ? 'Khách Hàng Mới' : 'Điểm Đánh Giá';
+                reportChart.data.datasets[0].label = newLabel;
+                reportChart.update();
+            });
+
+            document.getElementById('statusFilter').addEventListener('change', function() {
+                console.log('Filter by status: ' + this.value);
+                // Update table data based on status
+            });
+
+            document.getElementById('monthFilter').addEventListener('change', function() {
+                console.log('Filter by month: ' + this.value);
+                // Update table data based on month
+            });
+
+            // Action handler
+            function viewReport(id) {
+                alert(`Xem chi tiết báo cáo ${id}`);
+                // Implement view report details logic
+            }
+
+            // Animate numbers
+            function animateNumbers() {
+                const numbers = document.querySelectorAll('.stat-card h3');
+                numbers.forEach(num => {
+                    const target = parseFloat(num.textContent.replace(/[^\d.]/g, ''));
+                    if (!isNaN(target)) {
+                        let current = 0;
+                        const increment = target / 50;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            num.textContent = current.toFixed(1).toLocaleString('vi-VN');
+                        }, 30);
+                    }
+                });
+            }
+
+            setTimeout(animateNumbers, 500);
+
+            // Stat cards animation
             const statCards = document.querySelectorAll('.stat-card');
             statCards.forEach((card, index) => {
                 setTimeout(() => {
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(20px)';
                     card.style.transition = 'all 0.6s ease';
-                    
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
@@ -552,28 +601,6 @@
                 }, index * 150);
             });
         });
-
-        // Hiệu ứng số đếm cho statistics
-        function animateNumbers() {
-            const numbers = document.querySelectorAll('.stat-card h3');
-            numbers.forEach(num => {
-                const target = parseInt(num.textContent.replace(/[^\d.]/g, ''));
-                if (!isNaN(target)) {
-                    let current = 0;
-                    const increment = target / 50;
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= target) {
-                            current = target;
-                            clearInterval(timer);
-                        }
-                        num.textContent = Math.floor(current).toLocaleString();
-                    }, 30);
-                }
-            });
-        }
-
-        setTimeout(animateNumbers, 500);
     </script>
 </body>
 </html>

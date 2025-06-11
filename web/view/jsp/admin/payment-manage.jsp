@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Nhân Viên Hỗ Trợ - Giúp Việc 24H</title>
+    <title>Quản Lý Thanh Toán - Giúp Việc 24H</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -185,17 +185,17 @@
             margin-bottom: 1rem;
         }
 
-        .stat-card.total-staff .icon {
-            background: rgba(234, 88, 12, 0.1);
-            color: #ea580c;
-        }
-
-        .stat-card.active-staff .icon {
+        .stat-card.completed-payments .icon {
             background: rgba(16, 185, 129, 0.1);
             color: #10b981;
         }
 
-        .stat-card.inactive-staff .icon {
+        .stat-card.pending-payments .icon {
+            background: rgba(234, 88, 12, 0.1);
+            color: #ea580c;
+        }
+
+        .stat-card.overdue-payments .icon {
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
         }
@@ -232,7 +232,7 @@
             margin-right: 0.25rem;
         }
 
-        .staff-table {
+        .payment-table {
             background: white;
             border-radius: 16px;
             padding: 2rem;
@@ -241,35 +241,35 @@
             margin-bottom: 2rem;
         }
 
-        .staff-table h3 {
+        .payment-table h3 {
             font-size: 1.25rem;
             font-weight: 700;
             color: #1a202c;
             margin-bottom: 1rem;
         }
 
-        .staff-table table {
+        .payment-table table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .staff-table th, .staff-table td {
+        .payment-table th, .payment-table td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #f1f5f9;
         }
 
-        .staff-table th {
+        .payment-table th {
             background: #f8fafc;
             font-weight: 600;
             color: #374151;
         }
 
-        .staff-table td {
+        .payment-table td {
             color: #64748b;
         }
 
-        .staff-table .status {
+        .payment-table .status {
             display: inline-block;
             padding: 0.25rem 0.75rem;
             border-radius: 12px;
@@ -277,12 +277,17 @@
             font-weight: 500;
         }
 
-        .staff-table .status.active {
+        .payment-table .status.completed {
             background: rgba(16, 185, 129, 0.1);
             color: #10b981;
         }
 
-        .staff-table .status.inactive {
+        .payment-table .status.pending {
+            background: rgba(234, 88, 12, 0.1);
+            color: #ea580c;
+        }
+
+        .payment-table .status.overdue {
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
         }
@@ -302,47 +307,19 @@
             background: rgba(26, 179, 148, 0.1);
         }
 
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        .filter-section {
+            display: flex;
             gap: 1rem;
-            margin-top: 2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .action-btn-grid {
+        .filter-section select, .filter-section input {
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
             background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
             color: #64748b;
-        }
-
-        .action-btn-grid:hover {
-            border-color: #1AB394;
-            background: rgba(26, 179, 148, 0.05);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(26, 179, 148, 0.2);
-        }
-
-        .action-btn-grid i {
-            font-size: 2rem;
-            color: #1AB394;
-            margin-bottom: 0.5rem;
-        }
-
-        .action-btn-grid h4 {
             font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .action-btn-grid p {
-            font-size: 0.75rem;
-            color: #94a3b8;
         }
 
         @media (max-width: 1024px) {
@@ -356,7 +333,7 @@
             .content {
                 padding: 1rem;
             }
-            .staff-table th, .staff-table td {
+            .payment-table th, .payment-table td {
                 padding: 0.75rem;
                 font-size: 0.875rem;
             }
@@ -374,7 +351,7 @@
                 <div class="breadcrumb">
                     <span>Trang Chủ</span>
                     <i class="fas fa-chevron-right"></i>
-                    <span>Quản Lý Nhân Viên</span>
+                    <span>Quản Lý Thanh Toán</span>
                 </div>
                 <div class="user-section">
                     <div class="notification-badge">
@@ -398,166 +375,155 @@
 
             <div class="content">
                 <div class="page-title">
-                    <h1>Quản Lý Nhân Viên Hỗ Trợ</h1>
-                    <p>Quản lý thông tin và trạng thái của nhân viên hỗ trợ tại Đà Nẵng</p>
+                    <h1>Quản Lý Thanh Toán</h1>
+                    <p>Quản lý và xử lý các giao dịch thanh toán của khách hàng tại Đà Nẵng</p>
                 </div>
 
                 <div class="stats-grid">
-                    <div class="stat-card total-staff">
+                    <div class="stat-card completed-payments">
                         <div class="icon">
-                            <i class="fas fa-users-cog"></i>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>150</h3>
+                        <p>Thanh Toán Hoàn Tất</p>
+                        <div class="trend up">
+                            <i class="fas fa-arrow-up"></i>
+                            +10% so với tháng trước
+                        </div>
+                    </div>
+
+                    <div class="stat-card pending-payments">
+                        <div class="icon">
+                            <i class="fas fa-hourglass-half"></i>
                         </div>
                         <h3>25</h3>
-                        <p>Tổng Số Nhân Viên</p>
-                        <div class="trend up">
-                            <i class="fas fa-arrow-up"></i>
-                            +2 người mới
-                        </div>
-                    </div>
-
-                    <div class="stat-card active-staff">
-                        <div class="icon">
-                            <i class="fas fa-user-check"></i>
-                        </div>
-                        <h3>22</h3>
-                        <p>Đang Hoạt Động</p>
-                        <div class="trend up">
-                            <i class="fas fa-arrow-up"></i>
-                            +1% so với tuần trước
-                        </div>
-                    </div>
-
-                    <div class="stat-card inactive-staff">
-                        <div class="icon">
-                            <i class="fas fa-user-times"></i>
-                        </div>
-                        <h3>3</h3>
-                        <p>Ngưng Hoạt Động</p>
+                        <p>Thanh Toán Chờ Xử Lý</p>
                         <div class="trend down">
                             <i class="fas fa-arrow-down"></i>
-                            -1 người
+                            -5% so với tháng trước
+                        </div>
+                    </div>
+
+                    <div class="stat-card overdue-payments">
+                        <div class="icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <h3>10</h3>
+                        <p>Thanh Toán Quá Hạn</p>
+                        <div class="trend up">
+                            <i class="fas fa-arrow-up"></i>
+                            +2 giao dịch
                         </div>
                     </div>
                 </div>
 
-                <div class="staff-table">
-                    <h3>Danh Sách Nhân Viên Hỗ Trợ</h3>
+                <div class="payment-table">
+                    <h3>Danh Sách Thanh Toán</h3>
+                    <div class="filter-section">
+                        <select id="statusFilter">
+                            <option value="all">Tất cả trạng thái</option>
+                            <option value="completed">Hoàn tất</option>
+                            <option value="pending">Chờ xử lý</option>
+                            <option value="overdue">Quá hạn</option>
+                        </select>
+                        <input type="month" id="monthFilter" value="2025-06">
+                    </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Họ và Tên</th>
-                                <th>Chức Vụ</th>
-                                <th>Số Điện Thoại</th>
+                                <th>Mã Giao Dịch</th>
+                                <th>Khách Hàng</th>
+                                <th>Số Tiền (VND)</th>
+                                <th>Ngày Thanh Toán</th>
+                                <th>Phương Thức</th>
                                 <th>Trạng Thái</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Nguyễn Văn D</td>
-                                <td>Nhân viên hỗ trợ 1</td>
-                                <td>0905 987 654</td>
-                                <td><span class="status active">Hoạt động</span></td>
+                                <td>TT001</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>5,000,000</td>
+                                <td>01/06/2025</td>
+                                <td>Chuyển khoản</td>
+                                <td><span class="status completed">Hoàn tất</span></td>
                                 <td>
-                                    <button class="action-btn" onclick="editStaff('Nguyễn Văn D')"><i class="fas fa-edit"></i> Sửa</button>
-                                    <button class="action-btn" onclick="removeStaff('Nguyễn Văn D')"><i class="fas fa-trash"></i> Xóa</button>
+                                    <button class="action-btn" onclick="viewPayment('TT001')"><i class="fas fa-eye"></i> Xem</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Trần Thị E</td>
-                                <td>Nhân viên hỗ trợ 2</td>
-                                <td>0912 456 789</td>
-                                <td><span class="status active">Hoạt động</span></td>
+                                <td>TT002</td>
+                                <td>Lê Thị B</td>
+                                <td>4,500,000</td>
+                                <td>02/06/2025</td>
+                                <td>Tiền mặt</td>
+                                <td><span class="status pending">Chờ xử lý</span></td>
                                 <td>
-                                    <button class="action-btn" onclick="editStaff('Trần Thị E')"><i class="fas fa-edit"></i> Sửa</button>
-                                    <button class="action-btn" onclick="removeStaff('Trần Thị E')"><i class="fas fa-trash"></i> Xóa</button>
+                                    <button class="action-btn" onclick="approvePayment('TT002')"><i class="fas fa-check"></i> Duyệt</button>
+                                    <button class="action-btn" onclick="rejectPayment('TT002')"><i class="fas fa-times"></i> Từ chối</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Lê Văn F</td>
-                                <td>Nhân viên hỗ trợ 3</td>
-                                <td>0938 123 456</td>
-                                <td><span class="status inactive">Ngưng hoạt động</span></td>
+                                <td>TT003</td>
+                                <td>Trần Văn C</td>
+                                <td>6,000,000</td>
+                                <td>03/06/2025</td>
+                                <td>Chuyển khoản</td>
+                                <td><span class="status overdue">Quá hạn</span></td>
                                 <td>
-                                    <button class="action-btn" onclick="editStaff('Lê Văn F')"><i class="fas fa-edit"></i> Sửa</button>
-                                    <button class="action-btn" onclick="removeStaff('Lê Văn F')"><i class="fas fa-trash"></i> Xóa</button>
+                                    <button class="action-btn" onclick="remindPayment('TT003')"><i class="fas fa-bell"></i> Nhắc nhở</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-                <div class="quick-actions">
-                    <a href="#" class="action-btn-grid">
-                        <i class="fas fa-plus"></i>
-                        <h4>Thêm Nhân Viên</h4>
-                        <p>Đăng ký nhân viên mới</p>
-                    </a>
-                    <a href="#" class="action-btn-grid">
-                        <i class="fas fa-sync"></i>
-                        <h4>Cập Nhật Trạng Thái</h4>
-                        <p>Cập nhật trạng thái hoạt động</p>
-                    </a>
-                    <a href="#" class="action-btn-grid">
-                        <i class="fas fa-search"></i>
-                        <h4>Tìm Kiếm Nhân Viên</h4>
-                        <p>Tìm theo tên hoặc chức vụ</p>
-                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Xử lý hành động trên bảng
-        function editStaff(name) {
-            alert(`Sửa thông tin của ${name}`);
+        // Action handlers
+        function viewPayment(id) {
+            alert(`Xem chi tiết giao dịch ${id}`);
+            // Implement view payment details logic
         }
 
-        function removeStaff(name) {
-            if (confirm(`Bạn có chắc muốn xóa ${name}?`)) {
-                alert(`Đã xóa ${name} thành công!`);
+        function approvePayment(id) {
+            if (confirm(`Bạn có chắc muốn duyệt giao dịch ${id}?`)) {
+                alert(`Đã duyệt giao dịch ${id} thành công!`);
+                // Implement approve payment logic
             }
         }
 
-        // Xử lý navigation sidebar
-        document.querySelectorAll('.sidebar ul li').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.sidebar ul li.active').forEach(li => {
-                    li.classList.remove('active');
-                });
-                this.classList.add('active');
-            });
-        });
-
-        // Responsive sidebar toggle (cho mobile)
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('open');
+        function rejectPayment(id) {
+            if (confirm(`Bạn có chắc muốn từ chối giao dịch ${id}?`)) {
+                alert(`Đã từ chối giao dịch ${id}!`);
+                // Implement reject payment logic
+            }
         }
 
-        // Thêm animation cho stat cards khi load
-        document.addEventListener('DOMContentLoaded', function() {
-            const statCards = document.querySelectorAll('.stat-card');
-            statCards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    card.style.transition = 'all 0.6s ease';
-                    
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 100);
-                }, index * 150);
-            });
+        function remindPayment(id) {
+            alert(`Đã gửi nhắc nhở cho giao dịch ${id}`);
+            // Implement reminder logic
+        }
+
+        // Filter handling
+        document.getElementById('statusFilter').addEventListener('change', function() {
+            console.log('Filter by status: ' + this.value);
+            // Implement filter logic
         });
 
-        // Hiệu ứng số đếm cho statistics
+        document.getElementById('monthFilter').addEventListener('change', function() {
+            console.log('Filter by month: ' + this.value);
+            // Implement filter logic
+        });
+
+        // Animate numbers
         function animateNumbers() {
             const numbers = document.querySelectorAll('.stat-card h3');
             numbers.forEach(num => {
-                const target = parseInt(num.textContent.replace(/[^\d.]/g, ''));
+                const target = parseInt(num.textContent.replace(/[^\d]/g, ''));
                 if (!isNaN(target)) {
                     let current = 0;
                     const increment = target / 50;
@@ -567,13 +533,29 @@
                             current = target;
                             clearInterval(timer);
                         }
-                        num.textContent = Math.floor(current).toLocaleString();
+                        num.textContent = Math.floor(current).toLocaleString('vi-VN');
                     }, 30);
                 }
             });
         }
 
         setTimeout(animateNumbers, 500);
+
+        // Stat cards animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.6s ease';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 150);
+            });
+        });
     </script>
 </body>
 </html>

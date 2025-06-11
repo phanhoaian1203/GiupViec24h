@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.web.login;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,21 +8,25 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-/**
- *
- * @author DELL
- */
-@WebServlet("/logout")
+@WebServlet("/LogoutServlet")
 public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        // Hủy session
+        // Get the current session, if it exists
         HttpSession session = request.getSession(false);
         if (session != null) {
+            // Explicitly remove the user attribute
+            session.removeAttribute("user");
+            // Invalidate the session
             session.invalidate();
         }
 
-        // Chuyển về trang chủ (index.jsp)
-        response.sendRedirect("index.jsp");
+        // Add anti-cache headers
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        // Redirect to index.jsp
+        response.sendRedirect(request.getContextPath() + "/view/jsp/home/index.jsp");
     }
 }

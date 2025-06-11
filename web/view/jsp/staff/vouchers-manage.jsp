@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Hợp Đồng - Giúp Việc 24H</title>
+    <title>Quản Lý Voucher - Giúp Việc 24H</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -24,74 +24,6 @@
         .container {
             display: flex;
             height: 100vh;
-        }
-
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(180deg, #2d3748 0%, #1a202c 100%);
-            color: white;
-            padding: 0;
-            position: fixed;
-            height: 100%;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
-            z-index: 100;
-        }
-
-        .sidebar .logo {
-            padding: 2rem 1.5rem;
-            font-size: 1.4rem;
-            font-weight: 800;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            background: rgba(26, 179, 148, 0.1);
-        }
-
-        .sidebar .logo i {
-            color: #1AB394;
-            margin-right: 0.5rem;
-            font-size: 1.6rem;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 1rem 0;
-        }
-
-        .sidebar ul li {
-            margin: 0.25rem 1rem;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar ul li a {
-            display: flex;
-            align-items: center;
-            padding: 1rem 1.5rem;
-            color: #cbd5e0;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar ul li:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateX(5px);
-        }
-
-        .sidebar ul li.active {
-            background: linear-gradient(135deg, #1AB394 0%, #16a085 100%);
-            box-shadow: 0 4px 15px rgba(26, 179, 148, 0.3);
-        }
-
-        .sidebar ul li.active a {
-            color: white;
-        }
-
-        .sidebar ul li i {
-            margin-right: 1rem;
-            width: 20px;
-            text-align: center;
-            font-size: 1.1rem;
         }
 
         .main-content {
@@ -238,14 +170,14 @@
         }
 
         .stat-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.12);
         }
 
         .stat-card .icon {
             width: 60px;
             height: 60px;
-            border-radius: 16px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -253,19 +185,19 @@
             margin-bottom: 1rem;
         }
 
-        .stat-card.pending-contracts .icon {
-            background: rgba(245, 158, 11, 0.1);
-            color: #f59e0b;
-        }
-
-        .stat-card.approved-contracts .icon {
+        .stat-card.active-vouchers .icon {
             background: rgba(16, 185, 129, 0.1);
             color: #10b981;
         }
 
-        .stat-card.rejected-contracts .icon {
+        .stat-card.expired-vouchers .icon {
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
+        }
+
+        .stat-card.total-vouchers .icon {
+            background: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
         }
 
         .stat-card h3 {
@@ -300,7 +232,7 @@
             margin-right: 0.25rem;
         }
 
-        .contracts-table {
+        .vouchers-table {
             background: white;
             border-radius: 16px;
             padding: 2rem;
@@ -309,35 +241,35 @@
             margin-bottom: 2rem;
         }
 
-        .contracts-table h3 {
+        .vouchers-table h3 {
             font-size: 1.25rem;
             font-weight: 700;
             color: #1a202c;
             margin-bottom: 1rem;
         }
 
-        .contracts-table table {
+        .vouchers-table table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .contracts-table th, .contracts-table td {
+        .vouchers-table th, .vouchers-table td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #f1f5f9;
         }
 
-        .contracts-table th {
+        .vouchers-table th {
             background: #f8fafc;
             font-weight: 600;
             color: #374151;
         }
 
-        .contracts-table td {
+        .vouchers-table td {
             color: #64748b;
         }
 
-        .contracts-table .status {
+        .vouchers-table .status {
             display: inline-block;
             padding: 0.25rem 0.75rem;
             border-radius: 12px;
@@ -345,17 +277,12 @@
             font-weight: 500;
         }
 
-        .contracts-table .status.pending {
-            background: rgba(245, 158, 11, 0.1);
-            color: #f59e0b;
-        }
-
-        .contracts-table .status.approved {
+        .vouchers-table .status.active {
             background: rgba(16, 185, 129, 0.1);
             color: #10b981;
         }
 
-        .contracts-table .status.rejected {
+        .vouchers-table .status.expired {
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
         }
@@ -376,62 +303,65 @@
             background: rgba(26, 179, 148, 0.1);
         }
 
-        .view-details {
-            color: #3b82f6;
+        .delete-btn {
+            color: #ef4444;
         }
 
-        .view-details:hover {
-            background: rgba(59, 130, 246, 0.1);
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
+        .create-form, .update-form {
             background: white;
-            padding: 2rem;
             border-radius: 16px;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            margin-top: 2rem;
         }
 
-        .modal-content h3 {
+        .create-form h3, .update-form h3 {
             font-size: 1.25rem;
             font-weight: 700;
             color: #1a202c;
             margin-bottom: 1rem;
         }
 
-        .modal-content .document {
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: #f8fafc;
-            border-radius: 8px;
-            color: #64748b;
+        .form-group {
+            margin-bottom: 1.5rem;
         }
 
-        .close-modal {
-            background: none;
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #1AB394, #16a085);
+            color: white;
+            padding: 0.75rem 1.5rem;
             border: none;
-            color: #ef4444;
+            border-radius: 8px;
+            font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            margin-top: 1rem;
+            transition: all 0.3s ease;
         }
 
-        .close-modal:hover {
-            color: #dc2626;
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 179, 148, 0.3);
         }
 
         @media (max-width: 1024px) {
@@ -439,85 +369,36 @@
                 margin-left: 0;
                 width: 100%;
             }
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-            .sidebar.open {
-                transform: translateX(0);
-            }
         }
 
         @media (max-width: 768px) {
             .content {
                 padding: 1rem;
             }
-            .contracts-table th, .contracts-table td {
+            .vouchers-table th, .vouchers-table td {
                 padding: 0.75rem;
                 font-size: 0.875rem;
             }
             .page-title h1 {
                 font-size: 1.5rem;
             }
-            .modal-content {
-                width: 95%;
+            .create-form, .update-form {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="sidebar">
-            <div class="logo">
-                <i class="fas fa-home"></i>
-                Giúp Việc 24H
-            </div>
-            <ul>
-                <li>
-                    <a href="#dashboard">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>Bảng Điều Khiển</span>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="#contracts">
-                        <i class="fas fa-file-contract"></i>
-                        <span>Quản Lý Hợp Đồng</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#complaints">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span>Giải Quyết Khiếu Nại</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#schedule">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>Hỗ Trợ Đổi Lịch</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#vouchers">
-                        <i class="fas fa-tags"></i>
-                        <span>Quản Lý Voucher</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#chat">
-                        <i class="fas fa-comments"></i>
-                        <span>Chat Hỗ Trợ</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
+        <jsp:include page="/view/common/staff/staff-sidebar.jsp">
+            <jsp:param name="activePage" value="vouchers"/>
+        </jsp:include>
         <div class="main-content">
             <div class="header">
                 <div class="breadcrumb">
                     <span>Trang Chủ</span>
                     <i class="fas fa-chevron-right"></i>
-                    <span>Quản Lý Hợp Đồng</span>
+                    <span>Quản Lý Voucher</span>
                 </div>
                 <div class="user-section">
                     <div class="notification-badge">
@@ -541,107 +422,132 @@
 
             <div class="content">
                 <div class="page-title">
-                    <h1>Quản Lý Hợp Đồng</h1>
-                    <p>Quản lý và xử lý hợp đồng của người giúp việc tại Đà Nẵng</p>
+                    <h1>Quản Lý Voucher</h1>
+                    <p>Quản lý và chỉnh sửa các voucher tại Đà Nẵng</p>
                 </div>
 
                 <div class="stats-grid">
-                    <div class="stat-card pending-contracts">
-                        <div class="icon">
-                            <i class="fas fa-hourglass-half"></i>
-                        </div>
-                        <h3>150</h3>
-                        <p>Hợp Đồng Chờ Duyệt</p>
-                        <div class="trend up">
-                            <i class="fas fa-arrow-up"></i>
-                            +10 hợp đồng
-                        </div>
-                    </div>
-
-                    <div class="stat-card approved-contracts">
+                    <div class="stat-card active-vouchers">
                         <div class="icon">
                             <i class="fas fa-check-circle"></i>
                         </div>
-                        <h3>300</h3>
-                        <p>Hợp Đồng Đã Duyệt</p>
+                        <h3>50</h3>
+                        <p>Voucher Đang Hoạt Động</p>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
-                            +20 hợp đồng
+                            +8 voucher
                         </div>
                     </div>
 
-                    <div class="stat-card rejected-contracts">
+                    <div class="stat-card expired-vouchers">
                         <div class="icon">
                             <i class="fas fa-times-circle"></i>
                         </div>
-                        <h3>50</h3>
-                        <p>Hợp Đồng Bị Từ Chối</p>
+                        <h3>20</h3>
+                        <p>Voucher Hết Hạn</p>
                         <div class="trend down">
                             <i class="fas fa-arrow-down"></i>
-                            -5 hợp đồng
+                            -5 voucher
+                        </div>
+                    </div>
+
+                    <div class="stat-card total-vouchers">
+                        <div class="icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h3>70</h3>
+                        <p>Tổng Số Voucher</p>
+                        <div class="trend up">
+                            <i class="fas fa-arrow-up"></i>
+                            +3 voucher
                         </div>
                     </div>
                 </div>
 
-                <div class="contracts-table">
-                    <h3>Danh Sách Hợp Đồng</h3>
+                <div class="vouchers-table">
+                    <h3>Danh Sách Voucher</h3>
                     <table>
                         <thead>
                             <tr>
-                                <th>Mã Hợp Đồng</th>
-                                <th>Tên Người Giúp Việc</th>
-                                <th>Ngày Tạo</th>
+                                <th>Mã Voucher</th>
+                                <th>Giá Trị (VNĐ)</th>
+                                <th>Ngày Hết Hạn</th>
                                 <th>Trạng Thái</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>HD20250608-001</td>
-                                <td>Trần Văn A</td>
-                                <td>08/06/2025</td>
-                                <td><span class="status pending">Chờ duyệt</span></td>
+                                <td>VCH20250608-001</td>
+                                <td>100,000</td>
+                                <td>15/06/2025</td>
+                                <td><span class="status active">Hoạt động</span></td>
                                 <td>
-                                    <button class="action-btn" onclick="approveContract('HD20250608-001')"><i class="fas fa-check"></i> Chấp nhận</button>
-                                    <button class="action-btn" onclick="rejectContract('HD20250608-001')"><i class="fas fa-times"></i> Từ chối</button>
-                                    <button class="action-btn view-details" onclick="viewDocuments('HD20250608-001')"><i class="fas fa-eye"></i> Xem tài liệu</button>
+                                    <button class="action-btn" onclick="updateVoucher('VCH20250608-001')"><i class="fas fa-edit"></i> Cập nhật</button>
+                                    <button class="action-btn delete-btn" onclick="deleteVoucher('VCH20250608-001')"><i class="fas fa-trash"></i> Xóa</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>HD20250608-002</td>
-                                <td>Nguyễn Thị B</td>
-                                <td>08/06/2025</td>
-                                <td><span class="status pending">Chờ duyệt</span></td>
+                                <td>VCH20250608-002</td>
+                                <td>50,000</td>
+                                <td>10/06/2025</td>
+                                <td><span class="status active">Hoạt động</span></td>
                                 <td>
-                                    <button class="action-btn" onclick="approveContract('HD20250608-002')"><i class="fas fa-check"></i> Chấp nhận</button>
-                                    <button class="action-btn" onclick="rejectContract('HD20250608-002')"><i class="fas fa-times"></i> Từ chối</button>
-                                    <button class="action-btn view-details" onclick="viewDocuments('HD20250608-002')"><i class="fas fa-eye"></i> Xem tài liệu</button>
+                                    <button class="action-btn" onclick="updateVoucher('VCH20250608-002')"><i class="fas fa-edit"></i> Cập nhật</button>
+                                    <button class="action-btn delete-btn" onclick="deleteVoucher('VCH20250608-002')"><i class="fas fa-trash"></i> Xóa</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>HD20250608-003</td>
-                                <td>Lê Văn C</td>
-                                <td>07/06/2025</td>
-                                <td><span class="status approved">Đã duyệt</span></td>
+                                <td>VCH20250515-003</td>
+                                <td>200,000</td>
+                                <td>01/06/2025</td>
+                                <td><span class="status expired">Hết hạn</span></td>
                                 <td>
-                                    <button class="action-btn view-details" onclick="viewDocuments('HD20250608-003')"><i class="fas fa-eye"></i> Xem tài liệu</button>
+                                    <button class="action-btn delete-btn" onclick="deleteVoucher('VCH20250515-003')"><i class="fas fa-trash"></i> Xóa</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Modal xem tài liệu -->
-    <div id="documentModal" class="modal">
-        <div class="modal-content">
-            <h3>Tài Liệu Xác Minh - <span id="modalContractId"></span></h3>
-            <div class="document">CMND/CCCD: Bản sao CMND/CCCD của Trần Văn A</div>
-            <div class="document">Hợp đồng lao động: Hợp đồng lao động đã ký với công ty</div>
-            <div class="document">Giấy khám sức khỏe: Kết quả khám sức khỏe ngày 01/06/2025</div>
-            <button class="close-modal" onclick="closeModal()">Đóng</button>
+                <div class="create-form">
+                    <h3>Tạo Voucher Mới</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="voucherCode">Mã Voucher:</label>
+                            <input type="text" id="voucherCode" placeholder="Nhập mã voucher" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="voucherValue">Giá Trị (VNĐ):</label>
+                            <input type="number" id="voucherValue" placeholder="Nhập giá trị" min="1000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expiryDate">Ngày Hết Hạn:</label>
+                            <input type="date" id="expiryDate" required>
+                        </div>
+                        <button type="submit" class="btn-submit">Tạo Voucher</button>
+                    </form>
+                </div>
+
+                <div class="update-form" style="display: none;" id="updateForm">
+                    <h3>Cập Nhật Voucher</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="updateVoucherCode">Mã Voucher:</label>
+                            <input type="text" id="updateVoucherCode" placeholder="Nhập mã voucher" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateVoucherValue">Giá Trị (VNĐ):</label>
+                            <input type="number" id="updateVoucherValue" placeholder="Nhập giá trị" min="1000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateExpiryDate">Ngày Hết Hạn:</label>
+                            <input type="date" id="updateExpiryDate" required>
+                        </div>
+                        <button type="submit" class="btn-submit">Cập Nhật Voucher</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -670,7 +576,6 @@
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(20px)';
                     card.style.transition = 'all 0.6s ease';
-                    
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
@@ -701,39 +606,43 @@
 
         setTimeout(animateNumbers, 500);
 
-        // Xử lý hợp đồng
-        function approveContract(contractId) {
-            if (confirm(`Chấp nhận hợp đồng ${contractId}?`)) {
-                alert(`Đã chấp nhận hợp đồng ${contractId} thành công!`);
+        // Xử lý hành động voucher
+        function deleteVoucher(voucherId) {
+            if (confirm(`Bạn có chắc muốn xóa voucher ${voucherId}?`)) {
+                alert(`Đã xóa voucher ${voucherId} thành công!`);
             }
         }
 
-        function rejectContract(contractId) {
-            if (confirm(`Từ chối hợp đồng ${contractId}?`)) {
-                alert(`Đã từ chối hợp đồng ${contractId} thành công!`);
+        function updateVoucher(voucherId) {
+            const updateForm = document.getElementById('updateForm');
+            document.getElementById('updateVoucherCode').value = voucherId;
+            document.getElementById('updateVoucherValue').value = '';
+            document.getElementById('updateExpiryDate').value = '';
+            updateForm.style.display = 'block';
+        }
+
+        // Xử lý form submit (mô phỏng)
+        document.querySelector('.create-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const code = document.getElementById('voucherCode').value;
+            const value = document.getElementById('voucherValue').value;
+            const expiry = document.getElementById('expiryDate').value;
+            if (code && value && expiry) {
+                alert(`Đã tạo voucher ${code} với giá trị ${value} VNĐ, hết hạn ${expiry}!`);
+                this.reset();
             }
-        }
+        });
 
-        // Xem tài liệu
-        function viewDocuments(contractId) {
-            const modal = document.getElementById('documentModal');
-            const modalContractId = document.getElementById('modalContractId');
-            modalContractId.textContent = contractId;
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('documentModal');
-            modal.style.display = 'none';
-        }
-
-        // Đóng modal khi click ngoài
-        window.onclick = function(event) {
-            const modal = document.getElementById('documentModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
+        document.querySelector('.update-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const code = document.getElementById('updateVoucherCode').value;
+            const value = document.getElementById('updateVoucherValue').value;
+            const expiry = document.getElementById('updateExpiryDate').value;
+            if (code && value && expiry) {
+                alert(`Đã cập nhật voucher ${code} với giá trị ${value} VNĐ, hết hạn ${expiry}!`);
+                document.getElementById('updateForm').style.display = 'none';
             }
-        };
+        });
     </script>
 </body>
 </html>
