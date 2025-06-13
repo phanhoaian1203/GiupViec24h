@@ -648,10 +648,7 @@
                             <input type="checkbox" id="service-general" name="services" value="Dọn dẹp tổng thể">
                             <label for="service-general"><i class="fas fa-home"></i> Dọn dẹp tổng thể</label>
                         </li>
-                        <li>
-                            <input type="checkbox" id="service-childcare" name="services" value="Chăm sóc trẻ em">
-                            <label for="service-childcare"><i class="fas fa-baby"></i> Chăm sóc trẻ em</label>
-                        </li>
+                        
                         <li>
                             <input type="checkbox" id="service-special" name="services" value="Dịch vụ đặc biệt">
                             <label for="service-special"><i class="fas fa-star"></i> Dịch vụ đặc biệt</label>
@@ -710,8 +707,8 @@
                             </div>
                             <div class="helper-specialties">
                                 <div class="specialty-tags">
-                                    <span class="specialty-tag">Dọn dẹp</span>
-                                    <span class="specialty-tag">Giặt ủi</span>
+                                    <span class="specialty-tag">Giúp việc theo giờ</span>
+                                    <span class="specialty-tag">Vệ sinh máy giặt</span>
                                 </div>
                             </div>
                             <div class="helper-footer">
@@ -750,8 +747,8 @@
                             </div>
                             <div class="helper-specialties">
                                 <div class="specialty-tags">
-                                    <span class="specialty-tag">Vệ sinh</span>
-                                    <span class="specialty-tag">Chăm sóc trẻ</span>
+                                    <span class="specialty-tag">Vệ sinh máy giặt</span>
+                                    
                                 </div>
                             </div>
                             <div class="helper-footer">

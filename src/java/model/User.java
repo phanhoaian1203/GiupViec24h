@@ -12,7 +12,7 @@ public class User {
     private boolean isActive;
     private int birthYear;
     private String hometown;
-    private String profilePicture;
+    private String profileImageUrl;
 
     public User() {}
 
@@ -105,12 +105,11 @@ public class User {
         this.hometown = hometown;
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
+    public String getProfileImageUrl() {
+        return profileImageUrl;
     }
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 }
-

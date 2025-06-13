@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bảng Điều Khiển Admin - Giúp Việc 24H</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -30,95 +28,6 @@
             margin-left: 280px;
             width: calc(100% - 280px);
             min-height: 100vh;
-        }
-
-        .header {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-        }
-
-        .header .breadcrumb {
-            display: flex;
-            align-items: center;
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-
-        .header .breadcrumb i {
-            margin: 0 0.5rem;
-            color: #1AB394;
-        }
-
-        .header .user-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .notification-badge {
-            position: relative;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            background: rgba(26, 179, 148, 0.1);
-            color: #1AB394;
-            transition: all 0.3s ease;
-        }
-
-        .notification-badge:hover {
-            background: rgba(26, 179, 148, 0.2);
-            transform: scale(1.1);
-        }
-
-        .notification-badge .badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid white;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-
-        .user-profile:hover {
-            background: rgba(26, 179, 148, 0.1);
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #1AB394 0%, #16a085 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
         }
 
         .content {
@@ -430,10 +339,6 @@
                 width: 100%;
             }
             
-            .header {
-                padding: 1rem;
-            }
-            
             .content {
                 padding: 1rem;
             }
@@ -452,32 +357,10 @@
     <div class="container">
         <%@ include file="/view/common/admin/admin-sidebar.jsp" %>
         <div class="main-content">
-            <div class="header">
-                <div class="breadcrumb">
-                    <span>Trang Chủ</span>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Bảng Điều Khiển</span>
-                </div>
-                <div class="user-section">
-                    <div class="notification-badge">
-                        <i class="fas fa-bell"></i>
-                        <span class="badge">5</span>
-                    </div>
-                    <div class="notification-badge">
-                        <i class="fas fa-envelope"></i>
-                        <span class="badge">12</span>
-                    </div>
-                    <div class="user-profile">
-                        <div class="user-avatar">A</div>
-                        <div>
-                            <div style="font-weight: 600; font-size: 0.875rem; color: #1a202c;">Admin</div>
-                            <div style="font-size: 0.75rem; color: #64748b;">Quản trị viên</div>
-                        </div>
-                        <i class="fas fa-chevron-down" style="color: #64748b; font-size: 0.75rem;"></i>
-                    </div>
-                </div>
-            </div>
-
+            <jsp:include page="/view/common/admin/admin-header.jsp">
+                <jsp:param name="breadcrumbParent" value="Trang Chủ"/>
+                <jsp:param name="breadcrumbCurrent" value="Bảng Điều Khiển"/>
+            </jsp:include>
             <div class="content">
                 <div class="page-title">
                     <h1>Bảng Điều Khiển</h1>
@@ -644,40 +527,30 @@
     </div>
 
     <script>
-        // Xử lý chuyển đổi tab thống kê
         document.querySelectorAll('.chart-controls button').forEach(button => {
             button.addEventListener('click', function() {
-                // Xóa active class từ tất cả buttons
                 document.querySelectorAll('.chart-controls .active').forEach(btn => {
                     btn.classList.remove('active');
                 });
-                // Thêm active class cho button được click
                 this.classList.add('active');
-                
-                // Có thể thêm logic load dữ liệu chart tại đây
                 console.log('Đang tải dữ liệu cho:', this.textContent);
             });
         });
 
-        // Xử lý navigation sidebar
         document.querySelectorAll('.sidebar ul li').forEach(item => {
             item.addEventListener('click', function() {
-                // Xóa active class từ tất cả items
                 document.querySelectorAll('.sidebar ul li.active').forEach(li => {
                     li.classList.remove('active');
                 });
-                // Thêm active class cho item được click
                 this.classList.add('active');
             });
         });
 
-        // Responsive sidebar toggle (cho mobile)
         function toggleSidebar() {
             const sidebar = document.querySelector('.sidebar');
             sidebar.classList.toggle('open');
         }
 
-        // Thêm animation cho stat cards khi load
         document.addEventListener('DOMContentLoaded', function() {
             const statCards = document.querySelectorAll('.stat-card');
             statCards.forEach((card, index) => {
@@ -685,7 +558,6 @@
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(20px)';
                     card.style.transition = 'all 0.6s ease';
-                    
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
@@ -694,7 +566,6 @@
             });
         });
 
-        // Hiệu ứng số đếm cho statistics
         function animateNumbers() {
             const numbers = document.querySelectorAll('.stat-card h3');
             numbers.forEach(num => {
@@ -718,7 +589,6 @@
             });
         }
 
-        // Gọi animation khi trang load
         setTimeout(animateNumbers, 500);
     </script>
 </body>

@@ -370,31 +370,10 @@
     <div class="container">
         <%@ include file="/view/common/admin/admin-sidebar.jsp" %>
         <div class="main-content">
-            <div class="header">
-                <div class="breadcrumb">
-                    <span>Trang Chủ</span>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Quản Lý Nhân Viên</span>
-                </div>
-                <div class="user-section">
-                    <div class="notification-badge">
-                        <i class="fas fa-bell"></i>
-                        <span class="badge">5</span>
-                    </div>
-                    <div class="notification-badge">
-                        <i class="fas fa-envelope"></i>
-                        <span class="badge">12</span>
-                    </div>
-                    <div class="user-profile">
-                        <div class="user-avatar">A</div>
-                        <div>
-                            <div style="font-weight: 600; font-size: 0.875rem; color: #1a202c;">Admin</div>
-                            <div style="font-size: 0.75rem; color: #64748b;">Quản trị viên</div>
-                        </div>
-                        <i class="fas fa-chevron-down" style="color: #64748b; font-size: 0.75rem;"></i>
-                    </div>
-                </div>
-            </div>
+            <jsp:include page="/view/common/admin/admin-header.jsp">
+                <jsp:param name="breadcrumbParent" value="Trang Chủ"/>
+                <jsp:param name="breadcrumbCurrent" value="Quản Lí Nhân Viên Hỗ Trợ"/>
+            </jsp:include>
 
             <div class="content">
                 <div class="page-title">

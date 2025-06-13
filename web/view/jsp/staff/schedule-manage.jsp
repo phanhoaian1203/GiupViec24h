@@ -425,31 +425,10 @@
             <jsp:param name="activePage" value="schedule"/>
         </jsp:include>
         <div class="main-content">
-            <div class="header">
-                <div class="breadcrumb">
-                    <span>Trang Chủ</span>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Quản Lí Lịch Thuê</span>
-                </div>
-                <div class="user-section">
-                    <div class="notification-badge">
-                        <i class="fas fa-bell"></i>
-                        <span class="badge">5</span>
-                    </div>
-                    <div class="notification-badge">
-                        <i class="fas fa-envelope"></i>
-                        <span class="badge">12</span>
-                    </div>
-                    <div class="user-profile">
-                        <div class="user-avatar">S</div>
-                        <div>
-                            <div style="font-weight: 600; font-size: 0.875rem; color: #1a202c;">Staff</div>
-                            <div style="font-size: 0.75rem; color: #64748b;">Nhân viên hỗ trợ</div>
-                        </div>
-                        <i class="fas fa-chevron-down" style="color: #64748b; font-size: 0.75rem;"></i>
-                    </div>
-                </div>
-            </div>
+            <jsp:include page="/view/common/staff/staff-header.jsp">
+                <jsp:param name="breadcrumbParent" value="Trang Chủ"/>
+                <jsp:param name="breadcrumbCurrent" value="Quản Lí Lịch Thuê"/>
+            </jsp:include>
 
             <div class="content">
                 <div class="page-title">

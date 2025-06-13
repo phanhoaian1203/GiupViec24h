@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hồ Sơ Khách Hàng - Quản Lý Thông Tin</title>
+    <title>Hồ Sơ Người Giúp Việc - Quản Lý Thông Tin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -388,43 +388,61 @@
             font-size: 0.875rem;
         }
 
-        .wallet-actions {
+        .services-list {
             display: flex;
-            gap: 0.75rem;
-            margin-top: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
-        .wallet-transactions {
-            max-height: 200px;
-            overflow-y: auto;
-            padding-right: 0.5rem;
-        }
-
-        .transaction-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #e5e7eb;
-            font-size: 0.875rem;
-        }
-
-        .transaction-amount {
-            font-weight: 600;
+        .service-item {
+            background: #e6fffa;
             color: #1AB394;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
         }
 
-        .transaction-amount.negative {
-            color: #ef4444;
+        .service-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .service-input:focus {
+            outline: none;
+            border-color: #1AB394;
+            box-shadow: 0 0 0 3px rgba(26, 179, 148, 0.1);
+        }
+
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: #1AB394;
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
         }
 
         .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            display: none;
             background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             align-items: center;
@@ -479,24 +497,6 @@
             display: none;
         }
 
-        .notification {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            padding: 1rem 1.5rem;
-            background: #1AB394;
-            color: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
         @media (max-width: 1024px) {
             .profile-layout {
                 grid-template-columns: 1fr;
@@ -532,8 +532,7 @@
             }
 
             .form-actions,
-            .modal-actions,
-            .wallet-actions {
+            .modal-actions {
                 flex-direction: column;
             }
 
@@ -550,14 +549,14 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-user-circle"></i> Hồ Sơ Khách Hàng</h1>
-            <p>Quản lý và cập nhật thông tin cá nhân của bạn</p>
+            <h1><i class="fas fa-user-circle"></i> Hồ Sơ Người Giúp Việc</h1>
+            <p>Quản lý và cập nhật thông tin cá nhân và dịch vụ của bạn</p>
         </div>
 
         <div class="profile-layout">
             <div class="profile-sidebar">
                 <div class="profile-avatar" onclick="document.getElementById('avatar-upload').click()">
-                    <span id="avatar-text">NA</span>
+                    <span id="avatar-text">KH</span>
                     <div class="avatar-upload">
                         <i class="fas fa-camera fa-sm"></i>
                     </div>
@@ -565,7 +564,7 @@
                 </div>
 
                 <div class="profile-name">
-                    <h2 id="sidebar-name">Nguyễn Văn An</h2>
+                    <h2 id="sidebar-name">Nguyễn Thị An</h2>
                     <span class="status">
                         <i class="fas fa-check-circle"></i> Đã xác minh
                     </span>
@@ -584,7 +583,7 @@
 
                 <div class="profile-actions">
                     <button class="action-btn btn-primary">
-                        <i class="fas fa-history"></i> Lịch sử thuê
+                        <i class="fas fa-history"></i> Lịch sử làm việc
                     </button>
                     <button class="action-btn btn-secondary" onclick="openPasswordModal()">
                         <i class="fas fa-lock"></i> Thay đổi mật khẩu
@@ -611,7 +610,7 @@
                                 <i class="fas fa-user"></i> Họ và tên
                             </label>
                             <div class="input-group">
-                                <input type="text" id="fullName" name="fullName" class="form-input" value="Nguyễn Văn An" disabled>
+                                <input type="text" id="fullName" name="fullName" class="form-input" value="Nguyễn Thị An" disabled>
                                 <i class="input-icon fas fa-user"></i>
                             </div>
                         </div>
@@ -621,7 +620,7 @@
                                 <i class="fas fa-envelope"></i> Email
                             </label>
                             <div class="input-group">
-                                <input type="email" id="email" name="email" class="form-input" value="nguyenvanan@email.com" disabled>
+                                <input type="email" id="email" name="email" class="form-input" value="nguyenthian@email.com" disabled>
                                 <i class="input-icon fas fa-envelope"></i>
                             </div>
                         </div>
@@ -652,8 +651,8 @@
                             </label>
                             <div class="input-group">
                                 <select id="gender" name="gender" class="form-input" disabled>
-                                    <option value="male" selected>Nam</option>
-                                    <option value="female">Nữ</option>
+                                    <option value="male">Nam</option>
+                                    <option value="female" selected>Nữ</option>
                                     <option value="other">Khác</option>
                                 </select>
                                 <i class="input-icon fas fa-chevron-down"></i>
@@ -667,6 +666,26 @@
                             <div class="input-group">
                                 <input type="text" id="address" name="address" class="form-input" value="123 Đường ABC, TP.DN" disabled>
                                 <i class="input-icon fas fa-map-marker-alt"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="bankAccount">
+                                <i class="fas fa-university"></i> Số tài khoản
+                            </label>
+                            <div class="input-group">
+                                <input type="text" id="bankAccount" name="bankAccount" class="form-input" value="1234567890" disabled>
+                                <i class="input-icon fas fa-university"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="bankName">
+                                <i class="fas fa-building"></i> Tên ngân hàng
+                            </label>
+                            <div class="input-group">
+                                <input type="text" id="bankName" name="bankName" class="form-input" value="Ngân hàng Techcombank" disabled>
+                                <i class="input-icon fas fa-building"></i>
                             </div>
                         </div>
                     </div>
@@ -712,42 +731,19 @@
 
                     <div class="info-section">
                         <h3 class="info-title">
-                            <i class="fas fa-wallet"></i>
-                            Ví của tôi
+                            <i class="fas fa-broom"></i>
+                            Dịch vụ cung cấp
                         </h3>
-                        <div class="info-card">
-                            <div class="info-card-title">Số dư hiện tại</div>
+                        <div class="info-card" id="services-container">
+                            <div class="info-card-title">Danh sách dịch vụ</div>
                             <div class="info-card-value">
-                                <span class="transaction-amount">2,500,000 VND</span>
-                            </div>
-                            <div class="wallet-actions">
-                                <button class="btn btn-primary" onclick="openDepositModal()">
-                                    <i class="fas fa-plus"></i> Nạp tiền
-                                </button>
-                                <button class="btn btn-secondary" onclick="openWithdrawModal()">
-                                    <i class="fas fa-minus"></i> Rút tiền
-                                </button>
-                            </div>
-                        </div>
-                        <div class="info-card">
-                            <div class="info-card-title">Lịch sử giao dịch</div>
-                            <div class="info-card-value">
-                                <div class="wallet-transactions">
-                                    <div class="transaction-item">
-                                        <span>Nạp tiền</span>
-                                        <span class="transaction-amount">+1,000,000 VND</span>
-                                        <span>10/06/2025</span>
-                                    </div>
-                                    <div class="transaction-item">
-                                        <span>Thanh toán dịch vụ</span>
-                                        <span class="transaction-amount negative">-500,000 VND</span>
-                                        <span>09/06/2025</span>
-                                    </div>
-                                    <div class="transaction-item">
-                                        <span>Nạp tiền</span>
-                                        <span class="transaction-amount">+2,000,000 VND</span>
-                                        <span>08/06/2025</span>
-                                    </div>
+                                <div class="services-list" id="services-list">
+                                    <span class="service-item">Dọn dẹp nhà cửa</span>
+                                    <span class="service-item">Giặt là</span>
+                                    <span class="service-item">Nấu ăn</span>
+                                </div>
+                                <div class="services-edit hidden" id="services-edit">
+                                    <input type="text" id="services-input" class="service-input" placeholder="Nhập dịch vụ, phân tách bằng dấu phẩy">
                                 </div>
                             </div>
                         </div>
@@ -761,7 +757,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">Thay đổi mật khẩu</h2>
-                <button class="modal-close" onclick="closePasswordModal()">×</button>
+                <button class="modal-close" onclick="closePasswordModal()">&times;</button>
             </div>
             <form id="password-form">
                 <div class="form-group">
@@ -800,56 +796,6 @@
         </div>
     </div>
 
-    <div class="modal" id="deposit-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Nạp tiền</h2>
-                <button class="modal-close" onclick="closeDepositModal()">×</button>
-            </div>
-            <form id="deposit-form">
-                <div class="form-group">
-                    <label class="form-label" for="deposit-amount">
-                        <i class="fas fa-money-bill"></i> Số tiền nạp (VNĐ)
-                    </label>
-                    <div class="input-group">
-                        <input type="number" id="deposit-amount" name="deposit-amount" class="form-input" min="10000" required>
-                        <i class="input-icon fas fa-money-bill-alt"></i>
-                    </div>
-                    <div class="error-message" id="deposit-error">Số tiền phải lớn hơn hoặc bằng 10,000 VNĐ!</div>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-cancel" onclick="closeDepositModal()">Hủy</button>
-                    <button type="submit" class="btn btn-save">Nạp</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="withdraw-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Rút tiền</h2>
-                <button class="modal-close" onclick="closeWithdrawModal()">×</button>
-            </div>
-            <form id="withdraw-form">
-                <div class="form-group">
-                    <label class="form-label" for="withdraw-amount">
-                        <i class="fas fa-money-bill"></i> Số tiền rút (VNĐ)
-                    </label>
-                    <div class="input-group">
-                        <input type="number" id="withdraw-amount" name="withdraw-amount" class="form-input" min="10000" required>
-                        <i class="input-icon fas fa-money-bill-alt"></i>
-                    </div>
-                    <div class="error-message" id="withdraw-error">Số tiền rút không hợp lệ hoặc không đủ số dư!</div>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-cancel" onclick="closeWithdrawModal()">Hủy</button>
-                    <button type="submit" class="btn btn-save">Rút</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <div class="notification" id="notification">
         <i class="fas fa-check-circle"></i>
         <span id="notification-text">Cập nhật thành công!</span>
@@ -857,35 +803,50 @@
 
     <script>
         let isEditing = false;
-        let walletBalance = 2500000; // Số dư ví ban đầu
+        let originalServices = ['Dọn dẹp nhà cửa', 'Giặt là', 'Nấu ăn'];
 
         function toggleEdit() {
             isEditing = !isEditing;
-            const inputs = document.querySelectorAll('#profile-form .form-input');
+            const inputs = document.querySelectorAll('.form-input');
             const editButton = document.querySelector('.edit-toggle');
             const editText = document.getElementById('edit-text');
             const formActions = document.getElementById('form-actions');
+            const servicesList = document.getElementById('services-list');
+            const servicesEdit = document.getElementById('services-edit');
 
             if (isEditing) {
-                inputs.forEach(input => input.disabled = false);
+                inputs.forEach(input => {
+                    input.disabled = false;
+                });
                 editText.textContent = 'Hủy chỉnh sửa';
                 editButton.innerHTML = '<i class="fas fa-times"></i> <span id="edit-text">Hủy chỉnh sửa</span>';
                 formActions.classList.remove('hidden');
+                servicesList.classList.add('hidden');
+                servicesEdit.classList.remove('hidden');
+                document.getElementById('services-input').value = originalServices.join(', ');
             } else {
-                inputs.forEach(input => input.disabled = true);
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
                 editText.textContent = 'Chỉnh sửa';
                 editButton.innerHTML = '<i class="fas fa-edit"></i> <span id="edit-text">Chỉnh sửa</span>';
                 formActions.classList.add('hidden');
+                servicesList.classList.remove('hidden');
+                servicesEdit.classList.add('hidden');
             }
         }
 
         function cancelEdit() {
-            document.getElementById('fullName').value = 'Nguyễn Văn An';
-            document.getElementById('email').value = 'nguyenvanan@email.com';
+            document.getElementById('fullName').value = 'Nguyễn Thị An';
+            document.getElementById('email').value = 'nguyenthian@email.com';
             document.getElementById('phone').value = '0123456789';
             document.getElementById('birthDate').value = '1990-01-01';
-            document.getElementById('gender').value = 'male';
+            document.getElementById('gender').value = 'female';
             document.getElementById('address').value = '123 Đường ABC, TP.DN';
+            document.getElementById('bankAccount').value = '1234567890';
+            document.getElementById('bankName').value = 'Ngân hàng Techcombank';
+            document.getElementById('services-input').value = originalServices.join(', ');
+            updateServicesList(originalServices);
             toggleEdit();
         }
 
@@ -902,10 +863,17 @@
             
             notificationText.textContent = message;
             
-            notification.style.background = type === 'error' ? '#ef4444' : '#1AB394';
+            if (type === 'error') {
+                notification.style.background = '#ef4444';
+            } else {
+                notification.style.background = '#1AB394';
+            }
+            
             notification.classList.add('show');
             
-            setTimeout(() => notification.classList.remove('show'), 3000);
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
         }
 
         function updateSidebarName(name) {
@@ -913,8 +881,20 @@
             const avatarText = document.getElementById('avatar-text');
             
             sidebarName.textContent = name;
+            
             const initials = name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
             avatarText.textContent = initials;
+        }
+
+        function updateServicesList(services) {
+            const servicesList = document.getElementById('services-list');
+            servicesList.innerHTML = '';
+            services.forEach(service => {
+                const span = document.createElement('span');
+                span.className = 'service-item';
+                span.textContent = service;
+                servicesList.appendChild(span);
+            });
         }
 
         function openPasswordModal() {
@@ -928,53 +908,20 @@
             document.getElementById('password-error').style.display = 'none';
         }
 
-        function openDepositModal() {
-            document.getElementById('deposit-modal').style.display = 'flex';
-            document.getElementById('deposit-amount').focus();
-        }
-
-        function closeDepositModal() {
-            document.getElementById('deposit-modal').style.display = 'none';
-            document.getElementById('deposit-form').reset();
-            document.getElementById('deposit-error').style.display = 'none';
-        }
-
-        function openWithdrawModal() {
-            document.getElementById('withdraw-modal').style.display = 'flex';
-            document.getElementById('withdraw-amount').focus();
-        }
-
-        function closeWithdrawModal() {
-            document.getElementById('withdraw-modal').style.display = 'none';
-            document.getElementById('withdraw-form').reset();
-            document.getElementById('withdraw-error').style.display = 'none';
-        }
-
-        function updateWalletBalance(amount, type) {
-            const balanceElement = document.querySelector('.transaction-amount');
-            if (type === 'deposit') {
-                walletBalance += amount;
-            } else if (type === 'withdraw') {
-                walletBalance -= amount;
-            }
-            balanceElement.textContent = walletBalance.toLocaleString('vi-VN') + ' VND';
-
-            const transactionsContainer = document.querySelector('.wallet-transactions');
-            const transactionItem = document.createElement('div');
-            transactionItem.className = 'transaction-item';
-            const date = new Date().toLocaleDateString('vi-VN');
-            transactionItem.innerHTML = `
-                
-            `;
-            transactionsContainer.prepend(transactionItem);
-        }
-
         document.getElementById('profile-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            
             const formData = new FormData(this);
             const name = formData.get('fullName');
+            const servicesInput = document.getElementById('services-input').value;
+            const services = servicesInput.split(',').map(s => s.trim()).filter(s => s);
+            
             updateSidebarName(name);
+            updateServicesList(services);
+            originalServices = services;
+            
             showNotification('Thông tin đã được cập nhật thành công!');
+            
             toggleEdit();
         });
 
@@ -1002,6 +949,7 @@
 
         document.getElementById('password-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             const errorMessage = document.getElementById('password-error');
@@ -1012,44 +960,14 @@
             }
             
             errorMessage.style.display = 'none';
+            // Simulate password change (replace with actual backend call)
             showNotification('Mật khẩu đã được thay đổi thành công!');
             closePasswordModal();
         });
 
-        document.getElementById('deposit-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const amount = parseInt(document.getElementById('deposit-amount').value);
-            const errorMessage = document.getElementById('deposit-error');
-            
-            if (amount < 10000) {
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            errorMessage.style.display = 'none';
-            updateWalletBalance(amount, 'deposit');
-            showNotification('Nạp tiền thành công!');
-            closeDepositModal();
-        });
-
-        document.getElementById('withdraw-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const amount = parseInt(document.getElementById('withdraw-amount').value);
-            const errorMessage = document.getElementById('withdraw-error');
-            
-            if (amount < 10000 || amount > walletBalance) {
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            errorMessage.style.display = 'none';
-            updateWalletBalance(amount, 'withdraw');
-            showNotification('Rút tiền thành công!');
-            closeWithdrawModal();
-        });
-
         document.addEventListener('DOMContentLoaded', function() {
-            updateSidebarName('Nguyễn Văn An');
+            updateSidebarName('Nguyễn Thị An');
+            updateServicesList(originalServices);
         });
     </script>
 </body>

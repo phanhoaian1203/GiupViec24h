@@ -195,9 +195,14 @@
             color: #ea580c;
         }
 
-        .stat-card.overdue-payments .icon {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
+        .stat-card.wallet-payments .icon {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .stat-card.online-payments .icon {
+            background: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
         }
 
         .stat-card h3 {
@@ -287,11 +292,6 @@
             color: #ea580c;
         }
 
-        .payment-table .status.overdue {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-        }
-
         .action-btn {
             background: none;
             border: none;
@@ -340,6 +340,9 @@
             .page-title h1 {
                 font-size: 1.5rem;
             }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -347,36 +350,15 @@
     <div class="container">
         <%@ include file="/view/common/admin/admin-sidebar.jsp" %>
         <div class="main-content">
-            <div class="header">
-                <div class="breadcrumb">
-                    <span>Trang Chủ</span>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Quản Lý Thanh Toán</span>
-                </div>
-                <div class="user-section">
-                    <div class="notification-badge">
-                        <i class="fas fa-bell"></i>
-                        <span class="badge">5</span>
-                    </div>
-                    <div class="notification-badge">
-                        <i class="fas fa-envelope"></i>
-                        <span class="badge">12</span>
-                    </div>
-                    <div class="user-profile">
-                        <div class="user-avatar">A</div>
-                        <div>
-                            <div style="font-weight: 600; font-size: 0.875rem; color: #1a202c;">Admin</div>
-                            <div style="font-size: 0.75rem; color: #64748b;">Quản trị viên</div>
-                        </div>
-                        <i class="fas fa-chevron-down" style="color: #64748b; font-size: 0.75rem;"></i>
-                    </div>
-                </div>
-            </div>
+            <jsp:include page="/view/common/admin/admin-header.jsp">
+                <jsp:param name="breadcrumbParent" value="Trang Chủ"/>
+                <jsp:param name="breadcrumbCurrent" value="Quản Lí Thanh Toán"/>
+            </jsp:include>
 
             <div class="content">
                 <div class="page-title">
                     <h1>Quản Lý Thanh Toán</h1>
-                    <p>Quản lý và xử lý các giao dịch thanh toán của khách hàng tại Đà Nẵng</p>
+                    <p>Quản lý các giao dịch thanh toán trước của khách hàng tại Đà Nẵng</p>
                 </div>
 
                 <div class="stats-grid">
@@ -404,15 +386,27 @@
                         </div>
                     </div>
 
-                    <div class="stat-card overdue-payments">
+                    <div class="stat-card wallet-payments">
                         <div class="icon">
-                            <i class="fas fa-exclamation-circle"></i>
+                            <i class="fas fa-wallet"></i>
                         </div>
-                        <h3>10</h3>
-                        <p>Thanh Toán Quá Hạn</p>
+                        <h3>45,000,000</h3>
+                        <p>Giao Dịch Qua Ví</p>
                         <div class="trend up">
                             <i class="fas fa-arrow-up"></i>
-                            +2 giao dịch
+                            +15% so với tháng trước
+                        </div>
+                    </div>
+
+                    <div class="stat-card online-payments">
+                        <div class="icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>60,000,000</h3>
+                        <p>Giao Dịch Online</p>
+                        <div class="trend down">
+                            <i class="fas fa-arrow-down"></i>
+                            -8% so với tháng trước
                         </div>
                     </div>
                 </div>
@@ -424,7 +418,11 @@
                             <option value="all">Tất cả trạng thái</option>
                             <option value="completed">Hoàn tất</option>
                             <option value="pending">Chờ xử lý</option>
-                            <option value="overdue">Quá hạn</option>
+                        </select>
+                        <select id="methodFilter">
+                            <option value="all">Tất cả phương thức</option>
+                            <option value="wallet">Ví điện tử</option>
+                            <option value="online">Thanh toán online</option>
                         </select>
                         <input type="month" id="monthFilter" value="2025-06">
                     </div>
@@ -446,7 +444,7 @@
                                 <td>Nguyễn Văn A</td>
                                 <td>5,000,000</td>
                                 <td>01/06/2025</td>
-                                <td>Chuyển khoản</td>
+                                <td>Ví điện tử</td>
                                 <td><span class="status completed">Hoàn tất</span></td>
                                 <td>
                                     <button class="action-btn" onclick="viewPayment('TT001')"><i class="fas fa-eye"></i> Xem</button>
@@ -457,11 +455,11 @@
                                 <td>Lê Thị B</td>
                                 <td>4,500,000</td>
                                 <td>02/06/2025</td>
-                                <td>Tiền mặt</td>
+                                <td>Thanh toán online</td>
                                 <td><span class="status pending">Chờ xử lý</span></td>
                                 <td>
                                     <button class="action-btn" onclick="approvePayment('TT002')"><i class="fas fa-check"></i> Duyệt</button>
-                                    <button class="action-btn" onclick="rejectPayment('TT002')"><i class="fas fa-times"></i> Từ chối</button>
+                                    <button class="action-btn" onclick="rejectPayment('TT002')"><i class="fas fa-times"></i> Hoàn tiền</button>
                                 </td>
                             </tr>
                             <tr>
@@ -469,10 +467,10 @@
                                 <td>Trần Văn C</td>
                                 <td>6,000,000</td>
                                 <td>03/06/2025</td>
-                                <td>Chuyển khoản</td>
-                                <td><span class="status overdue">Quá hạn</span></td>
+                                <td>Ví điện tử</td>
+                                <td><span class="status completed">Hoàn tất</span></td>
                                 <td>
-                                    <button class="action-btn" onclick="remindPayment('TT003')"><i class="fas fa-bell"></i> Nhắc nhở</button>
+                                    <button class="action-btn" onclick="viewPayment('TT003')"><i class="fas fa-eye"></i> Xem</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -493,31 +491,53 @@
             if (confirm(`Bạn có chắc muốn duyệt giao dịch ${id}?`)) {
                 alert(`Đã duyệt giao dịch ${id} thành công!`);
                 // Implement approve payment logic
+                // Update wallet balance or payment status in backend
             }
         }
 
         function rejectPayment(id) {
-            if (confirm(`Bạn có chắc muốn từ chối giao dịch ${id}?`)) {
-                alert(`Đã từ chối giao dịch ${id}!`);
-                // Implement reject payment logic
+            if (confirm(`Bạn có chắc muốn hoàn tiền giao dịch ${id}?`)) {
+                alert(`Đã hoàn tiền giao dịch ${id}!`);
+                // Implement refund logic
+                // Refund to wallet or online payment gateway
             }
-        }
-
-        function remindPayment(id) {
-            alert(`Đã gửi nhắc nhở cho giao dịch ${id}`);
-            // Implement reminder logic
         }
 
         // Filter handling
         document.getElementById('statusFilter').addEventListener('change', function() {
             console.log('Filter by status: ' + this.value);
-            // Implement filter logic
+            filterTable();
+        });
+
+        document.getElementById('methodFilter').addEventListener('change', function() {
+            console.log('Filter by method: ' + this.value);
+            filterTable();
         });
 
         document.getElementById('monthFilter').addEventListener('change', function() {
             console.log('Filter by month: ' + this.value);
-            // Implement filter logic
+            filterTable();
         });
+
+        function filterTable() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const methodFilter = document.getElementById('methodFilter').value;
+            const monthFilter = document.getElementById('monthFilter').value;
+            const rows = document.querySelectorAll('.payment-table tbody tr');
+
+            rows.forEach(row => {
+                const status = row.querySelector('.status').textContent.toLowerCase();
+                const method = row.cells[4].textContent.toLowerCase();
+                const date = row.cells[3].textContent;
+                const month = date.split('/').slice(1).join('-');
+
+                const statusMatch = statusFilter === 'all' || (statusFilter === 'completed' && status.includes('hoàn tất')) || (statusFilter === 'pending' && status.includes('chờ xử lý'));
+                const methodMatch = methodFilter === 'all' || (methodFilter === 'wallet' && method.includes('ví điện tử')) || (methodFilter === 'online' && method.includes('thanh toán online'));
+                const monthMatch = !monthFilter || month === monthFilter;
+
+                row.style.display = statusMatch && methodMatch && monthMatch ? '' : 'none';
+            });
+        }
 
         // Animate numbers
         function animateNumbers() {
@@ -555,6 +575,7 @@
                     }, 100);
                 }, index * 150);
             });
+            filterTable();
         });
     </script>
 </body>

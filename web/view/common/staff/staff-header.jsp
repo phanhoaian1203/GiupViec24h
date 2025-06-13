@@ -1,8 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="model.User" %>
+<!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     .header {
         background: rgba(255,255,255,0.95);
         backdrop-filter: blur(10px);
@@ -90,12 +98,6 @@
         justify-content: center;
         color: white;
         font-weight: 600;
-    }
-
-    @media (max-width: 768px) {
-        .header {
-            padding: 1rem;
-        }
     }
 </style>
 

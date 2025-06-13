@@ -18,8 +18,11 @@ public class UserDAO {
     }
 
     public User getUserByEmailAndPassword(String email, String password) {
-        String sql = "SELECT user_id, email, full_name, gender, phone_number, address, role, is_active, birth_year, hometown, profile_picture " +
-                     "FROM users WHERE email = ? AND password = ? AND is_active = 1";
+        String sql = "SELECT u.user_id, u.email, u.full_name, u.gender, u.phone_number, u.address, r.name AS role, u.is_active, u.birth_year, u.hometown, hp.profile_image_url " +
+                     "FROM users u " +
+                     "INNER JOIN roles r ON u.role_id = r.role_id " +
+                     "LEFT JOIN housekeeper_profiles hp ON u.user_id = hp.housekeeper_id " +
+                     "WHERE u.email = ? AND u.password = ? AND u.is_active = 1";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
             ps.setString(2, password);
@@ -36,7 +39,7 @@ public class UserDAO {
                 user.setActive(rs.getBoolean("is_active"));
                 user.setBirthYear(rs.getInt("birth_year"));
                 user.setHometown(rs.getString("hometown"));
-                user.setProfilePicture(rs.getString("profile_picture"));
+                user.setProfileImageUrl(rs.getString("profile_image_url"));
                 return user;
             }
         } catch (SQLException e) {
@@ -57,8 +60,8 @@ public class UserDAO {
     }
 
     public void saveUser(User user) {
-        String sql = "INSERT INTO users (email, password, full_name, gender, phone_number, address, role, is_active, birth_year, hometown, profile_picture) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)";
+        String sql = "INSERT INTO users (email, password, full_name, gender, phone_number, address, role_id, is_active, birth_year, hometown) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, (SELECT role_id FROM roles WHERE name = ?), ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getPassword());

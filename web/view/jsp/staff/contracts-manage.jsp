@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản Lý Hợp Đồng - Giúp Việc 24H</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -30,95 +28,6 @@
             margin-left: 280px;
             width: calc(100% - 280px);
             min-height: 100vh;
-        }
-
-        .header {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-        }
-
-        .header .breadcrumb {
-            display: flex;
-            align-items: center;
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-
-        .header .breadcrumb i {
-            margin: 0 0.5rem;
-            color: #1AB394;
-        }
-
-        .header .user-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .notification-badge {
-            position: relative;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            background: rgba(26, 179, 148, 0.1);
-            color: #1AB394;
-            transition: all 0.3s ease;
-        }
-
-        .notification-badge:hover {
-            background: rgba(26, 179, 148, 0.2);
-            transform: scale(1.1);
-        }
-
-        .notification-badge .badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid white;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-
-        .user-profile:hover {
-            background: rgba(26, 179, 148, 0.1);
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #1AB394 0%, #16a085 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
         }
 
         .content {
@@ -396,32 +305,10 @@
             <jsp:param name="activePage" value="contracts"/>
         </jsp:include>
         <div class="main-content">
-            <div class="header">
-                <div class="breadcrumb">
-                    <span>Trang Chủ</span>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Quản Lý Hợp Đồng</span>
-                </div>
-                <div class="user-section">
-                    <div class="notification-badge">
-                        <i class="fas fa-bell"></i>
-                        <span class="badge">5</span>
-                    </div>
-                    <div class="notification-badge">
-                        <i class="fas fa-envelope"></i>
-                        <span class="badge">12</span>
-                    </div>
-                    <div class="user-profile">
-                        <div class="user-avatar">S</div>
-                        <div>
-                            <div style="font-weight: 600; font-size: 0.875rem; color: #1a202c;">Staff</div>
-                            <div style="font-size: 0.75rem; color: #64748b;">Nhân viên hỗ trợ</div>
-                        </div>
-                        <i class="fas fa-chevron-down" style="color: #64748b; font-size: 0.75rem;"></i>
-                    </div>
-                </div>
-            </div>
-
+            <jsp:include page="/view/common/staff/staff-header.jsp">
+                <jsp:param name="breadcrumbParent" value="Trang Chủ"/>
+                <jsp:param name="breadcrumbCurrent" value="Quản Lý Hợp Đồng"/>
+            </jsp:include>
             <div class="content">
                 <div class="page-title">
                     <h1>Quản Lý Hợp Đồng</h1>

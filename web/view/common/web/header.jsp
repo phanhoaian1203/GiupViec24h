@@ -65,12 +65,13 @@
                 <!-- Hồ sơ Dropdown -->
                 <div class="profile-image-container">
                     <div class="profile-image">
-                        <img src="${user.profilePicture != null ? user.profilePicture : pageContext.request.contextPath + '/images/profile-placeholder.jpg'}" alt="Profile">
+                        <img src="${user.profileImageUrl != null ? user.profileImageUrl : ''.concat(pageContext.request.contextPath).concat('/images/profile-placeholder.jpg')}" alt="Profile">
                     </div>
                     <div class="profile-dropdown" id="profileDropdown">
                         <a href="${pageContext.request.contextPath}/view/jsp/home/profile.jsp">Hồ sơ</a>
-                        <a href="${pageContext.request.contextPath}/view/jsp/customer/my-jobs.jsp">Công việc của tôi</a>
+                        <a href="${pageContext.request.contextPath}/view/jsp/customer/my-jobs.jsp">Công việc của tôi</a>                       
                         <a href="${pageContext.request.contextPath}/view/jsp/customer/payment-history.jsp">Lịch sử thanh toán</a>
+                        <a href="${pageContext.request.contextPath}/view/jsp/customer/my-wallet.jsp">Ví của tôi</a>
                         <a href="${pageContext.request.contextPath}/view/jsp/customer/settings.jsp">Cài đặt</a>
                         <a href="${pageContext.request.contextPath}/LogoutServlet">Đăng xuất</a>
                     </div>
