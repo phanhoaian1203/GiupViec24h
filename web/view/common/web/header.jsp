@@ -14,30 +14,49 @@
         <div class="nav-links" id="navLinks">
             <!-- Dịch vụ Dropdown -->
             <div class="dropdown" id="servicesDropdown">
-                <button type="button" class="dropbtn">
-                    Dịch vụ <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="${pageContext.request.contextPath}/view/jsp/home/hourly-service.jsp">
-                        Giúp việc theo giờ
-                    </a>
-                    <a href="${pageContext.request.contextPath}/view/jsp/home/daily-service.jsp">
-                        Giúp việc theo ngày
-                    </a>
-                    <a href="${pageContext.request.contextPath}/view/jsp/home/month-service.jsp">
-                        Giúp việc theo tháng
-                    </a>
-                    <a href="${pageContext.request.contextPath}/view/jsp/home/sofa-tham-dem-rem.jsp">
-                        Vệ sinh sofa, thảm, đệm, rèm
-                    </a>
-                    <a href="${pageContext.request.contextPath}/view/jsp/home/may-giat.jsp">
-                        Vệ sinh máy giặt
-                    </a>
-                    <a href="${pageContext.request.contextPath}/view/jsp/home/special-service.jsp">
-                        Dịch vụ đặc biệt
-                    </a>
-                </div>
-            </div>
+    <button type="button" class="dropbtn">
+        Dịch vụ <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="dropdown-content">
+        <a href="${pageContext.request.contextPath}/view/jsp/home/hourly-service.jsp">
+            Giúp việc theo giờ
+        </a>
+        <a href="${pageContext.request.contextPath}/view/jsp/home/daily-service.jsp">
+            Giúp việc theo ngày
+        </a>
+        <a href="${pageContext.request.contextPath}/view/jsp/home/month-service.jsp">
+            Giúp việc theo tháng
+        </a>
+        <a href="${pageContext.request.contextPath}/view/jsp/home/elderly-care.jsp">
+            Chăm sóc người già
+        </a>
+        <a href="${pageContext.request.contextPath}/view/jsp/home/child-care.jsp">
+            Chăm sóc trẻ em
+        </a>
+        <a href="${pageContext.request.contextPath}/view/jsp/home/patient-care.jsp">
+            Chăm sóc người bệnh
+        </a>
+        <a href="${pageContext.request.contextPath}/view/jsp/home/sofa-tham-dem-rem.jsp">
+            Vệ sinh thảm, đệm, rèm và ghế sofa
+        </a>
+        <a href="${pageContext.request.contextPath}/view/jsp/home/may-lanh.jsp">
+            Vệ sinh máy lạnh
+        </a>
+        <a href="${pageContext.request.contextPath}/view/jsp/home/may-giat.jsp">
+            Vệ sinh máy giặt
+        </a>
+        <a href="${pageContext.request.contextPath}/view/jsp/home/general-cleaning.jsp">
+            Tổng vệ sinh
+        </a>
+        <a href="${pageContext.request.contextPath}/view/jsp/home/nau-an.jsp">
+            Nấu ăn
+        </a>
+        <a href="${pageContext.request.contextPath}/view/jsp/home/special-service.jsp">
+            Dịch vụ đặc biệt
+        </a>
+    </div>
+</div>
+
             
             <a href="${pageContext.request.contextPath}/view/jsp/home/benefits.jsp">
                 <i class="fas fa-gift" style="margin-right: 5px;"></i>

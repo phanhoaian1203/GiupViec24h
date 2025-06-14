@@ -3,30 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/home/benefits.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/admin/staff-manage.jsp</file>
             <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/common/web/header.jsp</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/home/index.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/common/staff/staff-sidebar.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/staff/contracts-manage.jsp</file>
             <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/common/admin/admin-header.jsp</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/customer/customerDashboard.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/admin/setting.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/staff/vouchers-manage.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/staff/staff-chat.jsp</file>
             <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/admin/housekeeper-manage.jsp</file>
             <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/housekeeper/housekeeperDashboard.jsp</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/home/profile.jsp</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/home/signup.jsp</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/customer/booking.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/admin/report-manage.jsp</file>
             <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/admin/payment-manage.jsp</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/home/login.jsp</file>
             <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/model/User.java</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/utils/DBContext.java</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/staff/schedule-manage.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/staff/complaints-manage.jsp</file>
             <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/admin/adminDashboard.jsp</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/controller/web/login/LogoutServlet.java</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/home/payment.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/admin/revenue-manage.jsp</file>
             <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/controller/web/login/LoginServlet.java</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/home/contact.jsp</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/common/admin/admin-sidebar.jsp</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/customer/hire.jsp</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/home/may-giat.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/staff/staffDashboard.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/common/staff/staff-header.jsp</file>
             <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/dao/UserDAO.java</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/housekeeper/housekeeper-profile.jsp</file>
         </group>
     </open-files>
 </project-private>
