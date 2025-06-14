@@ -116,8 +116,8 @@
         }
         
         .forgot-header img {
-            height: 40px;
-            margin-bottom: 15px;
+            height: 100px;
+            margin-bottom: 10px;
         }
         
         .forgot-header h2 {
@@ -258,7 +258,7 @@
         
         <div class="forgot-form">
             <div class="forgot-header">
-                <img src="${pageContext.request.contextPath}/images/logo.png" alt="Giúp Việc 24h Logo" 
+                 <img src="${pageContext.request.contextPath}/view/assets/home/img/logo/logo.png" alt="Giúp Việc 24h Logo" 
                     onerror="this.onerror=null; this.src='/api/placeholder/200/40'; this.alt='Giúp Việc 24h';">
                 <h2>Quên mật khẩu</h2>
                 <p>Vui lòng cung cấp thông tin tài khoản của bạn để chúng tôi gửi mã xác thực OTP</p>

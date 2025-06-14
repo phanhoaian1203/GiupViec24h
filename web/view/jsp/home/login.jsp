@@ -95,8 +95,8 @@
         }
         
         .login-header img {
-            height: 40px;
-            margin-bottom: 15px;
+            height: 100px;
+            margin-bottom: 10px;
         }
         
         .login-header h2 {
@@ -221,7 +221,7 @@
         
         <div class="login-form">
             <div class="login-header">
-                <img src="${pageContext.request.contextPath}/images/logo.png" alt="Giúp Việc 24h Logo" 
+                <img src="${pageContext.request.contextPath}/view/assets/home/img/logo/logo.png" alt="Giúp Việc 24h Logo" 
                     onerror="this.onerror=null; this.src='/api/placeholder/200/40'; this.alt='Giúp Việc 24h';">
                 <h2>Đăng nhập</h2>
             </div>

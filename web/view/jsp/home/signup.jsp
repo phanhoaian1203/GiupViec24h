@@ -1,4 +1,6 @@
+
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.time.LocalDate" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -99,8 +101,8 @@
         }
         
         .signup-header img {
-            height: 40px;
-            margin-bottom: 15px;
+            height: 100px;
+            margin-bottom: 10px;
         }
         
         .signup-header h2 {
@@ -232,8 +234,8 @@
         
         <div class="signup-form">
             <div class="signup-header">
-                <img src="${pageContext.request.contextPath}/images/logo.png" alt="Giúp Việc 24h Logo" 
-                    onerror="this.onerror=null; this.src='/api/placeholder/200/40'; this.alt='Giúp Việc 24h';">
+                <img src="${pageContext.request.contextPath}/view/assets/home/img/logo/logo.png" alt="Giúp Việc 24h Logo" 
+                    onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/view/assets/home/img/logoo/placeholder.png'; this.alt='Giúp Việc 24h';">
                 <h2>Đăng ký tài khoản</h2>
             </div>
             
@@ -256,8 +258,8 @@
                     
                     <div class="form-group">
                         <label for="password">Mật khẩu: <span style="color: #e74c3c;">*</span></label>
-                        <input type="password" name="password" id="password" required placeholder="Tối thiểu 8 ký tự">
-                        <p class="info-text">Mật khẩu cần có ít nhất 8 ký tự, bao gồm chữ và số</p>
+                        <input type="password" name="password" id="password" required placeholder="Nhập mật khẩu">
+                        <p class="info-text">Mật khẩu cần khớp với xác nhận mật khẩu</p>
                     </div>
                     
                     <div class="form-group">
@@ -267,7 +269,7 @@
                     
                     <div class="form-group">
                         <label for="dob">Ngày sinh: <span style="color: #e74c3c;">*</span></label>
-                        <input type="date" name="dob" id="dob" required>
+                        <input type="date" name="dob" id="dob" required max="<%= LocalDate.now().toString() %>">
                     </div>
                     
                     <div class="form-group">
@@ -281,13 +283,13 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="phone">Số điện thoại:</label>
-                        <input type="text" name="phone" id="phone" placeholder="Nhập số điện thoại của bạn">
+                        <label for="phone">Số điện thoại: <span style="color: #e74c3c;">*</span></label>
+                        <input type="text" name="phone" id="phone" required placeholder="Nhập số điện thoại của bạn">
                     </div>
                     
                     <div class="form-group">
-                        <label for="area">Khu vực sống:</label>
-                        <input type="text" name="area" id="area" placeholder="Thành phố/Quận/Huyện">
+                        <label for="area">Khu vực sống: <span style="color: #e74c3c;">*</span></label>
+                        <input type="text" name="area" id="area" required placeholder="Thành phố/Quận/Huyện">
                     </div>
                     
                     <div class="form-group full-width">
@@ -295,7 +297,7 @@
                         <select name="role" id="role" onchange="confirmRole(this)" required>
                             <option value="" selected disabled>Chọn vai trò của bạn</option>
                             <option value="customer">Khách hàng - Tôi cần tìm người giúp việc</option>
-                            <option value="helper">Người giúp việc - Tôi muốn đăng ký làm việc</option>
+                            <option value="housekeeper">Người giúp việc - Tôi muốn đăng ký làm việc</option>
                         </select>
                     </div>
                     
@@ -316,7 +318,7 @@
             if (select.value === "") return;
             
             const role = select.value;
-            const message = (role === 'helper') 
+            const message = (role === 'housekeeper') 
                 ? "Bạn đang đăng ký với tư cách NGƯỜI GIÚP VIỆC. Bạn sẽ cần hoàn tất xác minh hồ sơ sau bước này. Xác nhận tiếp tục?"
                 : "Bạn đang đăng ký với tư cách KHÁCH HÀNG. Xác nhận tiếp tục?";
                 

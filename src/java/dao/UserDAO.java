@@ -59,23 +59,45 @@ public class UserDAO {
         }
     }
 
-    public void saveUser(User user) {
+    public User saveUser(User user) {
+    // Kiểm tra vai trò có tồn tại
+    String checkRoleSql = "SELECT role_id FROM roles WHERE name = ?";
+    try (Connection conn = DBContext.getConnection();
+         PreparedStatement checkPs = conn.prepareStatement(checkRoleSql)) {
+        checkPs.setString(1, user.getRole());
+        ResultSet rs = checkPs.executeQuery();
+        if (!rs.next()) {
+            throw new RuntimeException("Vai trò '" + user.getRole() + "' không tồn tại trong bảng roles.");
+        }
+        int roleId = rs.getInt("role_id");
+
+        // Tiến hành chèn dữ liệu
         String sql = "INSERT INTO users (email, password, full_name, gender, phone_number, address, role_id, is_active, birth_year, hometown) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, (SELECT role_id FROM roles WHERE name = ?), ?, ?, ?)";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getFullName());
             ps.setString(4, user.getGender());
             ps.setString(5, user.getPhoneNumber());
             ps.setString(6, user.getAddress());
-            ps.setString(7, user.getRole());
+            ps.setInt(7, roleId); // Sử dụng role_id đã lấy
             ps.setBoolean(8, user.isActive());
             ps.setInt(9, user.getBirthYear());
             ps.setString(10, user.getHometown());
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Lỗi lưu user vào DB: " + e.getMessage(), e);
+
+            // Lấy userId vừa tạo
+            ResultSet generatedKeys = ps.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                user.setUserId(generatedKeys.getInt(1));
+            } else {
+                throw new SQLException("Không thể lấy userId sau khi chèn.");
+            }
+            return user;
         }
+    } catch (SQLException e) {
+        throw new RuntimeException("Lỗi lưu user vào DB: " + e.getMessage(), e);
     }
+}
 }

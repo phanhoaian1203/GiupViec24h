@@ -16,6 +16,21 @@ public class User {
 
     public User() {}
 
+    public User(int userId, String email, String password, String fullName, String gender, String phoneNumber, String address, String role, boolean isActive, int birthYear, String hometown, String profileImageUrl) {
+        this.userId = userId;
+        this.email = email;
+        this.password = password;
+        this.fullName = fullName;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.role = role;
+        this.isActive = isActive;
+        this.birthYear = birthYear;
+        this.hometown = hometown;
+        this.profileImageUrl = profileImageUrl;
+    }
+    
     // Getters & Setters
     public int getUserId() {
         return userId;
