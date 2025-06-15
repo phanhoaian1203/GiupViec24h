@@ -469,7 +469,7 @@
                 <div class="quick-actions">
                     <a href="#" class="action-btn-grid">
                         <i class="fas fa-plus"></i>
-                        <h4>Thêm Nhân Viên</h4>
+                        <h4>Thêm Nhân Viên Hỗ Trợ</h4>
                         <p>Đăng ký nhân viên mới</p>
                     </a>
                     <a href="#" class="action-btn-grid">
