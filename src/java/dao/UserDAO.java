@@ -100,4 +100,14 @@ public class UserDAO {
         throw new RuntimeException("Lỗi lưu user vào DB: " + e.getMessage(), e);
     }
 }
+    private void createVerificationRequest(int userId, String documentUrl) {
+        String sql = "INSERT INTO verification_requests (user_id, document_url, status, submitted_at) VALUES (?, ?, 'pending', GETDATE())";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ps.setString(2, documentUrl);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi tạo yêu cầu xác minh: " + e.getMessage(), e);
+        }
+    }
 }

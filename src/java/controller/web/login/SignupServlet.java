@@ -111,15 +111,16 @@ public class SignupServlet extends HttpServlet {
         user.setGender(gender);
         user.setRole(role);
         user.setBirthYear(birthYear);
-        user.setHometown(area); // Có thể cần trường riêng cho hometown
-        user.setActive(false); // Chưa kích hoạt
+        user.setHometown(area); // Có thể cần trường riêng cho hometown nếu khác area
 
+        // Không cần setActive, để trigger SQL xử lý
         try {
             HttpSession session = request.getSession();
             // Lưu vào database và lấy userId
             User savedUser = userDAO.saveUser(user);
             if (savedUser != null && savedUser.getUserId() > 0) {
-                if ("housekeeper".equals(role)) {
+                if ("housekeeper".equalsIgnoreCase(role)) {
+                    // Chuyển đến trang xác minh để upload tài liệu
                     session.setAttribute("tempUser", savedUser);
                     response.sendRedirect(request.getContextPath() + "/view/jsp/home/verification.jsp");
                 } else { // customer
@@ -135,5 +136,11 @@ public class SignupServlet extends HttpServlet {
             request.setAttribute("errorMessage", "Lỗi hệ thống: " + e.getMessage());
             request.getRequestDispatcher("/view/jsp/home/signup.jsp").forward(request, response);
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        response.sendRedirect(request.getContextPath() + "/view/jsp/home/signup.jsp");
     }
 }

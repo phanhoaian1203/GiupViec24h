@@ -308,7 +308,7 @@
             </form>
             
             <div class="signup-footer">
-                <p>Đã có tài khoản? <a href="login.jsp">Đăng nhập ngay</a></p>
+                <p>Đã có tài khoản? <a href="${pageContext.request.contextPath}/view/jsp/home/login.jsp">Đăng nhập ngay</a></p>
             </div>
         </div>
     </div>

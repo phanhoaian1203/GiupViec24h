@@ -204,6 +204,9 @@
                     <button type="submit" class="btn-submit">Gửi yêu cầu xác minh</button>
                 </div>
             </form>
+                <a href="${pageContext.request.contextPath}/view/jsp/home/login.jsp">
+        <input type="button" value="Quay lại trang đăng nhập">
+    </a>
         </div>
     </div>
 </body>
