@@ -4,15 +4,43 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/home/verification.jsp</file>
-            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/home/signup.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/home/payment.jsp</file>
             <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/home/profile.jsp</file>
             <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/home/index.jsp</file>
-            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/dao/UserDAO.java</file>
-            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/controller/web/login/SignupServlet.java</file>
-            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/model/HousekeeperProfile.java</file>
             <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/dao/HousekeeperProfileDAO.java</file>
             <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/utils/DBContext.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/dao/BookingDAO.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/home/signup.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/controller/web/DispatchServlet.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/housekeeper/updateProfile.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/controller/web/housekeeper/UpdateProfileServlet.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/common/web/header.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/controller/web/housekeeper/ViewBookingsServlet.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/housekeeper/viewBookings.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/housekeeper/viewSchedules.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/assets/profile/1.jpg</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/model/HousekeeperSchedule.java</file>
             <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/model/User.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/common/web/add_css.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/dao/UserDAO.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/housekeeper/housekeeper-profile.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/home/user.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/controller/web/housekeeper/ViewSchedulesServlet.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/home/sofa-tham-dem-rem.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/housekeeper/housekeeperDashboard.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/housekeeper/gv_a.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/controller/web/login/LogoutServlet.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/WEB-INF/web.xml</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/common/web/add_js.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/home/login.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/controller/web/login/LoginServlet.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/controller/web/login/SignupServlet.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/common/web/footer.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/model/Booking.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/web/view/jsp/home/services.jsp</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/dao/HousekeeperScheduleDAO.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/model/HousekeeperProfile.java</file>
+            <file>file:/D:/SU25/giupviec24h/GiupViec24h/src/java/controller/web/login/VerifyServlet.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,23 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
-
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import jakarta.servlet.http.HttpSession;
+import java.time.OffsetDateTime;
 import model.HousekeeperProfile;
-import model.User;
 import utils.DBContext;
+
 /**
  *
  * @author ADMIN
  */
-
 public class HousekeeperProfileDAO {
     private Connection conn;
 
@@ -27,7 +22,44 @@ public class HousekeeperProfileDAO {
             throw new RuntimeException("Failed to establish database connection.");
         }
     }
-
+    // Lấy thông tin HousekeeperProfile dựa trên housekeeper_id
+    public HousekeeperProfile getHousekeeperProfileById(int housekeeperId) {
+        HousekeeperProfile profile = null;
+        String sql = "SELECT u.user_id, u.full_name, u.email, u.phone_number, u.address, u.birth_year, u.hometown, "
+                + "hp.experience_years, hp.hourly_rate, hp.daily_rate, hp.monthly_rate, hp.work_areas, hp.skills, "
+                + "hp.profile_image_url, hp.average_rating, hp.booking_count "
+                + "FROM users u "
+                + "LEFT JOIN housekeeper_profiles hp ON u.user_id = hp.housekeeper_id "
+                + "WHERE u.user_id = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, housekeeperId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                profile = new HousekeeperProfile();
+                profile.setHousekeeperId(rs.getInt("user_id"));
+                profile.setFullName(rs.getString("full_name"));
+                profile.setEmail(rs.getString("email"));
+                profile.setPhoneNumber(rs.getString("phone_number"));
+                profile.setAddress(rs.getString("address"));
+                profile.setBirthYear(rs.getInt("birth_year"));
+                profile.setHometown(rs.getString("hometown"));
+                profile.setExperienceYears(rs.getInt("experience_years"));
+                profile.setHourlyRate(rs.getDouble("hourly_rate"));
+                profile.setDailyRate(rs.getDouble("daily_rate"));
+                profile.setMonthlyRate(rs.getDouble("monthly_rate"));
+                profile.setWorkAreas(rs.getString("work_areas"));
+                profile.setSkills(rs.getString("skills"));
+                profile.setProfileImageUrl(rs.getString("profile_image_url"));
+                profile.setAverageRating(rs.getDouble("average_rating"));
+                profile.setBookingCount(rs.getInt("booking_count"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching profile: " + e.getMessage(), e);
+        }
+        return profile;
+    }
+    
+    // Phương thức lưu yêu cầu xác minh
     public void saveVerificationRequest(int userId, String documentUrlFront, String documentUrlBack, String selfieUrl, 
                                        String status, String reviewedAt, Integer reviewerId, String comments) {
         String sql = "INSERT INTO verification_requests (user_id, document_url, status, reviewed_at, reviewer_id, comments) " +
@@ -45,6 +77,7 @@ public class HousekeeperProfileDAO {
         }
     }
 
+    // Phương thức phê duyệt yêu cầu xác minh
     public void approveVerificationRequest(int verificationId, int reviewerId, String comments, HttpSession session) {
         Connection conn = null;
         try {
@@ -105,12 +138,11 @@ public class HousekeeperProfileDAO {
             updateUserPs.setInt(1, userId);
             updateUserPs.executeUpdate();
 
-            // Cập nhật trạng thái verification_requests
+            // Cập nhật trạng thái verification_requests với thời gian hiện tại
             String updateVerificationSql = "UPDATE verification_requests SET status = ?, reviewed_at = ?, reviewer_id = ?, comments = ? WHERE verification_id = ?";
             PreparedStatement updateVerificationPs = conn.prepareStatement(updateVerificationSql);
             updateVerificationPs.setString(1, "approved");
-            // Đặt thời gian hiện tại: 05:12 PM +07, Saturday, June 14, 2025
-            updateVerificationPs.setString(2, "2025-06-14T17:12:00+07:00");
+            updateVerificationPs.setString(2, OffsetDateTime.now().toString()); // Sử dụng thời gian hiện tại: 10:40 PM +07, June 15, 2025
             updateVerificationPs.setInt(3, reviewerId);
             updateVerificationPs.setString(4, comments != null ? comments : "Đã phê duyệt thành công");
             updateVerificationPs.setInt(5, verificationId);
@@ -120,7 +152,7 @@ public class HousekeeperProfileDAO {
             session.removeAttribute("pendingProfile_" + userId);
 
             conn.commit();
-            System.out.println("Phê duyệt yêu cầu thành công cho user ID: " + userId + " tại " + java.time.OffsetDateTime.now());
+            System.out.println("Phê duyệt yêu cầu thành công cho user ID: " + userId + " tại " + OffsetDateTime.now());
         } catch (SQLException e) {
             if (conn != null) {
                 try {
@@ -142,7 +174,71 @@ public class HousekeeperProfileDAO {
             }
         }
     }
+    
+    public void updateProfile(HousekeeperProfile profile) throws SQLException {
+        conn.setAutoCommit(false);
+        try {
+            // Update users table
+            String userSql = "UPDATE users SET full_name = ?, phone_number = ?, address = ?, birth_year = ?, hometown = ? WHERE user_id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(userSql)) {
+                ps.setString(1, profile.getFullName());
+                ps.setString(2, profile.getPhoneNumber());
+                ps.setString(3, profile.getAddress());
+                ps.setInt(4, profile.getBirthYear());
+                ps.setString(5, profile.getHometown());
+                ps.setInt(6, profile.getHousekeeperId());
+                ps.executeUpdate();
+            }
 
+            // Check if profile exists in housekeeper_profiles
+            String checkSql = "SELECT COUNT(*) FROM housekeeper_profiles WHERE housekeeper_id = ?";
+            boolean profileExists = false;
+            try (PreparedStatement ps = conn.prepareStatement(checkSql)) {
+                ps.setInt(1, profile.getHousekeeperId());
+                ResultSet rs = ps.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    profileExists = true;
+                }
+            }
+
+            // Update or insert into housekeeper_profiles
+            if (profileExists) {
+                String updateSql = "UPDATE housekeeper_profiles SET experience_years = ?, hourly_rate = ?, daily_rate = ?, monthly_rate = ?, "
+                        + "work_areas = ?, skills = ? WHERE housekeeper_id = ?";
+                try (PreparedStatement ps = conn.prepareStatement(updateSql)) {
+                    ps.setInt(1, profile.getExperienceYears());
+                    ps.setDouble(2, profile.getHourlyRate());
+                    ps.setDouble(3, profile.getDailyRate());
+                    ps.setDouble(4, profile.getMonthlyRate());
+                    ps.setString(5, profile.getWorkAreas());
+                    ps.setString(6, profile.getSkills());
+                    ps.setInt(7, profile.getHousekeeperId());
+                    ps.executeUpdate();
+                }
+            } else {
+                String insertSql = "INSERT INTO housekeeper_profiles (housekeeper_id, experience_years, hourly_rate, daily_rate, monthly_rate, work_areas, skills) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
+                    ps.setInt(1, profile.getHousekeeperId());
+                    ps.setInt(2, profile.getExperienceYears());
+                    ps.setDouble(3, profile.getHourlyRate());
+                    ps.setDouble(4, profile.getDailyRate());
+                    ps.setDouble(5, profile.getMonthlyRate());
+                    ps.setString(6, profile.getWorkAreas());
+                    ps.setString(7, profile.getSkills());
+                    ps.executeUpdate();
+                }
+            }
+
+            conn.commit();
+        } catch (SQLException e) {
+            conn.rollback();
+            throw e;
+        } finally {
+            conn.setAutoCommit(true);
+        }
+    }
+
+    // Phương thức cập nhật trạng thái user
     public void updateUserStatus(int userId, boolean isActive) {
         String sql = "UPDATE users SET is_active = ? WHERE user_id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -151,6 +247,17 @@ public class HousekeeperProfileDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Lỗi cập nhật trạng thái user: " + e.getMessage(), e);
+        }
+    }
+
+    // Đóng kết nối khi không còn sử dụng (tùy chọn)
+    public void closeConnection() {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException("Lỗi đóng kết nối: " + e.getMessage(), e);
+            }
         }
     }
 }
