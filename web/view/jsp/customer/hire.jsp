@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -455,16 +456,16 @@
         }
 
         .btn-book, .btn-hire {
-    color: var(--white);
-    text-decoration: none;
-    padding: 0.4rem 0.8rem; /* Giảm padding từ 0.6rem 1.2rem xuống 0.4rem 0.8rem */
-    font-weight: 500;
-    font-size: 0.8rem; /* Giảm font-size từ 0.9rem xuống 0.8rem */
-    transition: background 0.2s ease;
-    flex: 1;
-    text-align: center;
-    max-width: 120px;
-}
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.4rem 0.8rem;
+            font-weight: 500;
+            font-size: 0.8rem;
+            transition: background 0.2s ease;
+            flex: 1;
+            text-align: center;
+            max-width: 120px;
+        }
 
         .btn-book {
             background: var(--primary-color);
@@ -648,7 +649,6 @@
                             <input type="checkbox" id="service-general" name="services" value="Dọn dẹp tổng thể">
                             <label for="service-general"><i class="fas fa-home"></i> Dọn dẹp tổng thể</label>
                         </li>
-                        
                         <li>
                             <input type="checkbox" id="service-special" name="services" value="Dịch vụ đặc biệt">
                             <label for="service-special"><i class="fas fa-star"></i> Dịch vụ đặc biệt</label>
@@ -671,7 +671,7 @@
                 <div class="content-header">
                     <div>
                         <h2 class="booking-title">Giúp Việc Uy Tín Tại Đà Nẵng</h2>
-                        <p class="results-count">Tìm thấy <strong>4</strong> nhân viên phù hợp</p>
+                        <p class="results-count">Tìm thấy <strong>${housekeepers.size()}</strong> nhân viên phù hợp</p>
                     </div>
                     <div class="sort-options">
                         <label for="sort">Sắp xếp:</label>
@@ -685,162 +685,46 @@
                 </div>
 
                 <div class="helper-list" id="helperList">
-                    <!-- Thẻ nhân viên 1 -->
-                    <div class="helper-card" data-time="morning">
-                        <div class="helper-image-container">
-                            <img src="/api/placeholder/320/200" alt="Nguyễn Văn A" class="helper-image">
-                            <div class="helper-status">Có sẵn</div>
-                        </div>
-                        <div class="helper-info">
-                            <div class="helper-header">
-                                <div>
-                                    <div class="helper-name">Nguyễn Văn A</div>
-                                    <div class="helper-location">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Đà Nẵng, Hải Châu
+                    <c:forEach var="housekeeper" items="${housekeepers}">
+                        <div class="helper-card" data-time="${housekeeper.timeSlot}">
+                            <div class="helper-image-container">
+                                <img src="${housekeeper.profileImageUrl}" alt="${housekeeper.fullName}" class="helper-image">
+                                <div class="helper-status">Có sẵn</div>
+                            </div>
+                            <div class="helper-info">
+                                <div class="helper-header">
+                                    <div>
+                                        <div class="helper-name">${housekeeper.fullName}</div>
+                                        <div class="helper-location">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            Đà Nẵng, ${housekeeper.workAreas}
+                                        </div>
+                                    </div>
+                                    <div class="helper-rating">
+                                        <i class="fas fa-star"></i>
+                                        <span><fmt:formatNumber value="${housekeeper.averageRating}" pattern="#.#"/> (${housekeeper.bookingCount})</span>
                                     </div>
                                 </div>
-                                <div class="helper-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.7 (15)</span>
-                                </div>
-                            </div>
-                            <div class="helper-specialties">
-                                <div class="specialty-tags">
-                                    <span class="specialty-tag">Giúp việc theo giờ</span>
-                                    <span class="specialty-tag">Vệ sinh máy giặt</span>
-                                </div>
-                            </div>
-                            <div class="helper-footer">
-                                <div>
-                                    <div class="helper-price">140,000đ/giờ</div>
-                                    <div class="price-note">Tối thiểu 2 giờ</div>
-                                </div>
-                                <div>
-                                    <a href="/helper/1" class="btn-book">Xem chi tiết</a>
-                                    <a href="/hire/1" class="btn-hire">Thuê ngay</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Thẻ nhân viên 2 -->
-                    <div class="helper-card" data-time="afternoon">
-                        <div class="helper-image-container">
-                            <img src="/api/placeholder/320/200" alt="Trần Thị B" class="helper-image">
-                            <div class="helper-status">Có sẵn</div>
-                            <div class="helper-discount">Giảm 10%</div>
-                        </div>
-                        <div class="helper-info">
-                            <div class="helper-header">
-                                <div>
-                                    <div class="helper-name">Trần Thị B</div>
-                                    <div class="helper-location">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Đà Nẵng, Thanh Khê
+                                <div class="helper-specialties">
+                                    <div class="specialty-tags">
+                                        <c:forEach var="skill" items="${housekeeper.skills}">
+                                            <span class="specialty-tag">${skill}</span>
+                                        </c:forEach>
                                     </div>
                                 </div>
-                                <div class="helper-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.8 (20)</span>
-                                </div>
-                            </div>
-                            <div class="helper-specialties">
-                                <div class="specialty-tags">
-                                    <span class="specialty-tag">Vệ sinh máy giặt</span>
-                                    
-                                </div>
-                            </div>
-                            <div class="helper-footer">
-                                <div>
-                                    <div class="helper-price">150,000đ/giờ</div>
-                                    <div class="price-note">Tối thiểu 3 giờ</div>
-                                </div>
-                                <div>
-                                    <a href="/helper/2" class="btn-book">Xem chi tiết</a>
-                                    <a href="/hire/2" class="btn-hire">Thuê ngay</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Thẻ nhân viên 3 -->
-                    <div class="helper-card" data-time="evening">
-                        <div class="helper-image-container">
-                            <img src="/api/placeholder/320/200" alt="Lê Văn C" class="helper-image">
-                            <div class="helper-status">Có sẵn</div>
-                        </div>
-                        <div class="helper-info">
-                            <div class="helper-header">
-                                <div>
-                                    <div class="helper-name">Lê Văn C</div>
-                                    <div class="helper-location">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Đà Nẵng, Sơn Trà
+                                <div class="helper-footer">
+                                    <div>
+                                        <div class="helper-price"><fmt:formatNumber value="${housekeeper.hourlyRate}" type="currency" currencySymbol="đ" groupingUsed="true"/>/giờ</div>
+                                        <div class="price-note">Tối thiểu 2 giờ</div>
+                                    </div>
+                                    <div>
+                                        <a href="/helper/${housekeeper.userId}" class="btn-book">Xem chi tiết</a>
+                                        <a href="/hire/${housekeeper.userId}" class="btn-hire">Thuê ngay</a>
                                     </div>
                                 </div>
-                                <div class="helper-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.6 (12)</span>
-                                </div>
-                            </div>
-                            <div class="helper-specialties">
-                                <div class="specialty-tags">
-                                    <span class="specialty-tag">Dọn dẹp tổng thể</span>
-                                </div>
-                            </div>
-                            <div class="helper-footer">
-                                <div>
-                                    <div class="helper-price">130,000đ/giờ</div>
-                                    <div class="price-note">Tối thiểu 2 giờ</div>
-                                </div>
-                                <div>
-                                    <a href="/helper/3" class="btn-book">Xem chi tiết</a>
-                                    <a href="/hire/3" class="btn-hire">Thuê ngay</a>
-                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Thẻ nhân viên 4 -->
-                    <div class="helper-card" data-time="fullday">
-                        <div class="helper-image-container">
-                            <img src="/api/placeholder/320/200" alt="Phạm Thị D" class="helper-image">
-                            <div class="helper-status">Có sẵn</div>
-                            <div class="helper-discount">Giảm 15%</div>
-                        </div>
-                        <div class="helper-info">
-                            <div class="helper-header">
-                                <div>
-                                    <div class="helper-name">Phạm Thị D</div>
-                                    <div class="helper-location">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Đà Nẵng, Ngũ Hành Sơn
-                                    </div>
-                                </div>
-                                <div class="helper-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.9 (25)</span>
-                                </div>
-                            </div>
-                            <div class="helper-specialties">
-                                <div class="specialty-tags">
-                                    <span class="specialty-tag">Giặt ủi</span>
-                                    <span class="specialty-tag">Vệ sinh sofa</span>
-                                </div>
-                            </div>
-                            <div class="helper-footer">
-                                <div>
-                                    <div class="helper-price">160,000đ/giờ</div>
-                                    <div class="price-note">Tối thiểu 4 giờ</div>
-                                </div>
-                                <div>
-                                    <a href="/helper/4" class="btn-book">Xem chi tiết</a>
-                                    <a href="/hire/4" class="btn-hire">Thuê ngay</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </section>
@@ -882,7 +766,8 @@
                     const name = card.querySelector('.helper-name').textContent.toLowerCase();
                     const location = card.querySelector('.helper-location').textContent.toLowerCase();
                     const specialties = Array.from(card.querySelectorAll('.specialty-tag')).map(tag => tag.textContent.toLowerCase());
-                    const price = parseInt(card.querySelector('.helper-price').textContent.replace(/[^0-9]/g, ''));
+                    const priceText = card.querySelector('.helper-price').textContent.replace(/[^0-9]/g, '');
+                    const price = parseInt(priceText);
                     const cardTime = card.dataset.time;
 
                     const matchesSearch = !searchTerm || name.includes(searchTerm) || location.includes(searchTerm);
@@ -890,8 +775,7 @@
                     const matchesTime = !time || cardTime === time;
                     const matchesPrice = price >= minPrice && price <= maxPrice;
                     const matchesService = selectedServices.length === 0 || 
-                        selectedServices.some(service => 
-                            service === 'giúp việc theo giờ' || specialties.includes(service));
+                        selectedServices.some(service => specialties.includes(service));
 
                     card.style.display = matchesSearch && matchesDistrict && matchesTime && matchesPrice && matchesService ? 'block' : 'none';
                 });
