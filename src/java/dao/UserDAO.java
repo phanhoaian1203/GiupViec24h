@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.User;
 import utils.DBContext;
 
@@ -25,7 +27,7 @@ public class UserDAO {
                      "WHERE u.email = ? AND u.password = ? AND u.is_active = 1";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
-            ps.setString(2, password);
+            ps.setString(2, password); 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 User user = new User();
@@ -76,7 +78,7 @@ public class UserDAO {
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getEmail());
-            ps.setString(2, user.getPassword());
+            ps.setString(2, user.getPassword()); 
             ps.setString(3, user.getFullName());
             ps.setString(4, user.getGender());
             ps.setString(5, user.getPhoneNumber());
@@ -108,6 +110,66 @@ public class UserDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Lỗi tạo yêu cầu xác minh: " + e.getMessage(), e);
+        }
+    }
+
+    public User getUserByEmail(String email) {
+        String sql = "SELECT user_id, email, full_name FROM users WHERE email = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("user_id"));
+                user.setEmail(rs.getString("email"));
+                user.setFullName(rs.getString("full_name"));
+                return user;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi lấy user theo email: " + e.getMessage(), e);
+        }
+        return null;
+    }
+
+    public void updatePassword(String email, String newPassword) {
+        String sql = "UPDATE users SET password = ? WHERE email = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, newPassword); 
+            ps.setString(2, email);
+            int rows = ps.executeUpdate();
+            System.out.println("✅ Password updated, rows affected: " + rows);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<User> getPendingUsers() {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT * FROM users WHERE is_active = 0";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("user_id"));
+                user.setEmail(rs.getString("email"));
+                user.setFullName(rs.getString("full_name"));
+                user.setRoleId(rs.getInt("role_id"));
+                user.setActive(false);
+                list.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public void activateUser(int userId) {
+        String sql = "UPDATE users SET is_active = 1 WHERE user_id = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
