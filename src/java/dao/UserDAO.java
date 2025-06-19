@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.User;
+import model.UserGoogleDto;
 import utils.DBContext;
 
 public class UserDAO {
@@ -172,4 +173,22 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
+    
+     public void saveGoogleUser(UserGoogleDto userDto) {
+    if (emailExists(userDto.getEmail())) {
+        System.out.println("User already exists: " + userDto.getEmail());
+        return; // Không lưu trùng
+    }
+
+    String sql = "INSERT INTO users (email, password, full_name, role_id, is_active, created_at, updated_at) " +
+                 "VALUES (?, ?, ?, (SELECT role_id FROM roles WHERE name = 'customer'), 1, SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET())";
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setString(1, userDto.getEmail());
+        ps.setString(2, "GOOGLE"); // Mật khẩu giả định
+        ps.setString(3, userDto.getName());
+        ps.executeUpdate();
+    } catch (SQLException e) {
+        throw new RuntimeException("Lỗi lưu người dùng Google: " + e.getMessage(), e);
+    }
+}
 }

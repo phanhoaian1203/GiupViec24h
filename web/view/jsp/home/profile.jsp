@@ -101,7 +101,7 @@
         .profile-avatar .avatar-upload:hover {
             background: #374151;
             transform: scale(1.1);
-        }
+}
 
         .profile-name {
             text-align: center;
@@ -220,7 +220,7 @@
             background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+padding: 0.75rem 1.5rem;
             border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
@@ -340,7 +340,7 @@
 
         .additional-info {
             margin-top: 3rem;
-            padding-top: 2rem;
+padding-top: 2rem;
             border-top: 2px solid #f1f5f9;
         }
 
@@ -386,36 +386,6 @@
         .info-card-value {
             color: #6b7280;
             font-size: 0.875rem;
-        }
-
-        .wallet-actions {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-
-        .wallet-transactions {
-            max-height: 200px;
-            overflow-y: auto;
-            padding-right: 0.5rem;
-        }
-
-        .transaction-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #e5e7eb;
-            font-size: 0.875rem;
-        }
-
-        .transaction-amount {
-            font-weight: 600;
-            color: #1AB394;
-        }
-
-        .transaction-amount.negative {
-            color: #ef4444;
         }
 
         .modal {
@@ -494,7 +464,7 @@
         }
 
         .notification.show {
-            transform: translateX(0);
+transform: translateX(0);
         }
 
         @media (max-width: 1024px) {
@@ -532,8 +502,7 @@
             }
 
             .form-actions,
-            .modal-actions,
-            .wallet-actions {
+            .modal-actions {
                 flex-direction: column;
             }
 
@@ -548,316 +517,137 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1><i class="fas fa-user-circle"></i> Hồ Sơ Khách Hàng</h1>
-            <p>Quản lý và cập nhật thông tin cá nhân của bạn</p>
-        </div>
+<div class="container">
+    <div class="header">
+        <h1><i class="fas fa-user-circle"></i> Hồ Sơ Khách Hàng</h1>
+        <p>Quản lý và cập nhật thông tin cá nhân của bạn</p>
+    </div>
 
-        <div class="profile-layout">
-            <div class="profile-sidebar">
-                <div class="profile-avatar" onclick="document.getElementById('avatar-upload').click()">
-                    <span id="avatar-text">NA</span>
-                    <div class="avatar-upload">
-                        <i class="fas fa-camera fa-sm"></i>
-                    </div>
-                    <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+    <div class="profile-layout">
+        <div class="profile-sidebar">
+            <div class="profile-avatar"
+                 style="background-image: url('${pageContext.request.contextPath}/${empty user.profileImageUrl ? 'images/profile-placeholder.jpg' : user.profileImageUrl}');
+                        background-size: cover; background-position: center;">
+                <span id="avatar-text" style="display: none;">${user.fullName.substring(0, 1)}</span>
+                <div class="avatar-upload">
+                    <i class="fas fa-camera fa-sm"></i>
                 </div>
+                <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+            </div>
 
-                <div class="profile-name">
-                    <h2 id="sidebar-name">Nguyễn Văn An</h2>
-                    <span class="status">
-                        <i class="fas fa-check-circle"></i> Đã xác minh
-                    </span>
+            <div class="profile-name">
+                <h2 id="sidebar-name">${user.fullName}</h2>
+                <span class="status">
+                    <i class="fas fa-check-circle"></i> Đã xác minh
+                </span>
+            </div>
+
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span class="stat-number">--</span>
+                    <span class="stat-label">Lượt Thuê</span>
                 </div>
-
-                <div class="profile-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">24</span>
-                        <span class="stat-label">Lượt Thuê</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">5.0</span>
-                        <span class="stat-label">Đánh giá</span>
-                    </div>
-                </div>
-
-                <div class="profile-actions">
-                    <button class="action-btn btn-primary">
-                        <i class="fas fa-history"></i> Lịch sử thuê
-                    </button>
-                    <button class="action-btn btn-secondary" onclick="openPasswordModal()">
-                        <i class="fas fa-lock"></i> Thay đổi mật khẩu
-                    </button>
-                    <button class="action-btn btn-secondary">
-                        <i class="fas fa-cog"></i> Cài đặt bảo mật
-                    </button>
+                <div class="stat-item">
+                    <span class="stat-number">--</span>
+                    <span class="stat-label">Đánh giá</span>
                 </div>
             </div>
 
-            <div class="main-content">
-                <div class="content-header">
-                    <h2 class="content-title">Thông Tin Cá Nhân</h2>
-                    <button class="edit-toggle" onclick="toggleEdit()">
-                        <i class="fas fa-edit"></i>
-                        <span id="edit-text">Chỉnh sửa</span>
-                    </button>
+            <div class="profile-actions">
+                <button class="action-btn btn-primary">
+                    <i class="fas fa-history"></i> Lịch sử thuê
+                </button>
+                <button class="action-btn btn-secondary" onclick="openPasswordModal()">
+                    <i class="fas fa-lock"></i> Thay đổi mật khẩu
+</button>
+                <button class="action-btn btn-secondary">
+                    <i class="fas fa-cog"></i> Cài đặt bảo mật
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="content-header">
+                <h2 class="content-title">Thông Tin Cá Nhân</h2>
+                <button class="edit-toggle" onclick="toggleEdit()">
+                    <i class="fas fa-edit"></i> <span id="edit-text">Chỉnh sửa</span>
+                </button>
+            </div>
+
+            <form id="profile-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="fullName"><i class="fas fa-user"></i> Họ và tên</label>
+                        <div class="input-group">
+                            <input type="text" id="fullName" name="fullName" class="form-input" value="${user.fullName}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email"><i class="fas fa-envelope"></i> Email</label>
+                        <div class="input-group">
+                            <input type="email" id="email" name="email" class="form-input" value="${user.email}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="phone"><i class="fas fa-phone"></i> Số điện thoại</label>
+                        <div class="input-group">
+                            <input type="tel" id="phone" name="phone" class="form-input" value="${user.phoneNumber}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="birthDate"><i class="fas fa-calendar"></i> Ngày sinh</label>
+                        <div class="input-group">
+                            <input type="date" id="birthDate" name="birthDate" class="form-input" value="${user.birthYear}-01-01" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gender"><i class="fas fa-venus-mars"></i> Giới tính</label>
+                        <div class="input-group">
+                            <select id="gender" name="gender" class="form-input" disabled>
+                                <option value="male" ${user.gender == 'male' ? 'selected' : ''}>Nam</option>
+                                <option value="female" ${user.gender == 'female' ? 'selected' : ''}>Nữ</option>
+                                <option value="other" ${user.gender == 'other' ? 'selected' : ''}>Khác</option>
+                            </select>
+                        </div>
+                    </div>
+<div class="form-group">
+                        <label class="form-label" for="address"><i class="fas fa-map-marker-alt"></i> Địa chỉ</label>
+                        <div class="input-group">
+                            <input type="text" id="address" name="address" class="form-input" value="${user.address}" disabled>
+                        </div>
+                    </div>
                 </div>
 
-                <form id="profile-form">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label" for="fullName">
-                                <i class="fas fa-user"></i> Họ và tên
-                            </label>
-                            <div class="input-group">
-                                <input type="text" id="fullName" name="fullName" class="form-input" value="Nguyễn Văn An" disabled>
-                                <i class="input-icon fas fa-user"></i>
-                            </div>
-                        </div>
+                <div class="form-actions hidden" id="form-actions">
+                    <button type="button" class="btn btn-cancel" onclick="cancelEdit()">
+                        <i class="fas fa-times"></i> Hủy
+                    </button>
+                    <button type="submit" class="btn btn-save">
+                        <i class="fas fa-save"></i> Lưu thay đổi
+                    </button>
+                </div>
+            </form>
 
-                        <div class="form-group">
-                            <label class="form-label" for="email">
-                                <i class="fas fa-envelope"></i> Email
-                            </label>
-                            <div class="input-group">
-                                <input type="email" id="email" name="email" class="form-input" value="nguyenvanan@email.com" disabled>
-                                <i class="input-icon fas fa-envelope"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="phone">
-                                <i class="fas fa-phone"></i> Số điện thoại
-                            </label>
-                            <div class="input-group">
-                                <input type="tel" id="phone" name="phone" class="form-input" value="0123456789" disabled>
-                                <i class="input-icon fas fa-phone"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="birthDate">
-                                <i class="fas fa-calendar"></i> Ngày sinh
-                            </label>
-                            <div class="input-group">
-                                <input type="date" id="birthDate" name="birthDate" class="form-input" value="1990-01-01" disabled>
-                                <i class="input-icon fas fa-calendar"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="gender">
-                                <i class="fas fa-venus-mars"></i> Giới tính
-                            </label>
-                            <div class="input-group">
-                                <select id="gender" name="gender" class="form-input" disabled>
-                                    <option value="male" selected>Nam</option>
-                                    <option value="female">Nữ</option>
-                                    <option value="other">Khác</option>
-                                </select>
-                                <i class="input-icon fas fa-chevron-down"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="address">
-                                <i class="fas fa-map-marker-alt"></i> Địa chỉ
-                            </label>
-                            <div class="input-group">
-                                <input type="text" id="address" name="address" class="form-input" value="123 Đường ABC, TP.DN" disabled>
-                                <i class="input-icon fas fa-map-marker-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-actions hidden" id="form-actions">
-                        <button type="button" class="btn btn-cancel" onclick="cancelEdit()">
-                            <i class="fas fa-times"></i> Hủy
-                        </button>
-                        <button type="button" class="btn btn-delete" onclick="showDeleteConfirm()">
-                            <i class="fas fa-trash"></i> Xóa tài khoản
-                        </button>
-                        <button type="submit" class="btn btn-save">
-                            <i class="fas fa-save"></i> Lưu thay đổi
-                        </button>
-                    </div>
-                </form>
-
-                <div class="additional-info">
-                    <div class="info-section">
-                        <h3 class="info-title">
-                            <i class="fas fa-info-circle"></i>
-                            Thông tin bổ sung
-                        </h3>
-                        <div class="info-grid">
-                            <div class="info-card">
-                                <div class="info-card-title">Ngày tham gia</div>
-                                <div class="info-card-value">15 tháng 3, 2023</div>
-                            </div>
-                            <div class="info-card">
-                                <div class="info-card-title">Điểm tích lũy</div>
-                                <div class="info-card-value">2,450 điểm</div>
-                            </div>
-                            <div class="info-card">
-                                <div class="info-card-title">Cấp độ thành viên</div>
-                                <div class="info-card-value">Vàng</div>
-                            </div>
-                            <div class="info-card">
-                                <div class="info-card-title">Lần cuối truy cập</div>
-                                <div class="info-card-value">Hôm nay, 14:30</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="info-section">
-                        <h3 class="info-title">
-                            <i class="fas fa-wallet"></i>
-                            Ví của tôi
-                        </h3>
+            <div class="additional-info">
+                <div class="info-section">
+                    <h3 class="info-title"><i class="fas fa-info-circle"></i> Thông tin bổ sung</h3>
+       
                         <div class="info-card">
-                            <div class="info-card-title">Số dư hiện tại</div>
-                            <div class="info-card-value">
-                                <span class="transaction-amount">2,500,000 VND</span>
-                            </div>
-                            <div class="wallet-actions">
-                                <button class="btn btn-primary" onclick="openDepositModal()">
-                                    <i class="fas fa-plus"></i> Nạp tiền
-                                </button>
-                                <button class="btn btn-secondary" onclick="openWithdrawModal()">
-                                    <i class="fas fa-minus"></i> Rút tiền
-                                </button>
-                            </div>
-                        </div>
-                        <div class="info-card">
-                            <div class="info-card-title">Lịch sử giao dịch</div>
-                            <div class="info-card-value">
-                                <div class="wallet-transactions">
-                                    <div class="transaction-item">
-                                        <span>Nạp tiền</span>
-                                        <span class="transaction-amount">+1,000,000 VND</span>
-                                        <span>10/06/2025</span>
-                                    </div>
-                                    <div class="transaction-item">
-                                        <span>Thanh toán dịch vụ</span>
-                                        <span class="transaction-amount negative">-500,000 VND</span>
-                                        <span>09/06/2025</span>
-                                    </div>
-                                    <div class="transaction-item">
-                                        <span>Nạp tiền</span>
-                                        <span class="transaction-amount">+2,000,000 VND</span>
-                                        <span>08/06/2025</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="info-card-title">Vai trò</div>
+                            <div class="info-card-value">${user.role}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="modal" id="password-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Thay đổi mật khẩu</h2>
-                <button class="modal-close" onclick="closePasswordModal()">×</button>
-            </div>
-            <form id="password-form">
-                <div class="form-group">
-                    <label class="form-label" for="currentPassword">
-                        <i class="fas fa-lock"></i> Mật khẩu hiện tại
-                    </label>
-                    <div class="input-group">
-                        <input type="password" id="currentPassword" name="currentPassword" class="form-input" required>
-                        <i class="input-icon fas fa-lock"></i>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="newPassword">
-                        <i class="fas fa-lock"></i> Mật khẩu mới
-                    </label>
-                    <div class="input-group">
-                        <input type="password" id="newPassword" name="newPassword" class="form-input" required>
-                        <i class="input-icon fas fa-lock"></i>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="confirmPassword">
-                        <i class="fas fa-lock"></i> Xác nhận mật khẩu mới
-                    </label>
-                    <div class="input-group">
-                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
-                        <i class="input-icon fas fa-lock"></i>
-                    </div>
-                    <div class="error-message" id="password-error">Mật khẩu xác nhận không khớp!</div>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-cancel" onclick="closePasswordModal()">Hủy</button>
-                    <button type="submit" class="btn btn-save">Lưu</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="deposit-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Nạp tiền</h2>
-                <button class="modal-close" onclick="closeDepositModal()">×</button>
-            </div>
-            <form id="deposit-form">
-                <div class="form-group">
-                    <label class="form-label" for="deposit-amount">
-                        <i class="fas fa-money-bill"></i> Số tiền nạp (VNĐ)
-                    </label>
-                    <div class="input-group">
-                        <input type="number" id="deposit-amount" name="deposit-amount" class="form-input" min="10000" required>
-                        <i class="input-icon fas fa-money-bill-alt"></i>
-                    </div>
-                    <div class="error-message" id="deposit-error">Số tiền phải lớn hơn hoặc bằng 10,000 VNĐ!</div>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-cancel" onclick="closeDepositModal()">Hủy</button>
-                    <button type="submit" class="btn btn-save">Nạp</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="withdraw-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Rút tiền</h2>
-                <button class="modal-close" onclick="closeWithdrawModal()">×</button>
-            </div>
-            <form id="withdraw-form">
-                <div class="form-group">
-                    <label class="form-label" for="withdraw-amount">
-                        <i class="fas fa-money-bill"></i> Số tiền rút (VNĐ)
-                    </label>
-                    <div class="input-group">
-                        <input type="number" id="withdraw-amount" name="withdraw-amount" class="form-input" min="10000" required>
-                        <i class="input-icon fas fa-money-bill-alt"></i>
-                    </div>
-                    <div class="error-message" id="withdraw-error">Số tiền rút không hợp lệ hoặc không đủ số dư!</div>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-cancel" onclick="closeWithdrawModal()">Hủy</button>
-                    <button type="submit" class="btn btn-save">Rút</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="notification" id="notification">
-        <i class="fas fa-check-circle"></i>
-        <span id="notification-text">Cập nhật thành công!</span>
     </div>
 
     <script>
         let isEditing = false;
-        let walletBalance = 2500000; // Số dư ví ban đầu
 
         function toggleEdit() {
             isEditing = !isEditing;
@@ -888,8 +678,7 @@
             document.getElementById('address').value = '123 Đường ABC, TP.DN';
             toggleEdit();
         }
-
-        function showDeleteConfirm() {
+function showDeleteConfirm() {
             if (confirm('Bạn có chắc chắn muốn xóa tài khoản? Hành động này không thể hoàn tác!')) {
                 showNotification('Tài khoản đã được xóa!', 'error');
                 // Redirect or perform delete action here
@@ -928,47 +717,6 @@
             document.getElementById('password-error').style.display = 'none';
         }
 
-        function openDepositModal() {
-            document.getElementById('deposit-modal').style.display = 'flex';
-            document.getElementById('deposit-amount').focus();
-        }
-
-        function closeDepositModal() {
-            document.getElementById('deposit-modal').style.display = 'none';
-            document.getElementById('deposit-form').reset();
-            document.getElementById('deposit-error').style.display = 'none';
-        }
-
-        function openWithdrawModal() {
-            document.getElementById('withdraw-modal').style.display = 'flex';
-            document.getElementById('withdraw-amount').focus();
-        }
-
-        function closeWithdrawModal() {
-            document.getElementById('withdraw-modal').style.display = 'none';
-            document.getElementById('withdraw-form').reset();
-            document.getElementById('withdraw-error').style.display = 'none';
-        }
-
-        function updateWalletBalance(amount, type) {
-            const balanceElement = document.querySelector('.transaction-amount');
-            if (type === 'deposit') {
-                walletBalance += amount;
-            } else if (type === 'withdraw') {
-                walletBalance -= amount;
-            }
-            balanceElement.textContent = walletBalance.toLocaleString('vi-VN') + ' VND';
-
-            const transactionsContainer = document.querySelector('.wallet-transactions');
-            const transactionItem = document.createElement('div');
-            transactionItem.className = 'transaction-item';
-            const date = new Date().toLocaleDateString('vi-VN');
-            transactionItem.innerHTML = `
-                
-            `;
-            transactionsContainer.prepend(transactionItem);
-        }
-
         document.getElementById('profile-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
@@ -995,7 +743,7 @@
         });
 
         document.getElementById('fullName').addEventListener('input', function(e) {
-            if (isEditing && e.target.value.trim()) {
+if (isEditing && e.target.value.trim()) {
                 updateSidebarName(e.target.value);
             }
         });
@@ -1014,38 +762,6 @@
             errorMessage.style.display = 'none';
             showNotification('Mật khẩu đã được thay đổi thành công!');
             closePasswordModal();
-        });
-
-        document.getElementById('deposit-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const amount = parseInt(document.getElementById('deposit-amount').value);
-            const errorMessage = document.getElementById('deposit-error');
-            
-            if (amount < 10000) {
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            errorMessage.style.display = 'none';
-            updateWalletBalance(amount, 'deposit');
-            showNotification('Nạp tiền thành công!');
-            closeDepositModal();
-        });
-
-        document.getElementById('withdraw-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const amount = parseInt(document.getElementById('withdraw-amount').value);
-            const errorMessage = document.getElementById('withdraw-error');
-            
-            if (amount < 10000 || amount > walletBalance) {
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            errorMessage.style.display = 'none';
-            updateWalletBalance(amount, 'withdraw');
-            showNotification('Rút tiền thành công!');
-            closeWithdrawModal();
         });
 
         document.addEventListener('DOMContentLoaded', function() {

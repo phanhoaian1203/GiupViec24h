@@ -7,11 +7,7 @@ import java.sql.SQLException;
 public class DBContext {
 
 
-    private static final String URL = "jdbc:sqlserver://DESKTOP-UG4U71C\\SQLEXPRESS;databaseName=giupviec24h_ver5;encrypt=false;trustServerCertificate=true";
-
-  
-
-
+    private static final String URL = "jdbc:sqlserver://DESKTOP-UG4U71C\\SQLEXPRESS;databaseName=giupviec24h_ver13;encrypt=false;trustServerCertificate=true";
 
     private static final String USER = "sa";
     private static final String PASSWORD = "161104";
