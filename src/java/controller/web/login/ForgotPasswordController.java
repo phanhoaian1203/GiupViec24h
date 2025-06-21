@@ -41,7 +41,9 @@ public class ForgotPasswordController extends HttpServlet {
                 "Xin chào,\n\nMã OTP của bạn là: " + otp + "\nHiệu lực trong 15 phút.\n\nGiúp Việc 24h");
 
             request.setAttribute("message", "Đã gửi OTP đến email của bạn.");
+            request.setAttribute("email", email); // ✅ thêm dòng này để form có giá trị
             request.getRequestDispatcher("/view/jsp/home/enterOtp.jsp").forward(request, response);
+
         } else {
             request.setAttribute("error", "Email không tồn tại!");
             request.getRequestDispatcher("/view/jsp/home/forgotPassword.jsp").forward(request, response);

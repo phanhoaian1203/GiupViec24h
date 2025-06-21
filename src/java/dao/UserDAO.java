@@ -132,16 +132,32 @@ public class UserDAO {
     }
 
     public void updatePassword(String email, String newPassword) {
-        String sql = "UPDATE users SET password = ? WHERE email = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, newPassword); 
-            ps.setString(2, email);
-            int rows = ps.executeUpdate();
-            System.out.println("✅ Password updated, rows affected: " + rows);
-        } catch (SQLException e) {
-            e.printStackTrace();
+    String sql = "UPDATE users SET password = ?, updated_at = SYSDATETIMEOFFSET() WHERE email = ?";
+    try (Connection conn = DBContext.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        System.out.println("🔧 Updating password for: " + email);
+        System.out.println("🔒 New password: " + newPassword);
+
+        ps.setString(1, newPassword);
+        ps.setString(2, email);
+        int rows = ps.executeUpdate();
+
+        System.out.println("🧪 Rows affected: " + rows);
+
+        if (rows > 0) {
+            System.out.println("✅ Password updated successfully.");
+        } else {
+            System.out.println("❌ Email không tồn tại trong DB.");
         }
+
+    } catch (SQLException e) {
+        System.out.println("❌ SQLException: " + e.getMessage());
+        e.printStackTrace();
     }
+}
+
+
 
     public List<User> getPendingUsers() {
         List<User> list = new ArrayList<>();

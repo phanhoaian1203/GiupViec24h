@@ -97,11 +97,15 @@
         <h2>Xác minh mã OTP</h2>
 
         <form action="${pageContext.request.contextPath}/verify-otp" method="post">
+            <!-- Hidden input để truyền email -->
+            <input type="hidden" name="email" value="${email}" />
+
             <label for="otp">Nhập mã OTP đã gửi về email:</label>
             <input type="text" id="otp" name="otp" placeholder="Nhập 6 chữ số OTP" required>
 
             <button type="submit" class="btn-submit">Xác nhận</button>
         </form>
+
 
         <c:if test="${not empty error}">
             <div class="error-message">${error}</div>

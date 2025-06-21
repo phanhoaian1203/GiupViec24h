@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBContext {
-    private static final String URL = "jdbc:sqlserver://DESKTOP-NUA7EE3\\SQLEXPRESS:1433;databaseName=giupviec24h;encrypt=false;trustServerCertificate=true";
+    private static final String URL = "jdbc:sqlserver://DESKTOP-NUA7EE3\\SQLEXPRESS:1433;databaseName=giupviec24h_ver11;encrypt=false;trustServerCertificate=true";
     private static final String USER = "sa";
     private static final String PASSWORD = "duy";
 
