@@ -35,8 +35,8 @@
         <servlet-name>DispatchServlet</servlet-name>
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
-    
-    <!-- HireServlet for handling /hire requests - FIXED PACKAGE NAME -->
+     
+    <!-- HireServlet for handling /hire requests -->
     <servlet>
         <servlet-name>HireServlet</servlet-name>
         <servlet-class>controller.web.hire.HireServlet</servlet-class>
@@ -50,9 +50,13 @@
         <url-pattern>/hire/*</url-pattern>
     </servlet-mapping>
     
+  
+    
+    
     <!-- Welcome Files -->
     <welcome-file-list>
         <welcome-file>home</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     
     <!-- Error Pages -->

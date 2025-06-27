@@ -411,8 +411,7 @@
         <div class="footer-animate">
             <h3 class="footer-title">Liên kết nhanh</h3>
             <ul class="footer-links">
-                <li><a href="#services">Dịch vụ</a></li>
-                <li><a href="#benefits">Lợi ích</a></li>
+                <li><a href="#services">Dịch vụ</a></li>           
                 <li><a href="${pageContext.request.contextPath}/view/jsp/home/about.jsp">Về chúng tôi</a></li>
                 <li><a href="${pageContext.request.contextPath}/view/jsp/home/blog.jsp">Blog</a></li>
                 <li><a href="${pageContext.request.contextPath}/view/jsp/home/faq.jsp">Câu hỏi thường gặp</a></li>

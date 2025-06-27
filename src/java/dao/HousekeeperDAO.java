@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 public class HousekeeperDAO {
     
@@ -516,4 +517,81 @@ public class HousekeeperDAO {
             
         System.out.println("Services with 3+ housekeepers: " + adequateServices + "/" + stats.size());
     }
+    
+    /**
+ * ✅ NEW: Kiểm tra housekeeper có rảnh trong khoảng thời gian không
+ */
+public boolean isHousekeeperAvailable(int housekeeperId, OffsetDateTime startTime, OffsetDateTime endTime) {
+    System.out.println("🔍 Checking availability for housekeeper " + housekeeperId + " from " + startTime + " to " + endTime);
+    
+    // 1. Check if housekeeper exists and is active
+    String checkHousekeeperSql = """
+        SELECT COUNT(*) as count
+        FROM users u
+        INNER JOIN roles r ON u.role_id = r.role_id
+        WHERE u.user_id = ? AND r.name = 'housekeeper' AND u.is_active = 1
+        """;
+    
+    try (Connection conn = DBContext.getConnection();
+         PreparedStatement ps = conn.prepareStatement(checkHousekeeperSql)) {
+        
+        ps.setInt(1, housekeeperId);
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next() && rs.getInt("count") == 0) {
+            System.out.println("❌ Housekeeper not found or inactive: " + housekeeperId);
+            return false;
+        }
+    } catch (SQLException e) {
+        System.err.println("❌ Error checking housekeeper existence: " + e.getMessage());
+        return false;
+    }
+    
+    // 2. Check for booking conflicts
+    String conflictSql = """
+        SELECT COUNT(*) as conflict_count
+        FROM bookings 
+        WHERE housekeeper_id = ? 
+            AND status IN ('pending', 'accepted')
+            AND (
+                (start_time <= ? AND end_time > ?) OR
+                (start_time < ? AND end_time >= ?) OR
+                (start_time >= ? AND end_time <= ?)
+            )
+        """;
+    
+    try (Connection conn = DBContext.getConnection();
+         PreparedStatement ps = conn.prepareStatement(conflictSql)) {
+        
+        ps.setInt(1, housekeeperId);
+        ps.setObject(2, startTime);
+        ps.setObject(3, startTime);
+        ps.setObject(4, endTime);
+        ps.setObject(5, endTime);
+        ps.setObject(6, startTime);
+        ps.setObject(7, endTime);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            int conflictCount = rs.getInt("conflict_count");
+            boolean isAvailable = conflictCount == 0;
+            
+            if (isAvailable) {
+                System.out.println("✅ Housekeeper " + housekeeperId + " is available");
+            } else {
+                System.out.println("❌ Housekeeper " + housekeeperId + " has " + conflictCount + " conflicting bookings");
+            }
+            
+            return isAvailable;
+        }
+        
+    } catch (SQLException e) {
+        System.err.println("❌ Error checking booking conflicts: " + e.getMessage());
+        e.printStackTrace();
+        return false; // Assume not available if error occurs
+    }
+    
+    return false;
+}
 }

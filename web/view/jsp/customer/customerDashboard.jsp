@@ -694,7 +694,7 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">
-                    Thao tác 60 giây trên ứng dụng, có ngay người nhận việc sau 60 phút
+                    Thao tác 60 giây trên Website, có ngay người nhận việc sau 60 phút
                 </h1>
                 <p class="hero-subtitle">
                     Dịch vụ giúp việc theo giờ đầu tiên tại Đà Nẵng. Giá cả minh bạch, người làm uy tín, thanh toán không dùng tiền mặt.

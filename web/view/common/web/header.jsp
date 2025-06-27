@@ -4,7 +4,7 @@
 <script src="${pageContext.request.contextPath}/js/cscripts.js"></script>
 
 <style>
-/* Clean Header Styles */
+/* Clean Header Styles - Same as before */
 .header {
     position: fixed;
     top: 0;
@@ -421,9 +421,6 @@
                     <a href="${pageContext.request.contextPath}/view/jsp/home/nau-an.jsp">
                         Nấu ăn
                     </a>
-                    <a href="${pageContext.request.contextPath}/view/jsp/home/general-cleaning.jsp">
-                        Tổng Vệ Sinh
-                    </a>
                 </div>
             </div>
 
@@ -437,8 +434,9 @@
                 Liên hệ
             </a>
             
-            <% User user = (User) session.getAttribute("user"); %>
-            <% if (user != null) { %>
+            <%-- FIX: Sử dụng tên biến khác để tránh conflict --%>
+            <% User currentUser = (User) session.getAttribute("user"); %>
+            <% if (currentUser != null) { %>
                 <a href="${pageContext.request.contextPath}/hire">
                     <i class="fas fa-handshake"></i>
                     Thuê
@@ -447,14 +445,15 @@
                 <div class="profile-icon">
                     <i class="fas fa-user"></i>
                     <div class="profile-dropdown">
-                        <a href="${pageContext.request.contextPath}/view/jsp/home/profile.jsp">
+                        <a href="${pageContext.request.contextPath}/view/jsp/customer/customer-profile.jsp">
                             <i class="fas fa-user"></i> Hồ sơ
                         </a>
                         <a href="${pageContext.request.contextPath}/view/jsp/customer/payment-history.jsp">
                             <i class="fas fa-history"></i> Lịch sử thanh toán
                         </a>
-                        <a href="${pageContext.request.contextPath}/view/jsp/customer/my-wallet.jsp">
-                            <i class="fas fa-wallet"></i> Ví của tôi
+                        <a href="${pageContext.request.contextPath}/wallet">
+                            <i class="fas fa-wallet"></i>
+                            Ví của tôi
                         </a>
                         <a href="${pageContext.request.contextPath}/view/jsp/customer/settings.jsp">
                             <i class="fas fa-cog"></i> Cài đặt

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -101,7 +102,7 @@
         .profile-avatar .avatar-upload:hover {
             background: #374151;
             transform: scale(1.1);
-}
+        }
 
         .profile-name {
             text-align: center;
@@ -220,7 +221,7 @@
             background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white;
             border: none;
-padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
@@ -340,7 +341,7 @@ padding: 0.75rem 1.5rem;
 
         .additional-info {
             margin-top: 3rem;
-padding-top: 2rem;
+            padding-top: 2rem;
             border-top: 2px solid #f1f5f9;
         }
 
@@ -464,7 +465,7 @@ padding-top: 2rem;
         }
 
         .notification.show {
-transform: translateX(0);
+            transform: translateX(0);
         }
 
         @media (max-width: 1024px) {
@@ -538,28 +539,28 @@ transform: translateX(0);
             <div class="profile-name">
                 <h2 id="sidebar-name">${user.fullName}</h2>
                 <span class="status">
-                    <i class="fas fa-check-circle"></i> Đã xác minh
+                    <i class="fas fa-check-circle"></i> ${user.isActive ? 'Đã xác minh' : 'Chưa xác minh'}
                 </span>
             </div>
 
             <div class="profile-stats">
                 <div class="stat-item">
-                    <span class="stat-number">--</span>
+                    <span class="stat-number">${bookingCount}</span>
                     <span class="stat-label">Lượt Thuê</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">--</span>
+                    <span class="stat-number">${reviewCount}</span>
                     <span class="stat-label">Đánh giá</span>
                 </div>
             </div>
 
             <div class="profile-actions">
-                <button class="action-btn btn-primary">
+                <a href="${pageContext.request.contextPath}/booking-history" class="action-btn btn-primary">
                     <i class="fas fa-history"></i> Lịch sử thuê
-                </button>
+                </a>
                 <button class="action-btn btn-secondary" onclick="openPasswordModal()">
                     <i class="fas fa-lock"></i> Thay đổi mật khẩu
-</button>
+                </button>
                 <button class="action-btn btn-secondary">
                     <i class="fas fa-cog"></i> Cài đặt bảo mật
                 </button>
@@ -574,50 +575,66 @@ transform: translateX(0);
                 </button>
             </div>
 
-            <form id="profile-form">
+            <c:if test="${not empty errorMessage}">
+                <div class="error-message" style="display: block;">${errorMessage}</div>
+            </c:if>
+            <c:if test="${not empty successMessage}">
+                <div class="notification show" id="notification">
+                    <span id="notification-text">${successMessage}</span>
+                </div>
+            </c:if>
+
+            <form id="profile-form" action="${pageContext.request.contextPath}/update-profile" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="userId" value="${user.userId}">
                 <div class="form-grid">
                     <div class="form-group">
                         <label class="form-label" for="fullName"><i class="fas fa-user"></i> Họ và tên</label>
                         <div class="input-group">
-                            <input type="text" id="fullName" name="fullName" class="form-input" value="${user.fullName}" disabled>
+                            <input type="text" id="fullName" name="fullName" class="form-input" value="${user.fullName}" disabled required>
+                            <span class="error-message" id="fullName-error"></span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="email"><i class="fas fa-envelope"></i> Email</label>
                         <div class="input-group">
-                            <input type="email" id="email" name="email" class="form-input" value="${user.email}" disabled>
+                            <input type="email" id="email" name="email" class="form-input" value="${user.email}" disabled readonly>
+                            <span class="error-message" id="email-error"></span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="phone"><i class="fas fa-phone"></i> Số điện thoại</label>
                         <div class="input-group">
-                            <input type="tel" id="phone" name="phone" class="form-input" value="${user.phoneNumber}" disabled>
+                            <input type="tel" id="phone" name="phone" class="form-input" value="${user.phoneNumber}" disabled pattern="[0-9]{10}" title="Số điện thoại phải có 10 chữ số">
+                            <span class="error-message" id="phone-error"></span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="birthDate"><i class="fas fa-calendar"></i> Ngày sinh</label>
+                        <label class="form-label" for="birthYear"><i class="fas fa-calendar"></i> Năm sinh</label>
                         <div class="input-group">
-                            <input type="date" id="birthDate" name="birthDate" class="form-input" value="${user.birthYear}-01-01" disabled>
+                            <input type="number" id="birthYear" name="birthYear" class="form-input" value="${user.birthYear}" disabled min="1900" max="${currentYear}" required>
+                            <span class="error-message" id="birthYear-error"></span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="gender"><i class="fas fa-venus-mars"></i> Giới tính</label>
                         <div class="input-group">
-                            <select id="gender" name="gender" class="form-input" disabled>
+                            <select id="gender" name="gender" class="form-input" disabled required>
                                 <option value="male" ${user.gender == 'male' ? 'selected' : ''}>Nam</option>
                                 <option value="female" ${user.gender == 'female' ? 'selected' : ''}>Nữ</option>
                                 <option value="other" ${user.gender == 'other' ? 'selected' : ''}>Khác</option>
                             </select>
                         </div>
                     </div>
-<div class="form-group">
+
+                    <div class="form-group">
                         <label class="form-label" for="address"><i class="fas fa-map-marker-alt"></i> Địa chỉ</label>
                         <div class="input-group">
                             <input type="text" id="address" name="address" class="form-input" value="${user.address}" disabled>
+                            <span class="error-message" id="address-error"></span>
                         </div>
                     </div>
                 </div>
@@ -635,10 +652,14 @@ transform: translateX(0);
             <div class="additional-info">
                 <div class="info-section">
                     <h3 class="info-title"><i class="fas fa-info-circle"></i> Thông tin bổ sung</h3>
-       
+                    <div class="info-grid">
                         <div class="info-card">
                             <div class="info-card-title">Vai trò</div>
                             <div class="info-card-value">${user.role}</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-title">Số dư ví</div>
+                            <div class="info-card-value"><fmt:formatNumber value="${wallet.balance}" type="currency" currencySymbol="₫"/></div>
                         </div>
                     </div>
                 </div>
@@ -646,127 +667,221 @@ transform: translateX(0);
         </div>
     </div>
 
-    <script>
-        let isEditing = false;
+    <div class="modal" id="password-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Thay đổi mật khẩu</h2>
+                <button class="modal-close" onclick="closePasswordModal()">&times;</button>
+            </div>
+            <form id="password-form">
+                <div class="form-group">
+                    <label class="form-label" for="currentPassword">Mật khẩu hiện tại</label>
+                    <input type="password" id="currentPassword" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="newPassword">Mật khẩu mới</label>
+                    <input type="password" id="newPassword" class="form-input" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="confirmPassword">Xác nhận mật khẩu mới</label>
+                    <input type="password" id="confirmPassword" class="form-input" required>
+                    <div class="error-message" id="password-error">Mật khẩu không khớp</div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-cancel" onclick="closePasswordModal()">Hủy</button>
+                    <button type="submit" class="btn btn-save">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-        function toggleEdit() {
-            isEditing = !isEditing;
-            const inputs = document.querySelectorAll('#profile-form .form-input');
-            const editButton = document.querySelector('.edit-toggle');
-            const editText = document.getElementById('edit-text');
-            const formActions = document.getElementById('form-actions');
+    <div class="notification" id="notification">
+        <span id="notification-text"></span>
+    </div>
+</div>
 
-            if (isEditing) {
-                inputs.forEach(input => input.disabled = false);
-                editText.textContent = 'Hủy chỉnh sửa';
-                editButton.innerHTML = '<i class="fas fa-times"></i> <span id="edit-text">Hủy chỉnh sửa</span>';
-                formActions.classList.remove('hidden');
+<script>
+    let isEditing = false;
+    const originalData = {
+        fullName: '${user.fullName}',
+        email: '${user.email}',
+        phone: '${user.phoneNumber}',
+        birthYear: '${user.birthYear}',
+        gender: '${user.gender}',
+        address: '${user.address}'
+    };
+
+    function toggleEdit() {
+        isEditing = !isEditing;
+        const inputs = document.querySelectorAll('#profile-form .form-input');
+        const editButton = document.querySelector('.edit-toggle');
+        const editText = document.getElementById('edit-text');
+        const formActions = document.getElementById('form-actions');
+
+        inputs.forEach(input => {
+            if (input.id !== 'email') { // Email is readonly
+                input.disabled = !isEditing;
+            }
+        });
+
+        if (isEditing) {
+            editText.textContent = 'Hủy chỉnh sửa';
+            editButton.innerHTML = '<i class="fas fa-times"></i> <span id="edit-text">Hủy chỉnh sửa</span>';
+            formActions.classList.remove('hidden');
+        } else {
+            editText.textContent = 'Chỉnh sửa';
+            editButton.innerHTML = '<i class="fas fa-edit"></i> <span id="edit-text">Chỉnh sửa</span>';
+            formActions.classList.add('hidden');
+        }
+    }
+
+    function cancelEdit() {
+        document.getElementById('fullName').value = originalData.fullName;
+        document.getElementById('phone').value = originalData.phone;
+        document.getElementById('birthYear').value = originalData.birthYear;
+        document.getElementById('gender').value = originalData.gender;
+        document.getElementById('address').value = originalData.address;
+        clearErrors();
+        toggleEdit();
+    }
+
+    function validateForm() {
+        let isValid = true;
+        clearErrors();
+
+        const fullName = document.getElementById('fullName').value.trim();
+        if (fullName.length < 2) {
+            showError('fullName', 'Họ và tên phải có ít nhất 2 ký tự');
+            isValid = false;
+        }
+
+        const phone = document.getElementById('phone').value.trim();
+        if (!/^[0-9]{10}$/.test(phone)) {
+            showError('phone', 'Số điện thoại phải có 10 chữ số');
+            isValid = false;
+        }
+
+        const birthYear = parseInt(document.getElementById('birthYear').value);
+        const currentYear = new Date().getFullYear();
+        if (birthYear < 1900 || birthYear > currentYear) {
+            showError('birthYear', 'Năm sinh không hợp lệ');
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    function showError(fieldId, message) {
+        const errorElement = document.getElementById(`${fieldId}-error`);
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+
+    function clearErrors() {
+        document.querySelectorAll('.error-message').forEach(error => {
+            error.style.display = 'none';
+            error.textContent = '';
+        });
+    }
+
+    function showNotification(message, type = 'success') {
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notification-text');
+        
+        notificationText.textContent = message;
+        notification.style.background = type === 'error' ? '#ef4444' : '#1AB394';
+        notification.classList.add('show');
+        
+        setTimeout(() => notification.classList.remove('show'), 3000);
+    }
+
+    function updateSidebarName(name) {
+        const sidebarName = document.getElementById('sidebar-name');
+        const avatarText = document.getElementById('avatar-text');
+        
+        sidebarName.textContent = name;
+        const initials = name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
+        avatarText.textContent = initials;
+    }
+
+    function openPasswordModal() {
+        document.getElementById('password-modal').style.display = 'flex';
+        document.getElementById('currentPassword').focus();
+    }
+
+    function closePasswordModal() {
+        document.getElementById('password-modal').style.display = 'none';
+        document.getElementById('password-form').reset();
+        document.getElementById('password-error').style.display = 'none';
+    }
+
+    document.getElementById('profile-form').addEventListener('submit', function(e) {
+        if (!validateForm()) {
+            e.preventDefault();
+            return;
+        }
+    });
+
+    document.getElementById('avatar-upload').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const avatar = document.querySelector('.profile-avatar');
+                avatar.style.backgroundImage = `url(${e.target.result})`;
+                avatar.style.backgroundSize = 'cover';
+                avatar.style.backgroundPosition = 'center';
+                avatar.querySelector('span').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('fullName').addEventListener('input', function(e) {
+        if (isEditing && e.target.value.trim()) {
+            updateSidebarName(e.target.value);
+        }
+    });
+
+    document.getElementById('password-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const errorMessage = document.getElementById('password-error');
+        
+        if (newPassword !== confirmPassword) {
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        // AJAX call to update password
+        fetch('${pageContext.request.contextPath}/update-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                currentPassword: document.getElementById('currentPassword').value,
+                newPassword: newPassword
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showNotification('Mật khẩu đã được thay đổi thành công!');
+                closePasswordModal();
             } else {
-                inputs.forEach(input => input.disabled = true);
-                editText.textContent = 'Chỉnh sửa';
-                editButton.innerHTML = '<i class="fas fa-edit"></i> <span id="edit-text">Chỉnh sửa</span>';
-                formActions.classList.add('hidden');
+                showNotification(data.message, 'error');
             }
-        }
-
-        function cancelEdit() {
-            document.getElementById('fullName').value = 'Nguyễn Văn An';
-            document.getElementById('email').value = 'nguyenvanan@email.com';
-            document.getElementById('phone').value = '0123456789';
-            document.getElementById('birthDate').value = '1990-01-01';
-            document.getElementById('gender').value = 'male';
-            document.getElementById('address').value = '123 Đường ABC, TP.DN';
-            toggleEdit();
-        }
-function showDeleteConfirm() {
-            if (confirm('Bạn có chắc chắn muốn xóa tài khoản? Hành động này không thể hoàn tác!')) {
-                showNotification('Tài khoản đã được xóa!', 'error');
-                // Redirect or perform delete action here
-            }
-        }
-
-        function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
-            const notificationText = document.getElementById('notification-text');
-            
-            notificationText.textContent = message;
-            
-            notification.style.background = type === 'error' ? '#ef4444' : '#1AB394';
-            notification.classList.add('show');
-            
-            setTimeout(() => notification.classList.remove('show'), 3000);
-        }
-
-        function updateSidebarName(name) {
-            const sidebarName = document.getElementById('sidebar-name');
-            const avatarText = document.getElementById('avatar-text');
-            
-            sidebarName.textContent = name;
-            const initials = name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
-            avatarText.textContent = initials;
-        }
-
-        function openPasswordModal() {
-            document.getElementById('password-modal').style.display = 'flex';
-            document.getElementById('currentPassword').focus();
-        }
-
-        function closePasswordModal() {
-            document.getElementById('password-modal').style.display = 'none';
-            document.getElementById('password-form').reset();
-            document.getElementById('password-error').style.display = 'none';
-        }
-
-        document.getElementById('profile-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const name = formData.get('fullName');
-            updateSidebarName(name);
-            showNotification('Thông tin đã được cập nhật thành công!');
-            toggleEdit();
+        })
+        .catch(error => {
+            showNotification('Đã có lỗi xảy ra!', 'error');
         });
+    });
 
-        document.getElementById('avatar-upload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const avatar = document.querySelector('.profile-avatar');
-                    avatar.style.backgroundImage = `url(${e.target.result})`;
-                    avatar.style.backgroundSize = 'cover';
-                    avatar.style.backgroundPosition = 'center';
-                    avatar.querySelector('span').style.display = 'none';
-                };
-                reader.readAsDataURL(file);
-                showNotification('Ảnh đại diện đã được cập nhật!');
-            }
-        });
-
-        document.getElementById('fullName').addEventListener('input', function(e) {
-if (isEditing && e.target.value.trim()) {
-                updateSidebarName(e.target.value);
-            }
-        });
-
-        document.getElementById('password-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const errorMessage = document.getElementById('password-error');
-            
-            if (newPassword !== confirmPassword) {
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            errorMessage.style.display = 'none';
-            showNotification('Mật khẩu đã được thay đổi thành công!');
-            closePasswordModal();
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            updateSidebarName('Nguyễn Văn An');
-        });
-    </script>
+    document.addEventListener('DOMContentLoaded', function() {
+        updateSidebarName('${user.fullName}');
+    });
+</script>
 </body>
 </html>

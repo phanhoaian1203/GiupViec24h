@@ -848,10 +848,7 @@
                                 <i class="fas fa-calendar-check"></i>
                                 Thuê ngay
                             </a>
-                            <a href="tel:${housekeeper.phoneNumber}" class="btn btn-secondary">
-                                <i class="fas fa-phone"></i>
-                                Gọi điện
-                            </a>
+                            
                             <button class="btn btn-secondary" onclick="toggleFavorite()">
                                 <i class="far fa-heart" id="favoriteIcon"></i>
                                 Yêu thích

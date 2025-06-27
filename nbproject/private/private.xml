@@ -3,12 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/dao/HousekeeperDAO.java</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/home/index.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/model/BookingServiceDetail.java</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/model/BookingResponse.java</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/customer/housekeeper-detail.jsp</file>
             <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/controller/web/hire/HireServlet.java</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/common/web/header.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/dao/WalletDAO.java</file>
             <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/utils/DBContext.java</file>
-            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/model/Booking.java</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/dao/BookingDAO.java</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/customer/wallet.jsp</file>
             <file>file:/D:/Ky%205/SWP391/GiupViec24H/web/view/jsp/customer/hire.jsp</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/model/BookingHold.java</file>
+            <file>file:/D:/Ky%205/SWP391/GiupViec24H/src/java/dao/UserDAO.java</file>
         </group>
     </open-files>
 </project-private>
