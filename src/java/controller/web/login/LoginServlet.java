@@ -37,6 +37,9 @@ public class LoginServlet extends HttpServlet {
         if (user != null && user.isActive()) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
+            session.setAttribute("role_id", user.getRoleId()); // Lưu role_id
+            session.setAttribute("role", user.getRole()); // Lưu role name
+            session.setMaxInactiveInterval(30 * 60); // Timeout 30 phút
 
             String contextPath = request.getContextPath();
             switch (user.getRole()) {
@@ -53,6 +56,7 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect(contextPath + "/view/jsp/staff/staffDashboard.jsp");
                     break;
                 default:
+                    session.invalidate();
                     request.setAttribute("errorMessage", "Vai trò không được công nhận.");
                     request.getRequestDispatcher("/view/jsp/home/login.jsp").forward(request, response);
             }
@@ -65,6 +69,29 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/view/jsp/home/login.jsp").forward(request, response);
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("user") != null) {
+            String role = (String) session.getAttribute("role");
+            String contextPath = request.getContextPath();
+            switch (role) {
+                case "admin":
+                    response.sendRedirect(contextPath + "/view/jsp/admin/adminDashboard.jsp");
+                    break;
+                case "customer":
+                    response.sendRedirect(contextPath + "/view/jsp/customer/customerDashboard.jsp");
+                    break;
+                case "housekeeper":
+                    response.sendRedirect(contextPath + "/view/jsp/housekeeper/housekeeperDashboard.jsp");
+                    break;
+                case "support":
+                    response.sendRedirect(contextPath + "/view/jsp/staff/staffDashboard.jsp");
+                    break;
+                default:
+                    session.invalidate();
+                    request.getRequestDispatcher("/view/jsp/home/login.jsp").forward(request, response);
+            }
+        } else {
+            request.getRequestDispatcher("/view/jsp/home/login.jsp").forward(request, response);
+        }
     }
 }

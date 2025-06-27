@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
 import model.User;
 
 @WebServlet(name = "SignupServlet", urlPatterns = {"/SignupServlet"})
@@ -36,12 +37,13 @@ public class SignupServlet extends HttpServlet {
         // Validate input
         if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty() ||
             confirmPassword == null || confirmPassword.trim().isEmpty() || fullName == null || fullName.trim().isEmpty() ||
-            dob == null || dob.trim().isEmpty() || gender == null || gender.trim().isEmpty() || role == null || role.trim().isEmpty()) {
+            dob == null || dob.trim().isEmpty() || gender == null || gender.trim().isEmpty() || role == null || role.trim().isEmpty() ||
+            phone == null || phone.trim().isEmpty()) {
             request.setAttribute("errorMessage", "Vui lòng điền đầy đủ các trường bắt buộc.");
             request.getRequestDispatcher("/view/jsp/home/signup.jsp").forward(request, response);
             return;
         }
-
+        
         // Kiểm tra mật khẩu
         if (!password.equals(confirmPassword)) {
             request.setAttribute("errorMessage", "Mật khẩu và xác nhận mật khẩu không khớp.");
@@ -57,7 +59,7 @@ public class SignupServlet extends HttpServlet {
         }
 
         // Kiểm tra vai trò
-        if (!role.equals("customer") && !role.equals("helper")) {
+        if (!role.equals("customer") && !role.equals("housekeeper")) {
             request.setAttribute("errorMessage", "Vai trò không hợp lệ.");
             request.getRequestDispatcher("/view/jsp/home/signup.jsp").forward(request, response);
             return;
@@ -73,15 +75,28 @@ public class SignupServlet extends HttpServlet {
         // Kiểm tra và parse năm sinh
         int birthYear;
         try {
-            birthYear = Integer.parseInt(dob.substring(0, 4));
-            int currentYear = java.time.Year.now().getValue();
-            if (birthYear <= 1900 || birthYear > currentYear) {
+            LocalDate dobDate = LocalDate.parse(dob);
+            LocalDate currentDate = LocalDate.now();
+            if (dobDate.isAfter(currentDate)) {
+                request.setAttribute("errorMessage", "Ngày sinh không thể lớn hơn ngày hiện tại.");
+                request.getRequestDispatcher("/view/jsp/home/signup.jsp").forward(request, response);
+                return;
+            }
+            birthYear = dobDate.getYear();
+            if (birthYear <= 1900 || birthYear > currentDate.getYear()) {
                 request.setAttribute("errorMessage", "Năm sinh không hợp lệ.");
                 request.getRequestDispatcher("/view/jsp/home/signup.jsp").forward(request, response);
                 return;
             }
         } catch (Exception e) {
             request.setAttribute("errorMessage", "Ngày sinh không hợp lệ.");
+            request.getRequestDispatcher("/view/jsp/home/signup.jsp").forward(request, response);
+            return;
+        }
+        
+        // Kiểm tra số điện thoại
+        if (!phone.matches("0[0-9]{9,10}")) {
+            request.setAttribute("errorMessage", "Số điện thoại không hợp lệ (phải bắt đầu bằng 0 và có 10-11 số).");
             request.getRequestDispatcher("/view/jsp/home/signup.jsp").forward(request, response);
             return;
         }
@@ -96,25 +111,36 @@ public class SignupServlet extends HttpServlet {
         user.setGender(gender);
         user.setRole(role);
         user.setBirthYear(birthYear);
-        user.setHometown(area); // Có thể cần trường riêng cho hometown
-        user.setActive(false); // Chưa kích hoạt
+        user.setHometown(area); // Có thể cần trường riêng cho hometown nếu khác area
 
+        // Không cần setActive, để trigger SQL xử lý
         try {
             HttpSession session = request.getSession();
-            if ("helper".equals(role)) {
-                // Lưu thông tin tạm thời và chuyển hướng đến verification.jsp
-                session.setAttribute("tempUser", user);
-                request.getRequestDispatcher("/view/jsp/home/verification.jsp").forward(request, response);;
+            // Lưu vào database và lấy userId
+            User savedUser = userDAO.saveUser(user);
+            if (savedUser != null && savedUser.getUserId() > 0) {
+                if ("housekeeper".equalsIgnoreCase(role)) {
+                    // Chuyển đến trang xác minh để upload tài liệu
+                    session.setAttribute("tempUser", savedUser);
+                    response.sendRedirect(request.getContextPath() + "/view/jsp/home/verification.jsp");
+                } else { // customer
+                    session.removeAttribute("tempUser");
+                    request.setAttribute("successMessage", "Đăng ký thành công, vui lòng đăng nhập.");
+                    request.getRequestDispatcher("/view/jsp/home/login.jsp").forward(request, response);
+                }
             } else {
-                // Lưu trực tiếp vào DB nếu là khách hàng
-                userDAO.saveUser(user);
-                session.removeAttribute("tempUser");
-                request.setAttribute("successMessage", "Đăng ký thành công, vui lòng đăng nhập.");
-                request.getRequestDispatcher("/view/jsp/home/login.jsp").forward(request, response);
+                request.setAttribute("errorMessage", "Không thể lấy thông tin user sau khi lưu.");
+                request.getRequestDispatcher("/view/jsp/home/signup.jsp").forward(request, response);
             }
         } catch (Exception e) {
             request.setAttribute("errorMessage", "Lỗi hệ thống: " + e.getMessage());
             request.getRequestDispatcher("/view/jsp/home/signup.jsp").forward(request, response);
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        response.sendRedirect(request.getContextPath() + "/view/jsp/home/signup.jsp");
     }
 }
